@@ -1,0 +1,274 @@
+Act as a ruthless award-winning Mobile Product Designer and Frontend Engineer. The current GatherGo UI is cleaner than before, but it still feels visually flat, beige, safe, and emotionally weak. I do not want another small polish pass. I want a design direction correction.
+
+Current issue:
+The app looks like a nice beige student prototype, not a premium social planning app. The UI has cards, shadows, gradients, and rounded corners, but it still lacks:
+
+* a strong visual hook
+* emotional excitement
+* brand identity
+* page-level contrast
+* character/personality
+* reward-loop feeling
+* premium mobile app depth
+
+Your new goal:
+Turn GatherGo into a premium social planning app with a companion/game layer.
+
+Core brand feeling:
+“Plan nights out with friends, collect memories, grow your GoPet.”
+
+The UI should feel like:
+
+* premium lifestyle app
+* soft game companion app
+* collectible pet dashboard
+* modern social planning tool
+* cinematic, warm, playful, but still elegant
+
+Do NOT make everything beige again.
+Do NOT make every card look the same.
+Do NOT simply add more shadows.
+Recompose visual hierarchy, page structure, color contrast, and emotional moments.
+
+New art direction:
+“Cinematic Social Companion”
+
+Use stronger contrast:
+
+* Deep emerald / almost-black surfaces for important hero areas: `#071F1A`, `#0F2D25`, `#143B31`
+* Warm cream background only as breathing space: `#FFF7EA`, `#F6EDE1`
+* Coral action: `#FF6848`
+* Sunset orange: `#FF9A4A`
+* Champagne gold: `#F4D06F`
+* Mint reward: `#62C9A5`
+* Rose glow: `#FFB6A3`
+* Text dark: `#201B17`
+* Secondary text: `#78675B`
+
+Global design correction:
+
+1. Add visual contrast between sections:
+
+   * Hero areas can be dark/cinematic.
+   * Content areas can be warm/cream.
+   * Reward/pet areas can use mint/gold glow.
+2. Use bigger visual moments:
+
+   * large hero image cards
+   * larger pet stage
+   * glowing progress paths
+   * reward badges
+   * animated status chips
+3. Break the repeated card pattern:
+
+   * not every card should be white glass
+   * mix dark hero cards, cream cards, compact chips, floating badges, mini progress modules
+4. Add emotional UI language:
+
+   * “Mimi is hungry”
+   * “Feed with a memory”
+   * “Next unlock: Tiny Crown”
+   * “2 memories until Level 4”
+   * “Your group energy is rising”
+5. Improve mobile composition:
+
+   * every first viewport must have one strong focal point
+   * reduce dead empty space
+   * keep bottom nav compact
+   * no horizontal overflow
+
+Page-by-page redesign requirements:
+
+HOME PAGE:
+Current home is okay but still too generic.
+Make the top recommendation card cinematic:
+
+* dark emerald overlay on image
+* bigger title
+* clearer mood/status tags
+* floating group/vote chip
+* stronger CTA below
+* feature Bento cards should not all be identical
+* make one feature card larger and more important
+* add a “Today’s Gather Pulse” or “Group mood” module for personality
+
+LANDING `/`:
+The first screen is visually acceptable but still safe.
+Improve it by:
+
+* stronger image treatment
+* more dramatic headline hierarchy
+* make “dễ hơn bao giờ hết” feel like a highlighted editorial phrase
+* floating chips should feel more premium and dimensional
+* add subtle route-line motif or glowing path connecting the chips
+* CTA should feel tactile and high-value
+
+PLAN PAGE:
+Make plan cards more editorial and scannable.
+Each saved plan should feel like a mini event ticket:
+
+* status pill
+* title
+* date/time
+* route/locations count
+* budget
+* mood tag
+* group type
+* subtle ticket edge / route line / arrow
+  Use varied card styles, not plain list cards.
+
+SUGGESTED PAGE:
+Cards currently look like image + text blocks.
+Make them feel like premium recommendation cards:
+
+* stronger image crop and overlay
+* big mood label
+* confidence score or “Best match”
+* CTA button with stronger hierarchy
+* use richer spacing
+* add selected/hover/tap state
+
+VOTE PAGE:
+Make it feel more social and alive.
+Current vote page is too calm.
+Improve:
+
+* group avatars should feel like live participants
+* add pulsing status for pending user
+* make progress bar animated and more satisfying
+* vote choices should be tactile and fun
+* selected vote should have glow, depth, and checked state
+* add microcopy: “Còn An chưa phản hồi — nhắc nhẹ?”
+
+CONFIRMED PAGE:
+Current success screen is too simple.
+Make it cinematic:
+
+* larger glowing success orb
+* animated check
+* soft confetti but not messy
+* premium event summary card
+* CTA hierarchy clearer
+* “Xem lịch trình” primary, “Mời thêm bạn” secondary
+* add calendar/reminder feel
+
+MEMORIES PAGE:
+Current memory page is clean but not premium enough.
+Make it feel like a vault:
+
+* editorial photo grid
+* add dark overlay captions on some images
+* AI recap card should feel special, like a warm note
+* stats should look like memory artifacts, not plain numbers
+* add “Memory score” or “Vibe captured” indicator
+* floating add button should feel more intentional
+
+PET PAGE — highest priority:
+Completely redesign `/pet` into the most visually exciting page.
+
+Current problem:
+Mimi still looks like a flat sticker inside white cards. The page does not feel like a companion ecosystem or game loop.
+
+New `/pet` concept:
+“GoPet Companion Room”
+
+First viewport must create a wow moment.
+
+Required structure:
+
+1. Top bar:
+
+   * small label: GOPET ECOSYSTEM
+   * main title: Mimi
+   * level pill
+   * small status: Happy / Hungry / Needs memory
+
+2. Hero pet stage:
+
+   * make this the strongest visual element on the page
+   * use a large dark emerald rounded card or premium gradient card
+   * inside it create a glowing 3D-like pet room/stage
+   * Mimi should appear much larger
+   * place Mimi inside a glass orb or floating capsule
+   * add circular platform shadow under Mimi
+   * add small floating particles/stars around Mimi
+   * add warm top light and mint back glow
+   * animate Mimi floating gently with framer-motion
+   * add “Feed with memory” CTA inside or under the stage
+
+3. Pet emotion + progression:
+
+   * show: “Đói bụng”
+   * show energy progress as a satisfying animated bar/ring
+   * show: “Cần thêm 2 kỷ niệm để Mimi lớn”
+   * make this feel like a game loop, not a statistic
+
+4. Bento stats:
+
+   * not equal boring cards
+   * create asymmetric Bento:
+
+     * large Energy card
+     * tall Next Unlock card
+     * small Gather card
+     * small Photos card
+     * small Streak card
+     * Mood card
+   * use different visual treatments per card
+   * some cards can be dark, some cream, some gradient
+
+5. Unlock/reward section:
+
+   * make rewards feel collectible
+   * each item should look like a premium badge/charm
+   * locked items should have blur/opacity/lock icon
+   * unlocked item should glow
+   * add next unlock progress: “2 memories left”
+   * show visual reward path or mini timeline
+
+6. Add real interaction:
+
+   * tapping/hovering Bento cards should lift and tilt
+   * tapping pet stage should trigger small sparkle or bounce
+   * progress bars animate on load
+   * bottom nav active dot should animate smoothly
+
+Technical implementation:
+
+* Use Tailwind heavily.
+* Use framer-motion for:
+
+  * page entrance
+  * card stagger
+  * pet floating
+  * button tap
+  * progress animation
+  * subtle nav active motion
+* Add custom CSS classes:
+
+  * `.premium-app-shell`
+  * `.cinematic-bg`
+  * `.grain-layer`
+  * `.dark-hero-card`
+  * `.glass-card`
+  * `.bento-tile`
+  * `.pet-room`
+  * `.pet-orb`
+  * `.pet-platform`
+  * `.reward-charm`
+  * `.glow-chip`
+* Fix all mobile overflow:
+
+  * no horizontal scrolling
+  * no viewport wider than screen
+  * bottom nav must not create overflow
+* Keep all routes and existing logic working.
+* Do not remove app functionality.
+
+Quality bar:
+The final UI should feel like it belongs on Dribbble as a polished mobile app concept.
+The `/pet` page should be the most memorable page in the app.
+The user should feel: “I want to tap this pet and unlock rewards.”
+
+Do not stop at “clean”.
+Make it emotionally engaging, visually layered, and premium.

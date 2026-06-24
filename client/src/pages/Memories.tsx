@@ -1,38 +1,57 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
-import { Sparkles, Plus, Star, Clock, MapPin } from "lucide-react";
+import { Sparkles, Plus, Star, Clock, MapPin, Zap } from "lucide-react";
 
 export default function Memories() {
   const [, setLocation] = useLocation();
+
+  const memories = [
+    { img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=300&h=200&fit=crop", caption: "Rooftop", size: "large" },
+    { img: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=300&h=200&fit=crop", caption: "Party", size: "small" },
+    { img: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=300&h=200&fit=crop", caption: "Dinner", size: "small" },
+    { img: "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=300&h=200&fit=crop", caption: "Night", size: "large" },
+  ];
 
   return (
     <div
       className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-x-hidden"
       style={{
-        background: "radial-gradient(ellipse at 50% 0%, rgba(16,35,30,0.08) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(255,107,74,0.06) 0%, transparent 50%), linear-gradient(180deg, #FFF8EF 0%, #F7EFE5 100%)",
+        background: "linear-gradient(180deg, #FFF7EA 0%, #F6EDE1 100%)",
       }}
     >
       <div className="flex-1 overflow-y-auto pb-28 px-5 relative z-10">
         {/* Header */}
         <div className="pt-5 mb-5">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#7B6658] opacity-60">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#78675B] opacity-60">
             Kỷ niệm
           </div>
-          <h1 className="text-[22px] font-black text-[#231F1B] tracking-tight mt-0.5">Memory Vault</h1>
-          <p className="text-[14px] text-[#7B6658] mt-1">
+          <h1 className="text-[22px] font-black text-[#201B17] tracking-tight mt-0.5">Memory Vault</h1>
+          <p className="text-[14px] text-[#78675B] mt-1">
             Kỷ ức của chuyến đi được gom lại thành album, note và recap.
           </p>
         </div>
 
-        {/* Album Grid */}
+        {/* Memory Score */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="dark-hero-card p-3 mb-4 flex items-center gap-3"
+        >
+          <div className="w-10 h-10 rounded-full bg-[#F4D06F]/20 flex items-center justify-center">
+            <Zap className="w-5 h-5 text-[#F4D06F]" />
+          </div>
+          <div>
+            <p className="text-[12px] font-bold text-white">Vibe captured</p>
+            <p className="text-[11px] text-[#62C9A5]/70">12 kỷ niệm • 48 ảnh • 5 streak</p>
+          </div>
+          <div className="ml-auto text-[20px] font-black text-[#F4D06F]">87</div>
+        </motion.div>
+
+        {/* Editorial Album Grid */}
         <div className="grid grid-cols-2 gap-3 mb-5" style={{ gridAutoRows: "minmax(0, 1fr)" }}>
-          {[
-            "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=300&h=200&fit=crop",
-            "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=300&h=200&fit=crop",
-            "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=300&h=200&fit=crop",
-            "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=300&h=200&fit=crop",
-          ].map((img, i) => (
+          {memories.map((m, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -40,9 +59,13 @@ export default function Memories() {
               transition={{ delay: 0.1 + i * 0.08 }}
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="h-[120px] rounded-[20px] overflow-hidden cursor-pointer shadow-lg"
+              className={`rounded-[20px] overflow-hidden cursor-pointer shadow-lg relative ${m.size === "large" ? "h-[140px]" : "h-[110px]"}`}
             >
-              <img src={img} alt={`memory ${i + 1}`} className="w-full h-full object-cover" />
+              <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#071F1A]/60 via-transparent to-transparent" />
+              <div className="absolute bottom-2 left-3">
+                <span className="text-[11px] font-semibold text-white/90">{m.caption}</span>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -53,45 +76,39 @@ export default function Memories() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
           className="premium-glass-card p-4 mb-3"
-          style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.4)" }}
         >
-          <h3 className="text-[16px] font-bold text-[#231F1B]">Đêm rooftop đầu hè</h3>
-          <p className="text-[12px] text-[#7B6658]">12 ảnh • 3 địa điểm • 4 người</p>
+          <h3 className="text-[16px] font-bold text-[#201B17]">Đêm rooftop đầu hè</h3>
+          <p className="text-[12px] text-[#78675B]">12 ảnh • 3 địa điểm • 4 người</p>
         </motion.div>
 
-        {/* AI Recap */}
+        {/* AI Recap — warm special card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="premium-glass-card p-4 mb-3"
-          style={{
-            boxShadow: "0 4px 24px rgba(0,0,0,0.06), 0 0 40px rgba(243,211,122,0.1), inset 0 1px 0 rgba(255,255,255,0.4)",
-            background: "rgba(255,248,239,0.7)",
-          }}
+          className="dark-hero-card p-4 mb-3"
         >
           <div className="flex items-center gap-2 mb-2">
             <motion.div
               animate={{ rotate: [0, 15, -15, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <Sparkles className="w-4 h-4 text-[#F3D37A]" />
+              <Sparkles className="w-4 h-4 text-[#F4D06F]" />
             </motion.div>
-            <span className="text-[11px] font-semibold text-[#4a7c59] bg-[#4a7c59]/10 px-2 py-0.5 rounded-full">AI recap</span>
-            <span className="text-[11px] text-[#7B6658]">Tạo từ Gather đã chốt</span>
+            <span className="text-[11px] font-semibold text-[#F4D06F] bg-[#F4D06F]/15 px-2 py-0.5 rounded-full">AI recap</span>
+            <span className="text-[11px] text-[#62C9A5]/70">Tạo từ Gather đã chốt</span>
           </div>
-          <p className="text-[13px] text-[#231F1B] leading-relaxed">
+          <p className="text-[13px] text-white/90 leading-relaxed">
             Một buổi tối chill đúng nghĩa — cả nhóm ăn nhẹ, ngắm thành phố và kịp sẵn vài tấm ảnh đẹp.
           </p>
         </motion.div>
 
-        {/* Stats */}
+        {/* Stats — memory artifacts */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
           className="premium-glass-card p-4 mb-5"
-          style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.4)" }}
         >
           <div className="flex items-center justify-between">
             {[
@@ -100,9 +117,11 @@ export default function Memories() {
               { icon: Clock, value: "520k", label: "Each" },
             ].map((s, i) => (
               <div key={i} className="text-center flex flex-col items-center">
-                <s.icon className="w-4 h-4 text-[#4a7c59] mb-1" />
-                <p className="text-[16px] font-bold text-[#231F1B]">{s.value}</p>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7B6658] opacity-60">{s.label}</p>
+                <div className="w-8 h-8 rounded-full bg-[#62C9A5]/10 flex items-center justify-center mb-1">
+                  <s.icon className="w-4 h-4 text-[#62C9A5]" />
+                </div>
+                <p className="text-[16px] font-black text-[#201B17]">{s.value}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#78675B] opacity-60">{s.label}</p>
               </div>
             ))}
           </div>
@@ -110,14 +129,14 @@ export default function Memories() {
 
         {/* Note + FAB */}
         <div className="flex items-center justify-between">
-          <p className="text-[13px] text-[#4a7c59]">Lần sau săn hoàng hôn.</p>
+          <p className="text-[13px] text-[#62C9A5]">Lần sau săn hoàng hôn.</p>
           <motion.button
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
-            className="w-12 h-12 rounded-full text-white flex items-center justify-center shadow-lg"
+            className="w-12 h-12 rounded-full text-white flex items-center justify-center"
             style={{
-              background: "linear-gradient(135deg, #FF6B4A, #FF8A4C)",
-              boxShadow: "0 4px 16px rgba(255,107,74,0.3)",
+              background: "linear-gradient(135deg, #FF6848, #FF9A4A)",
+              boxShadow: "0 4px 16px rgba(255,104,72,0.3)",
             }}
           >
             <Plus className="w-5 h-5" />
