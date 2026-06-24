@@ -1,0 +1,24 @@
+Hãy xóa sạch tư duy thiết kế an toàn, nhàm chán và phẳng lỳ hiện tại! Tôi cần bạn đóng vai là một UI/UX Lead Designer từng đạt giải 'Site of the Day' trên Awwwards và luôn lọt Top Trending trên Dribbble. 
+
+Nhiệm vụ: Đập đi làm lại toàn bộ UI của trang /pet và tổng thể app gatherGO theo chuẩn 'Ultra-Premium & Modern 2024'. Giao diện phải khiến người dùng 'Wow' và thỏa mãn về mặt thị giác ngay từ giây đầu tiên. Hãy áp dụng nghiêm ngặt các nguyên tắc sau:
+
+1. BỐ CỤC BENTO BOX (Dribbble Trend):
+- Dẹp bỏ các danh sách xếp dọc thô sơ. Chuyển toàn bộ thông tin (Thanh năng lượng, Cấp độ, Mở khóa vật phẩm) thành cấu trúc lưới Bento Box. 
+- Các thẻ (cards) phải có góc bo tròn lớn (border-radius: 24px hoặc 32px), sắp xếp bất đối xứng nhưng khít nhau, tối ưu không gian trắng (whitespace) cực kỳ sang trọng.
+
+2. TEXTURE & MESH GRADIENTS (Awwwards Vibe):
+- Background không được dùng màu trơn rẻ tiền. Hãy tạo một 'Mesh Gradient' mượt mà (kết hợp các màu pastel nổi bật, có chiều sâu) và BẮT BUỘC phủ lên đó một lớp màng nhiễu hạt nhẹ (Grain/Noise overlay) bằng CSS để tạo cảm giác chân thực, cao cấp.
+- Các thẻ card phải dùng hiệu ứng kính mờ (Advanced Glassmorphism) với viền highlight siêu mỏng (1px solid rgba(255,255,255,0.2)) để tách biệt khỏi nền.
+
+3. NGHỆ THUẬT CHỮ (Typography Hierarchy):
+- Đổi sang các font chữ hiện đại có cá tính mạnh (như font chữ kiểu Apple). 
+- Cấp bậc chữ phải cực kỳ tương phản: Các nhãn (Label) thì nhỏ xíu, in hoa, khoảng cách chữ rộng (letter-spacing); trong khi các con số/tiêu đề chính thì phải to, đậm và sắc nét.
+
+4. LOẠI BỎ SVG PHẲNG - THÊM CHIỀU SÂU 3D:
+- Bỏ ngay con mèo SVG tĩnh nhàm chán đi. Hãy tạo không gian cho một mô hình 3D. 
+- Tạm thời thay thế bằng một container có hiệu ứng lơ lửng (floating), đổ bóng đa tầng (multi-layered drop-shadow) cực mịn, giả lập môi trường 3D ánh sáng hắt từ trên xuống.
+
+5. MICRO-INTERACTIONS MƯỢT MÀ NHƯ BƠ:
+- Dùng `framer-motion`, khi hover hoặc chạm vào các block Bento, thẻ phải hơi nghiêng theo hướng chạm (3D tilt effect) và nảy lên với cấu trúc vật lý (spring physics).
+
+Hãy viết lại code Tailwind và CSS ngay lập tức, sử dụng các custom class phức tạp nhất bạn có để đạt được chuẩn mực này. Không cần giải thích, hãy chứng minh bằng code!

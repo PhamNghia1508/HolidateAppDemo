@@ -1,0 +1,159 @@
+You are a Senior UI/UX Lead Designer + Frontend Engineer. Your design taste is ultra-premium, modern, award-winning, inspired by Awwwards Site of the Day, Dribbble Trending, Apple-level polish, and high-end product landing pages.
+
+Your task: Completely redesign the `/pet` page and visually upgrade the overall GatherGO app UI. Do not make small cosmetic edits. I want a bold, premium, visually satisfying redesign that makes users say “Wow” within the first 3 seconds.
+
+Before coding, inspect the current project structure, routing, components, Tailwind setup, global CSS, and existing `/pet` page implementation. Then refactor cleanly without breaking current app functionality, routes, state logic, authentication, data fetching, or existing navigation.
+
+Main design direction:
+Ultra-Premium & Modern 2024
+Awwwards vibe + Dribbble Bento trend + advanced glassmorphism + soft 3D depth + micro-interactions.
+
+Hard requirements:
+
+1. Bento Box Layout
+
+* Replace boring vertical lists with an asymmetric Bento Grid.
+* Convert pet stats such as energy, level, rewards, unlock items, progress, and pet status into premium Bento cards.
+* Cards must feel carefully composed, not randomly placed.
+* Use large rounded corners: `rounded-[24px]`, `rounded-[28px]`, or `rounded-[32px]`.
+* Use generous whitespace, strong spacing rhythm, and clean visual hierarchy.
+* Create varied card sizes: large hero pet card, medium stat cards, small utility cards.
+* Make the layout responsive: premium desktop layout, elegant tablet layout, clean mobile stacking.
+
+2. Mesh Gradient Background + Grain Overlay
+
+* Do not use flat solid backgrounds.
+* Create a rich mesh gradient background using layered radial gradients with pastel but premium colors.
+* Suggested palette direction:
+
+  * soft lavender
+  * misty cyan
+  * peach glow
+  * warm cream
+  * deep ink text
+  * subtle emerald/accent green for progress
+* Add a real CSS grain/noise overlay using pseudo-elements or background texture technique.
+* The background must feel atmospheric, deep, and premium, not childish.
+* Add blurred floating gradient blobs behind the Bento layout.
+
+3. Advanced Glassmorphism
+
+* All Bento cards should use advanced glass styling:
+
+  * translucent background
+  * `backdrop-blur-xl` or stronger
+  * thin highlight border: `1px solid rgba(255,255,255,0.2)`
+  * soft inner highlight
+  * layered shadows
+  * subtle top-light effect
+* Avoid cheap glassmorphism. It should feel expensive and clean.
+* Cards must visually separate from the background without harsh borders.
+
+4. Typography Hierarchy
+
+* Use modern Apple-like system typography unless the project already has a better font setup.
+* If possible, use font stack similar to:
+  `Inter`, `SF Pro Display`, `ui-sans-serif`, `system-ui`, `-apple-system`, `BlinkMacSystemFont`.
+* Labels must be tiny, uppercase, wide letter spacing:
+  `text-[10px]`, `uppercase`, `tracking-[0.22em]`, `font-semibold`, low opacity.
+* Main numbers and headings must be large, bold, crisp:
+  `text-4xl`, `text-5xl`, `font-black`, `tracking-tight`.
+* Create strong contrast between label, title, value, helper text, and CTA.
+
+5. Replace Flat SVG Pet With 3D-Like Hero Container
+
+* Remove or visually de-emphasize the current flat static cat SVG if it looks boring.
+* Create a premium 3D pet showcase container.
+* If no actual 3D model exists, create a placeholder stage that feels 3D:
+
+  * floating object/card
+  * soft circular platform
+  * multi-layered shadow
+  * top light glow
+  * subtle reflection
+  * depth using gradients and blur
+* The pet area must feel like a premium collectible/game companion screen.
+* Add a floating animation to the pet showcase using `framer-motion`.
+
+6. Framer Motion Micro-Interactions
+   Use `framer-motion` for smooth premium motion:
+
+* Page entrance animation.
+* Bento cards staggered entrance.
+* Hover/tap interaction for each card:
+
+  * slight lift
+  * slight 3D tilt
+  * spring physics
+  * smooth scale
+* Buttons should have tactile hover/tap states.
+* Progress bars should animate from 0 to current value.
+* Floating pet showcase should gently move vertically and rotate subtly.
+* Motion must be smooth and elegant, not exaggerated.
+
+7. Premium Components To Build
+   Create or refactor components if needed:
+
+* `BentoCard`
+* `PetHeroCard`
+* `StatCard`
+* `ProgressRing` or premium progress bar
+* `RewardUnlockCard`
+* `FloatingPetStage`
+* `PremiumButton`
+* Optional: `NoiseOverlay`, `MeshBackground`
+
+Keep the code clean and reusable. Do not dump everything into one huge file if the project already has a component structure.
+
+8. Tailwind + CSS Requirements
+
+* Use Tailwind heavily for layout and styling.
+* Add custom CSS only where Tailwind is not enough:
+
+  * mesh background
+  * grain/noise overlay
+  * glass highlight
+  * 3D tilt utilities
+  * animated gradient blobs
+* Use custom classes with premium naming, for example:
+
+  * `.premium-mesh-bg`
+  * `.grain-overlay`
+  * `.glass-card`
+  * `.bento-card`
+  * `.floating-orb`
+  * `.pet-stage`
+* Make sure dark/light contrast is readable.
+* Keep accessibility: buttons must remain clickable, text readable, focus states preserved.
+
+9. Overall GatherGO App Polish
+   Also improve the global visual language where appropriate:
+
+* Make navigation/header feel more premium.
+* Ensure `/pet` does not look disconnected from the rest of GatherGO.
+* Upgrade shared buttons, cards, background, and spacing if they affect app consistency.
+* Do not break any existing page.
+
+10. Final Quality Bar
+    The result should not look like a default Tailwind dashboard.
+    It must feel like:
+
+* premium mobile app companion screen
+* modern SaaS/game hybrid
+* soft 3D collectible UI
+* Awwwards-inspired visual atmosphere
+* Dribbble-quality Bento composition
+
+Important implementation rules:
+
+* Do not remove existing business logic.
+* Do not break routing.
+* Do not rename data fields unless necessary.
+* If installing `framer-motion` is needed, add it properly.
+* If it already exists, use the existing dependency.
+* Make responsive behavior excellent.
+* Avoid overusing animations that hurt performance.
+* After implementation, run the app/build if possible and fix errors.
+* Return a concise summary of changed files and what was improved.
+
+Now implement the redesign directly in code.
