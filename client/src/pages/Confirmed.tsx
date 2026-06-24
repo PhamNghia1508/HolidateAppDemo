@@ -1,4 +1,5 @@
 import { useLocation } from "wouter";
+import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import { Calendar, Heart, Share2, Check } from "lucide-react";
 
@@ -6,8 +7,17 @@ export default function Confirmed() {
   const [, setLocation] = useLocation();
 
   return (
-    <div className="min-h-screen bg-[#f3eee8] flex flex-col max-w-md mx-auto">
-      <div className="flex-1 overflow-y-auto pb-24 px-6">
+    <div
+      className="min-h-screen flex flex-col max-w-md mx-auto relative"
+      style={{ background: "linear-gradient(180deg, #f3eee8 0%, #e8e0d6 100%)" }}
+    >
+      {/* Background celebration */}
+      <div className="absolute top-10 left-10 w-3 h-3 rounded-full bg-coral/40" />
+      <div className="absolute top-20 right-16 w-2 h-2 rounded-full bg-yellow/40" />
+      <div className="absolute top-40 left-20 w-4 h-4 rounded-full bg-sage/30" />
+      <div className="absolute top-60 right-8 w-2 h-2 rounded-full bg-coral/30" />
+
+      <div className="flex-1 overflow-y-auto pb-24 px-6 relative z-10">
         {/* Status bar */}
         <div className="flex items-center justify-between pt-4 mb-4">
           <span className="text-sm font-medium text-ink">9:41</span>
@@ -20,10 +30,12 @@ export default function Confirmed() {
 
         {/* Success Section */}
         <div className="flex flex-col items-center mt-8 mb-8">
-          {/* Check circle */}
-          <div className="relative w-24 h-24 rounded-full bg-sage-light flex items-center justify-center mb-4">
-            <div className="absolute inset-0 rounded-full bg-sage/20 animate-ping" />
-            <Check className="w-12 h-12 text-sage relative z-10" strokeWidth={2.5} />
+          {/* Check circle with glow */}
+          <div className="relative w-24 h-24 rounded-full flex items-center justify-center mb-4"
+            style={{ background: "linear-gradient(135deg, #4a7c59, #2a9d8f)" }}
+          >
+            <div className="absolute inset-0 rounded-full animate-ping bg-sage/30" />
+            <Check className="w-12 h-12 text-white relative z-10" strokeWidth={2.5} />
           </div>
 
           <Heart className="w-5 h-5 text-coral mb-2" />
@@ -31,8 +43,8 @@ export default function Confirmed() {
           <p className="text-[14px] text-muted-foreground">Rooftop chill night • Thứ bảy, 18:30</p>
         </div>
 
-        {/* Summary */}
-        <div className="bg-white rounded-[20px] p-5 border border-border/30 mb-5">
+        {/* Summary - Glassmorphism */}
+        <div className="rounded-[20px] p-5 border border-white/60 mb-5 backdrop-blur-md bg-white/60">
           <div className="flex items-center justify-between mb-4">
             <div className="text-center flex-1">
               <Calendar className="w-5 h-5 text-sage mx-auto mb-1" />
@@ -48,26 +60,32 @@ export default function Confirmed() {
               <p className="text-[11px] text-muted-foreground">nhắc trước</p>
             </div>
           </div>
-          <div className="bg-sage-light/30 rounded-[12px] p-3 text-center">
+          <div className="rounded-[12px] p-3 text-center backdrop-blur-sm bg-sage/10">
             <p className="text-[13px] text-sage font-medium">GatherGo sẽ nhắc nhóm trước giờ đi.</p>
           </div>
         </div>
 
         {/* CTAs */}
-        <button
+        <motion.button
           onClick={() => setLocation("/plan-detail")}
-          className="w-full h-[52px] rounded-[14px] bg-coral text-white font-semibold text-[16px] shadow-lg shadow-coral/20 hover:bg-coral/90 transition-colors mb-3"
+          whileHover={{ scale: 1.02, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full h-[52px] rounded-[14px] font-semibold text-[16px] text-white shadow-lg overflow-hidden relative mb-3"
+          style={{ background: "linear-gradient(135deg, #e76f51 0%, #f4a261 100%)" }}
           data-testid="button-view-itinerary"
         >
           Xem lịch trình
-        </button>
-        <button
-          className="w-full h-[52px] rounded-[14px] bg-white text-coral font-semibold text-[16px] border border-coral hover:bg-coral/5 transition-colors flex items-center justify-center gap-2"
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.02, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full h-[52px] rounded-[14px] font-semibold text-[16px] border border-white/60 flex items-center justify-center gap-2 backdrop-blur-md bg-white/60"
+          style={{ color: "#e76f51" }}
           data-testid="button-invite"
         >
           <Share2 className="w-4 h-4" />
           Mời thêm bạn
-        </button>
+        </motion.button>
       </div>
 
       <BottomNav />

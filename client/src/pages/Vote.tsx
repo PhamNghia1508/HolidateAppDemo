@@ -1,31 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
+import { Clock, Zap } from "lucide-react";
 
 const members = [
-  { name: "Nghĩa", status: "Đồng ý", color: "bg-sage" },
-  { name: "Linh", status: "Đồng ý", color: "bg-sage" },
-  { name: "Minh", status: "Có thể", color: "bg-yellow" },
-  { name: "An", status: "Đợi", color: "bg-muted" },
+  { name: "Nghĩa", status: "Đồng ý", color: "#4a7c59" },
+  { name: "Linh", status: "Đồng ý", color: "#4a7c59" },
+  { name: "Minh", status: "Có thể", color: "#e9c46a" },
+  { name: "An", status: "Đợi", color: "#b8b8b8" },
 ];
 
-const choices = ["Đồng ý", "Có thể", "Đổi giờ"];
+const choices = [
+  { label: "Đồng ý", icon: "👍", color: "#4a7c59" },
+  { label: "Có thể", icon: "✌️", color: "#e9c46a" },
+  { label: "Đổi giờ", icon: "⏰", color: "#e76f51" },
+];
 
 export default function Vote() {
   const [, setLocation] = useLocation();
   const [myChoice, setMyChoice] = useState("Đồng ý");
   const [voteCount, setVoteCount] = useState(3);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setProgress((voteCount / 4) * 100), 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleVote = (choice: string) => {
     setMyChoice(choice);
     if (choice === "Đồng ý" && voteCount < 4) {
       setVoteCount(4);
+      setProgress(100);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#f3eee8] flex flex-col max-w-md mx-auto">
+    <div
+      className="min-h-screen flex flex-col max-w-md mx-auto relative"
+      style={{ background: "linear-gradient(180deg, #f3eee8 0%, #e8e0d6 100%)" }}
+    >
       <div className="flex-1 overflow-y-auto pb-24 px-6">
         {/* Status bar */}
         <div className="flex items-center justify-between pt-4 mb-4">
@@ -38,140 +53,132 @@ export default function Vote() {
         </div>
 
         {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring" }}
-          className="text-[26px] font-bold text-ink mb-2"
-        >
-          Cả nhóm vote plan
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-[14px] text-muted-foreground mb-5"
-        >
+        <h1 className="text-[26px] font-bold text-ink mb-2">Cả nhóm vote plan</h1>
+        <p className="text-[14px] text-muted-foreground mb-5">
           Khỏi chat lòng vòng — chốt nhanh trong một shared space.
-        </motion.p>
+        </p>
 
-        {/* Vote Progress with animated counter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-sage-light/30 rounded-[16px] p-4 mb-5"
-        >
-          <motion.p
-            key={voteCount}
-            initial={{ scale: 1.2 }}
-            animate={{ scale: 1 }}
-            className="text-[16px] font-bold text-sage mb-1"
-          >
-            {voteCount}/4 người đã vote
-          </motion.p>
+        {/* Vote Progress */}
+        <div className="rounded-[16px] p-4 mb-5 border border-white/60 backdrop-blur-md bg-white/60">
+          <div className="flex items-center gap-2 mb-1">
+            <Zap className="w-4 h-4 text-yellow" />
+            <p className="text-[16px] font-bold text-sage">{voteCount}/4 người đã vote</p>
+          </div>
           <p className="text-[13px] text-muted-foreground mb-3">
             {voteCount === 4 ? "Cả nhóm đã đồng ý! 🎉" : "Còn An chưa phản hồi"}
           </p>
-          <div className="w-full h-2 bg-white rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-white/80 rounded-full overflow-hidden">
             <motion.div
-              className="h-full bg-sage rounded-full"
-              initial={{ width: "75%" }}
-              animate={{ width: `${(voteCount / 4) * 100}%` }}
-              transition={{ type: "spring", stiffness: 100 }}
+              className="h-full rounded-full"
+              style={{
+                background: "linear-gradient(90deg, #4a7c59, #2a9d8f)",
+                boxShadow: "0 0 10px rgba(74,124,89,0.4)",
+              }}
+              initial={{ width: "0%" }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 1, type: "spring", stiffness: 60 }}
             />
           </div>
-        </motion.div>
+        </div>
 
-        {/* Members with staggered animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-white rounded-[20px] p-5 border border-border/30 mb-5"
-        >
+        {/* Members with gradient glow borders */}
+        <div className="rounded-[20px] p-5 border border-white/60 backdrop-blur-md bg-white/60 mb-5">
           <div className="grid grid-cols-4 gap-3">
             {members.map((m, i) => (
-              <motion.div
-                key={m.name}
-                initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 0.3 + i * 0.1, type: "spring" }}
-                className="flex flex-col items-center"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  className={`w-12 h-12 rounded-full ${m.color} flex items-center justify-center mb-1`}
+              <div key={m.name} className="flex flex-col items-center">
+                <div
+                  className="w-14 h-14 rounded-full flex items-center justify-center mb-1 relative"
+                  style={{
+                    background: m.status === "Đồng ý"
+                      ? `linear-gradient(135deg, ${m.color}, #2a9d8f)`
+                      : m.status === "Đợi"
+                      ? "#e0e0e0"
+                      : m.color,
+                    boxShadow: m.status === "Đồng ý"
+                      ? "0 0 20px rgba(74,124,89,0.5), 0 4px 12px rgba(74,124,89,0.3)"
+                      : m.status === "Đợi"
+                      ? "none"
+                      : "0 4px 12px rgba(233,196,106,0.3)",
+                    opacity: m.status === "Đợi" ? 0.5 : 1,
+                  }}
                 >
                   <span className="text-[14px] font-bold text-white">{m.name[0]}</span>
-                </motion.div>
+                  {m.status === "Đợi" && (
+                    <div className="absolute -bottom-1 -right-1">
+                      <motion.div
+                        animate={{ opacity: [0.3, 1, 0.3] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >
+                        <Clock className="w-4 h-4 text-muted-foreground" />
+                      </motion.div>
+                    </div>
+                  )}
+                </div>
                 <p className="text-[12px] font-semibold text-ink">{m.name}</p>
-                <motion.span
-                  animate={m.status === "Đợi" ? { opacity: [0.5, 1, 0.5] } : {}}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className={`text-[10px] font-medium px-2 py-0.5 rounded-full mt-0.5 ${
-                    m.status === "Đồng ý" ? "bg-sage/10 text-sage" :
-                    m.status === "Có thể" ? "bg-yellow/20 text-yellow" :
-                    "bg-muted/30 text-muted-foreground"
-                  }`}
+                <span
+                  className="text-[10px] font-medium px-2 py-0.5 rounded-full mt-0.5"
+                  style={{
+                    background: m.status === "Đồng ý" ? "rgba(74,124,89,0.15)" :
+                                m.status === "Có thể" ? "rgba(233,196,106,0.2)" :
+                                "rgba(184,184,184,0.2)",
+                    color: m.status === "Đồng ý" ? "#4a7c59" :
+                           m.status === "Có thể" ? "#d4a017" :
+                           "#888",
+                  }}
                 >
                   {m.status}
-                </motion.span>
-              </motion.div>
+                </span>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        {/* Your choice with interactive buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="bg-white rounded-[20px] p-5 border border-border/30 mb-5"
-        >
+        {/* Your choice - Neumorphism cards */}
+        <div className="rounded-[20px] p-5 border border-white/60 backdrop-blur-md bg-white/60 mb-5">
           <h3 className="text-[16px] font-bold text-ink mb-3">Bạn chọn gì?</h3>
-          <div className="flex gap-2 mb-3">
-            {choices.map((choice) => (
-              <motion.button
-                key={choice}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => handleVote(choice)}
-                className={`px-4 py-2 rounded-full text-[13px] font-medium transition-colors ${
-                  myChoice === choice
-                    ? "bg-sage text-white"
-                    : "bg-white text-sage border border-sage/30"
-                }`}
-              >
-                {choice}
-              </motion.button>
-            ))}
+          <div className="flex gap-3 mb-3">
+            {choices.map((choice) => {
+              const isSelected = myChoice === choice.label;
+              return (
+                <motion.button
+                  key={choice.label}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleVote(choice.label)}
+                  className="flex-1 py-3 rounded-[14px] text-[13px] font-semibold transition-all flex flex-col items-center gap-1"
+                  style={{
+                    background: isSelected
+                      ? `linear-gradient(135deg, ${choice.color}, ${choice.color}dd)`
+                      : "#ffffff",
+                    color: isSelected ? "#fff" : choice.color,
+                    boxShadow: isSelected
+                      ? `0 4px 20px ${choice.color}44, 0 8px 24px ${choice.color}22`
+                      : "4px 4px 12px rgba(0,0,0,0.08), -4px -4px 12px rgba(255,255,255,0.8)",
+                    border: isSelected ? "none" : "1px solid rgba(255,255,255,0.6)",
+                  }}
+                >
+                  <span className="text-lg">{choice.icon}</span>
+                  <span>{choice.label}</span>
+                </motion.button>
+              );
+            })}
           </div>
           <p className="text-[12px] text-muted-foreground">Mỗi lựa chọn đều cập nhật cho cả nhóm.</p>
-        </motion.div>
+        </div>
 
-        {/* CTA with celebration animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+        {/* Gradient CTA */}
+        <motion.button
+          onClick={() => setLocation("/confirmed")}
+          whileHover={{ scale: 1.02, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full h-[52px] rounded-[14px] font-semibold text-[16px] text-white shadow-lg overflow-hidden relative"
+          style={{
+            background: "linear-gradient(135deg, #e76f51 0%, #f4a261 100%)",
+          }}
+          data-testid="button-confirm"
         >
-          <motion.button
-            onClick={() => setLocation("/confirmed")}
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            className="relative w-full h-[52px] rounded-[14px] bg-coral text-white font-semibold text-[16px] shadow-lg shadow-coral/20 hover:bg-coral/90 transition-colors overflow-hidden"
-            data-testid="button-confirm"
-          >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-              initial={{ x: "-200%" }}
-              animate={{ x: "200%" }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-            />
-            <span className="relative z-10">Chốt plan & gửi nhắc hẹn</span>
-          </motion.button>
-        </motion.div>
+          <span className="relative z-10">Chốt plan & gửi nhắc hẹn</span>
+        </motion.button>
       </div>
 
       <BottomNav />

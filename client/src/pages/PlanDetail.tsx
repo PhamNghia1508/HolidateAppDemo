@@ -1,4 +1,5 @@
 import { useLocation } from "wouter";
+import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 
 const timeline = [
@@ -11,7 +12,10 @@ export default function PlanDetail() {
   const [, setLocation] = useLocation();
 
   return (
-    <div className="min-h-screen bg-[#f3eee8] flex flex-col max-w-md mx-auto">
+    <div
+      className="min-h-screen flex flex-col max-w-md mx-auto relative"
+      style={{ background: "linear-gradient(180deg, #f3eee8 0%, #e8e0d6 100%)" }}
+    >
       <div className="flex-1 overflow-y-auto pb-24 px-6">
         {/* Status bar */}
         <div className="flex items-center justify-between pt-4 mb-4">
@@ -29,40 +33,42 @@ export default function PlanDetail() {
           Plan sẵn sàng để gửi nhóm vote.
         </p>
 
-        {/* Hero visual */}
-        <div className="w-full h-[160px] rounded-[20px] bg-sage/20 mb-5 overflow-hidden flex items-center justify-center relative">
-          <div className="absolute inset-0 bg-sage/30" />
-          <div className="relative z-10 text-center">
-            <p className="text-[18px] font-bold text-white">Ăn tối nhẹ <span className="text-[18px]">→</span> rooftop <span className="text-[18px]">→</span> đi dạo</p>
-            <div className="flex gap-2 justify-center mt-3">
-              <span className="px-3 py-1 rounded-full bg-white/20 text-white text-[12px] font-medium">Chill</span>
-              <span className="px-3 py-1 rounded-full bg-white/20 text-white text-[12px] font-medium">Ảnh đẹp</span>
+        {/* Hero with image */}
+        <div className="w-full h-[160px] rounded-[20px] overflow-hidden mb-5 relative shadow-lg">
+          <img
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop"
+            alt="Rooftop"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-sage/80 via-sage/40 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
+            <p className="text-[18px] font-bold text-white">
+              Ăn tối nhẹ → rooftop → đi dạo
+            </p>
+            <div className="flex gap-2 justify-center mt-2">
+              <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-white text-[12px] font-medium">Chill</span>
+              <span className="px-3 py-1 rounded-full bg-white/25 backdrop-blur-sm text-white text-[12px] font-medium">Ảnh đẹp</span>
             </div>
           </div>
         </div>
 
-        {/* Metrics */}
-        <div className="flex items-center justify-between bg-white rounded-[16px] p-4 border border-border/30 mb-5">
-          <div className="text-center">
-            <p className="text-[16px] font-bold text-sage">4.2km</p>
-            <p className="text-[11px] text-muted-foreground">Quãng đường</p>
-          </div>
-          <div className="text-center">
-            <p className="text-[16px] font-bold text-sage">520k</p>
-            <p className="text-[11px] text-muted-foreground">Mỗi người</p>
-          </div>
-          <div className="text-center">
-            <p className="text-[16px] font-bold text-sage">3</p>
-            <p className="text-[11px] text-muted-foreground">Điểm đến</p>
-          </div>
-          <div className="text-center">
-            <p className="text-[16px] font-bold text-sage">4</p>
-            <p className="text-[11px] text-muted-foreground">Người</p>
-          </div>
+        {/* Metrics - Glassmorphism */}
+        <div className="flex items-center justify-between rounded-[16px] p-4 border border-white/60 mb-5 backdrop-blur-md bg-white/60">
+          {[
+            { value: "4.2km", label: "Quãng đường" },
+            { value: "520k", label: "Mỗi người" },
+            { value: "3", label: "Điểm đến" },
+            { value: "4", label: "Người" },
+          ].map((s, i) => (
+            <div key={i} className="text-center">
+              <p className="text-[16px] font-bold text-sage">{s.value}</p>
+              <p className="text-[11px] text-muted-foreground">{s.label}</p>
+            </div>
+          ))}
         </div>
 
-        {/* Timeline */}
-        <div className="bg-white rounded-[20px] p-5 border border-border/30 mb-5">
+        {/* Timeline - Glassmorphism */}
+        <div className="rounded-[20px] p-5 border border-white/60 mb-5 backdrop-blur-md bg-white/60">
           <h3 className="text-[16px] font-bold text-ink mb-4">Timeline</h3>
           <div className="space-y-4">
             {timeline.map((item, i) => (
@@ -81,14 +87,17 @@ export default function PlanDetail() {
           </div>
         </div>
 
-        {/* CTA */}
-        <button
+        {/* Gradient CTA */}
+        <motion.button
           onClick={() => setLocation("/vote")}
-          className="w-full h-[52px] rounded-[14px] bg-coral text-white font-semibold text-[16px] shadow-lg shadow-coral/20 hover:bg-coral/90 transition-colors"
+          whileHover={{ scale: 1.02, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full h-[52px] rounded-[14px] font-semibold text-[16px] text-white shadow-lg overflow-hidden relative"
+          style={{ background: "linear-gradient(135deg, #e76f51 0%, #f4a261 100%)" }}
           data-testid="button-send-vote"
         >
           Gửi nhóm vote
-        </button>
+        </motion.button>
       </div>
 
       <BottomNav />

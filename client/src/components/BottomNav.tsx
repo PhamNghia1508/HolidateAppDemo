@@ -26,7 +26,17 @@ export default function BottomNav() {
   const [location, setLocation] = useLocation();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around bg-card/90 backdrop-blur-xl border-t border-border/40 rounded-t-[24px] shadow-[0_-8px_32px_rgba(0,0,0,0.08)] px-2 py-2 pb-6 max-w-md mx-auto">
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around px-2 py-2 pb-6 max-w-md mx-auto"
+      style={{
+        background: "rgba(255, 255, 255, 0.75)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderTop: "1px solid rgba(255, 255, 255, 0.6)",
+        borderRadius: "24px 24px 0 0",
+        boxShadow: "0 -8px 32px rgba(0,0,0,0.08), 0 -2px 8px rgba(0,0,0,0.04)",
+      }}
+    >
       {tabs.map((tab) => {
         const isActive = location === tab.path;
         const Icon = tab.icon === VoteIcon ? VoteIcon : tab.icon;

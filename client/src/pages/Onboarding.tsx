@@ -4,209 +4,144 @@ import { motion } from "framer-motion";
 export default function Onboarding() {
   const [, setLocation] = useLocation();
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: 0.15 },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
-  };
-
-  const floatItem = {
-    hidden: { opacity: 0, scale: 0.8 },
-    show: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 260, damping: 20 } },
-  };
-
   return (
-    <div className="min-h-screen bg-[#f3eee8] flex flex-col px-6 py-4 max-w-md mx-auto overflow-hidden">
+    <div
+      className="min-h-screen flex flex-col px-6 py-4 max-w-md mx-auto overflow-hidden relative"
+      style={{
+        background: "linear-gradient(135deg, #f3eee8 0%, #e8ddd3 50%, #f3eee8 100%)",
+      }}
+    >
+      {/* Decorative blurred blobs */}
+      <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-coral/20 blur-[80px]" />
+      <div className="absolute top-1/3 -left-20 w-40 h-40 rounded-full bg-sage/15 blur-[60px]" />
+      <div className="absolute bottom-20 right-0 w-50 h-50 rounded-full bg-yellow/20 blur-[70px]" />
+
       {/* Status bar */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="flex items-center justify-between mb-4"
-      >
+      <div className="flex items-center justify-between mb-4 relative z-10">
         <span className="text-sm font-medium text-ink">9:41</span>
         <div className="flex items-center gap-1">
           <div className="w-1 h-1 rounded-full bg-ink" />
           <div className="w-1 h-1 rounded-full bg-ink" />
           <div className="w-4 h-2 rounded-sm border border-ink bg-ink" />
         </div>
-      </motion.div>
+      </div>
 
       {/* Brand */}
-      <motion.p
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.2, type: "spring" }}
-        className="text-sm font-medium text-sage mb-6"
-      >
-        GatherGo
-      </motion.p>
+      <p className="text-sm font-medium text-sage mb-4 relative z-10">GatherGo</p>
 
-      {/* Hero visual with floating animations */}
+      {/* Hero with image */}
       <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative w-full h-[270px] rounded-3xl bg-gradient-to-br from-sage-light/70 to-sage-light/30 overflow-hidden mb-8 flex items-center justify-center"
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative w-full h-[240px] rounded-[24px] overflow-hidden mb-6 shadow-2xl shadow-sage/20"
       >
-        {/* Animated route map */}
-        <svg viewBox="0 0 342 270" className="absolute inset-0 w-full h-full">
-          <motion.path
-            d="M50 180 Q120 100 200 60 Q280 20 320 50"
-            stroke="#4a7c59"
-            strokeWidth="2"
-            strokeDasharray="8 6"
-            fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
-          />
-          <motion.circle cx="50" cy="180" r="14" fill="#e8f5e9" stroke="#4a7c59" strokeWidth="2"
-            initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.8, type: "spring" }} />
-          <motion.circle cx="200" cy="60" r="14" fill="#fff3e0" stroke="#e76f51" strokeWidth="2"
-            initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.0, type: "spring" }} />
-          <motion.circle cx="320" cy="50" r="14" fill="#fce4ec" stroke="#e76f51" strokeWidth="2"
-            initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2, type: "spring" }} />
-        </svg>
+        <img
+          src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&auto=format&fit=crop"
+          alt="Friends gathering"
+          className="w-full h-full object-cover"
+        />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-        {/* Floating bubbles with continuous animation */}
+        {/* Floating stats cards - glassmorphism */}
         <motion.div
-          variants={floatItem}
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-6 left-6 bg-white rounded-2xl px-4 py-3 shadow-lg shadow-black/5"
+          className="absolute top-4 left-4 px-3 py-2 rounded-xl backdrop-blur-md bg-white/80 border border-white/50 shadow-lg"
         >
           <div className="flex items-center gap-2">
-            <div className="w-1 h-5 rounded-full bg-coral" />
-            <span className="text-sm font-medium text-ink">3 plan sẵn sàng</span>
+            <div className="w-2 h-6 rounded-full bg-coral" />
+            <span className="text-xs font-semibold text-ink">3 plan sẵn sàng</span>
           </div>
         </motion.div>
 
         <motion.div
-          variants={floatItem}
           animate={{ y: [0, -5, 0] }}
           transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-          className="absolute top-24 right-6 bg-white rounded-2xl px-4 py-3 shadow-lg shadow-black/5"
+          className="absolute top-12 right-4 px-3 py-2 rounded-xl backdrop-blur-md bg-white/80 border border-white/50 shadow-lg"
         >
           <div className="flex items-center gap-2">
-            <div className="w-1 h-5 rounded-full bg-sage" />
-            <span className="text-sm font-medium text-ink">4 bạn đang vote</span>
+            <div className="w-2 h-6 rounded-full bg-sage" />
+            <span className="text-xs font-semibold text-ink">4 bạn đang vote</span>
           </div>
         </motion.div>
 
         <motion.div
-          variants={floatItem}
           animate={{ y: [0, -7, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-16 left-12 bg-white rounded-2xl px-4 py-3 shadow-lg shadow-black/5"
+          className="absolute bottom-10 left-8 px-3 py-2 rounded-xl backdrop-blur-md bg-white/80 border border-white/50 shadow-lg"
         >
           <div className="flex items-center gap-2">
-            <div className="w-1 h-5 rounded-full bg-yellow" />
-            <span className="text-sm font-medium text-ink">Đã lưu kỷ niệm</span>
+            <div className="w-2 h-6 rounded-full bg-yellow" />
+            <span className="text-xs font-semibold text-ink">Đã lưu kỷ niệm</span>
           </div>
         </motion.div>
 
-        {/* Avatar stack with bounce */}
-        <motion.div
-          variants={floatItem}
-          className="absolute top-32 left-16 flex -space-x-2"
-        >
-          <motion.div
-            animate={{ y: [0, -4, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity, delay: 0 }}
-            className="w-10 h-10 rounded-full bg-sage/30 border-2 border-white"
-          />
-          <motion.div
-            animate={{ y: [0, -4, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity, delay: 0.3 }}
-            className="w-10 h-10 rounded-full bg-coral/30 border-2 border-white"
-          />
-          <motion.div
-            animate={{ y: [0, -4, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity, delay: 0.6 }}
-            className="w-10 h-10 rounded-full bg-yellow/30 border-2 border-white"
-          />
-        </motion.div>
+        {/* Avatar stack */}
+        <div className="absolute bottom-4 right-6 flex -space-x-2">
+          <div className="w-8 h-8 rounded-full bg-sage/50 border-2 border-white" />
+          <div className="w-8 h-8 rounded-full bg-coral/50 border-2 border-white" />
+          <div className="w-8 h-8 rounded-full bg-yellow/50 border-2 border-white" />
+        </div>
       </motion.div>
 
-      {/* Text content with stagger */}
-      <motion.div variants={container} initial="hidden" animate="show">
-        <motion.h1
-          variants={item}
-          className="text-[28px] font-bold text-ink leading-[1.2] mb-3"
-        >
+      {/* Text content */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.6 }}
+      >
+        <h1 className="text-[28px] font-bold text-ink leading-[1.2] mb-3">
           Plan đi chơi cùng nhau,{" "}
-          <span className="text-coral">dễ hơn bao giờ hết</span>
-        </motion.h1>
+          <span className="bg-gradient-to-r from-coral to-amber-500 bg-clip-text text-transparent">
+            dễ hơn bao giờ hết
+          </span>
+        </h1>
 
-        <motion.p
-          variants={item}
-          className="text-[15px] text-muted-foreground leading-relaxed mb-6"
-        >
+        <p className="text-[15px] text-muted-foreground leading-relaxed mb-6">
           Chọn nhóm, mood, thời gian và ngân sách. GatherGo tạo plan địa phương để cả nhóm dễ đồng ý.
-        </motion.p>
+        </p>
 
-        {/* Pills with bounce */}
-        <motion.div variants={item} className="flex gap-3 mb-8">
+        {/* Pills - glassmorphism */}
+        <div className="flex gap-3 mb-8">
           {["Gợi ý nhanh", "Vote cùng nhóm", "Lưu kỷ niệm"].map((text, i) => (
-            <motion.span
+            <span
               key={text}
-              whileHover={{ scale: 1.08, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className={`px-4 py-2 rounded-full text-sm font-medium cursor-default ${
+              className={`px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm border ${
                 i === 0
-                  ? "bg-sage text-white"
-                  : "bg-white text-sage border border-sage/20"
+                  ? "bg-sage/90 text-white border-sage/50 shadow-md shadow-sage/20"
+                  : "bg-white/70 text-sage border-white/60 shadow-sm"
               }`}
             >
               {text}
-            </motion.span>
+            </span>
           ))}
-        </motion.div>
+        </div>
 
-        {/* CTA with pulse effect */}
-        <motion.div variants={item}>
-          <motion.button
-            onClick={() => setLocation("/home")}
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            className="relative w-full h-[52px] rounded-[14px] bg-coral text-white font-semibold text-[16px] shadow-lg shadow-coral/20 hover:bg-coral/90 transition-colors overflow-hidden"
-            data-testid="button-start"
-          >
-            <motion.div
-              className="absolute inset-0 bg-white/20"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: "100%" }}
-              transition={{ duration: 0.5 }}
-            />
-            <span className="relative z-10">Bắt đầu tạo Gather</span>
-          </motion.button>
-        </motion.div>
-
-        <motion.p
-          variants={item}
-          className="text-center text-[13px] text-muted-foreground mt-4"
+        {/* Gradient CTA */}
+        <motion.button
+          onClick={() => setLocation("/home")}
+          whileHover={{ scale: 1.03, y: -2 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full h-[56px] rounded-[16px] font-semibold text-[16px] text-white shadow-lg shadow-coral/30 overflow-hidden relative"
+          style={{
+            background: "linear-gradient(135deg, #e76f51 0%, #f4a261 100%)",
+          }}
+          data-testid="button-start"
         >
+          <span className="relative z-10">Bắt đầu tạo Gather</span>
+        </motion.button>
+
+        <p className="text-center text-[13px] text-muted-foreground mt-4">
           Không feed công khai. Không chat lòng vòng.
-        </motion.p>
+        </p>
       </motion.div>
 
       {/* Home indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="flex justify-center mt-auto mb-2"
-      >
+      <div className="flex justify-center mt-auto mb-2">
         <div className="w-[120px] h-[4px] rounded-full bg-ink/30" />
-      </motion.div>
+      </div>
     </div>
   );
 }

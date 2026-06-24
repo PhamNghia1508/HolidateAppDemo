@@ -1,0 +1,20 @@
+Bạn là một Giám đốc Công nghệ (CTO) và Chuyên gia UX/UI kỳ cựu cho Startup. Hãy đập đi xây lại giao diện của ứng dụng gatherGO theo bộ tiêu chuẩn "Premium, High-Emotional & Gamified" dưới đây để người dùng nhìn là muốn trải nghiệm ngay. Không làm hời hợt, hãy sửa triệt để các phần sau:
+
+1. HÌNH ẢNH MINH HỌA & VISUAL ASSETS:
+- Tại các màn hình Onboarding, Home trống, CreatePlan, và Kỷ niệm: Không dùng các icon mặc định đơn điệu. Hãy tích hợp hình ảnh minh họa chất lượng cao từ các thư viện ảnh miễn phí (Sử dụng URL ảnh từ Unsplash phù hợp với chủ đề tụ tập, ăn uống, party) hoặc dùng CSS/SVG lồng nhau để tạo ra các hình khối abstract hiện đại (Glassmorphism hiệu ứng kính mờ, gradient mượt mà).
+
+2. REDESIGN TÍNH NĂNG PET (NUÔI THÚ CHUNG):
+- Giao diện Pet hiện tại quá thô sơ. Hãy biến nó thành linh vật của nhóm (ví dụ: Một chú Mèo/Cáo pixel hoặc SVG cute đang ôm điện thoại chờ bạn bè).
+- Thêm hiệu ứng động cho Pet bằng framer-motion: Pet nhấp nháy mắt, bay nhẹ bồng bềnh (floating animation). Khi thanh năng lượng (Energy Bar) thay đổi hoặc khi có người vote, Pet sẽ đổi biểu cảm (vui sướng, nhảy lên).
+- Thiết kế lại khung nền của Pet giống như một hòn đảo lơ lửng (Floating Island) có đổ bóng phía dưới để tạo chiều sâu.
+
+3. NÂNG CẤP MÀN HÌNH VOTE & NHÀM CHÁN:
+- Trang Vote (/vote): Biến các avatar (N, L, M, A) thành các vòng tròn có border chuyển màu gradient phát sáng (Glow effect) khi họ chọn "Đồng ý". Người chưa vote (An) sẽ bị mờ đi (opacity 50%) và có một icon "Clock" nhấp nháy bên cạnh.
+- Các nút "Đồng ý", "Có thể", "Đổi giờ" cần thiết kế dạng thẻ Card nổi khối 3D nhẹ (Neumorphism hoặc Drop Shadow mịn), khi Hover hoặc Tap sẽ lún xuống (scale: 0.95) tạo cảm giác vật lý thật.
+- Thanh Progress Bar hiển thị số lượng vote phải chạy animation mượt mà từ 0% đến mức hiện tại khi vừa load trang.
+
+4. PHONG CÁCH UI TỔNG THỂ (Premium Canvas):
+- Áp dụng triệt để hiệu ứng Kính mờ (Glassmorphism): background: rgba(255, 255, 255, 0.7), backdrop-filter: blur(10px) cho các thẻ bài (cards) và Bottom Navigation để nhìn thấu nền Canvas cao cấp phía sau.
+- Sử dụng các tone màu Pastel thời thượng kết hợp Gradient chuyển màu mượt mà cho các nút bấm chính (CTA).
+
+Hãy thực hiện nâng cấp UI/UX này một cách đồng bộ trên tất cả các file component liên quan ngay lập tức!
