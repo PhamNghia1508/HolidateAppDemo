@@ -23,6 +23,147 @@ body {
   color: #1A0E07;
 }
 
+/* ============================================================
+   PHONE FRAME — desktop prototype shell
+   On mobile: no frame, full-screen as normal.
+   On desktop (≥520px): centered iPhone-shaped frame on dark bg.
+   KEY: transform on .phone-device makes position:fixed children
+   (BottomNav, sheet drawers) anchor to the frame, not viewport.
+   ============================================================ */
+
+/* Mobile default — transparent passthrough */
+.phone-outer {
+  min-height: 100dvh;
+  background: transparent;
+}
+.phone-device {
+  min-height: 100dvh;
+  position: relative;
+}
+.app-shell {
+  min-height: 100dvh;
+  flex: 1;
+}
+.phone-island,
+.phone-home-bar,
+.phone-btn-left,
+.phone-btn-right {
+  display: none;
+}
+
+/* Desktop: show phone frame */
+@media (min-width: 520px) {
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    background: radial-gradient(ellipse at 30% 20%, #2C1408 0%, #140A03 60%, #0C0603 100%) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phone-outer {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    padding: 24px;
+    background: transparent;
+  }
+
+  /* THE FRAME */
+  .phone-device {
+    position: relative;
+    width: 390px;
+    height: min(844px, calc(100vh - 48px));
+    min-height: unset;
+    border-radius: 54px;
+    background: #EEE6D4;
+    /* transform = containing block for fixed descendants (BottomNav etc.) */
+    transform: translateZ(0);
+    overflow: hidden;
+    flex-shrink: 0;
+    /* Frame border: subtle silver-warm */
+    outline: 2px solid rgba(255,255,255,0.10);
+    box-shadow:
+      0 0 0 9px rgba(8,4,2,0.85),
+      0 0 0 10px rgba(255,255,255,0.06),
+      0 40px 120px rgba(0,0,0,0.80),
+      0 8px 40px rgba(0,0,0,0.60),
+      inset 0 0 0 1px rgba(255,255,255,0.08);
+  }
+
+  .app-shell {
+    min-height: 100% !important;
+    height: 100%;
+  }
+
+  /* Dynamic island */
+  .phone-island {
+    display: block;
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 122px;
+    height: 35px;
+    background: #080402;
+    border-radius: 22px;
+    z-index: 9999;
+    pointer-events: none;
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.04);
+  }
+
+  /* Home indicator */
+  .phone-home-bar {
+    display: block;
+    position: absolute;
+    bottom: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 134px;
+    height: 5px;
+    background: rgba(26,14,7,0.30);
+    border-radius: 100px;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  /* Side volume buttons (left) */
+  .phone-btn-left {
+    display: block;
+    position: absolute;
+    left: -3px;
+    top: 110px;
+    width: 3px;
+    height: 34px;
+    background: rgba(60,30,15,0.90);
+    border-radius: 2px 0 0 2px;
+    z-index: 9999;
+    pointer-events: none;
+    box-shadow: 0 46px 0 rgba(60,30,15,0.90), 0 92px 0 rgba(60,30,15,0.90);
+  }
+
+  /* Power button (right) */
+  .phone-btn-right {
+    display: block;
+    position: absolute;
+    right: -3px;
+    top: 150px;
+    width: 3px;
+    height: 68px;
+    background: rgba(60,30,15,0.90);
+    border-radius: 0 2px 2px 0;
+    z-index: 9999;
+    pointer-events: none;
+  }
+}
+
 :root {
   /* ── WARM INK palette ──────────────────────────────────── */
   --bg: #EEE6D4;

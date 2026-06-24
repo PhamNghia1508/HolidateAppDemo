@@ -20,7 +20,7 @@ import Pet from "@/pages/Pet";
 
 function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-x-hidden" style={{ background: "#EEE6D4" }}>
+    <div className="app-shell flex flex-col relative overflow-x-hidden" style={{ background: "#EEE6D4" }}>
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-80px] right-[-60px] w-[320px] h-[320px] rounded-full"
           style={{ background: "radial-gradient(circle, rgba(200,55,30,0.06) 0%, transparent 70%)", filter: "blur(60px)" }} />
@@ -80,11 +80,24 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <AppShell>
-          <AnimatePresence mode="wait">
-            <Router />
-          </AnimatePresence>
-        </AppShell>
+        {/* phone-outer: desktop centering wrapper */}
+        <div className="phone-outer">
+          {/* phone-device: the frame — transform creates containing block for fixed children */}
+          <div className="phone-device">
+            {/* Dynamic island (desktop only) */}
+            <div className="phone-island" aria-hidden="true" />
+            {/* Side buttons (desktop only) */}
+            <div className="phone-btn-left" aria-hidden="true" />
+            <div className="phone-btn-right" aria-hidden="true" />
+            <AppShell>
+              <AnimatePresence mode="wait">
+                <Router />
+              </AnimatePresence>
+            </AppShell>
+            {/* Home indicator (desktop only) */}
+            <div className="phone-home-bar" aria-hidden="true" />
+          </div>
+        </div>
       </TooltipProvider>
     </QueryClientProvider>
   );
