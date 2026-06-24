@@ -3,8 +3,8 @@ import { Home, Calendar, Heart, PawPrint } from "lucide-react";
 import { motion } from "framer-motion";
 
 /* ============================================================
-   BOTTOM NAV — Floating Spatial Island
-   Glassmorphism 2.0, AI glow, spring physics, detached
+   BOTTOM NAV — Premium Dark Glass Dock
+   Obsidian + Electric Mint, compact, tech-unicorn 2026
    ============================================================ */
 
 const tabs = [
@@ -34,39 +34,17 @@ export default function BottomNav() {
     <motion.nav
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.3 }}
-      className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 flex items-center justify-around px-2 py-2 max-w-[380px] w-[90%]"
+      transition={{ type: "spring", stiffness: 400, damping: 35, delay: 0.2 }}
+      className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 flex items-center justify-around px-1.5 py-1.5 max-w-[360px] w-[92%]"
       style={{
-        background: "rgba(255, 248, 239, 0.72)",
-        backdropFilter: "blur(32px) saturate(160%)",
-        WebkitBackdropFilter: "blur(32px) saturate(160%)",
-        border: "1px solid rgba(255, 255, 255, 0.5)",
-        borderRadius: "24px",
-        boxShadow: "0 -8px 32px rgba(0,0,0,0.06), 0 4px 20px rgba(0,0,0,0.04), 0 0 40px rgba(98,201,165,0.06)",
+        background: "rgba(18, 18, 20, 0.72)",
+        backdropFilter: "blur(24px) saturate(140%)",
+        WebkitBackdropFilter: "blur(24px) saturate(140%)",
+        border: "1px solid rgba(255, 255, 255, 0.08)",
+        borderRadius: "20px",
+        boxShadow: "0 -4px 24px rgba(0,0,0,0.3)",
       }}
     >
-      {/* Ambient glow behind active tab */}
-      <div className="absolute inset-0 pointer-events-none rounded-[24px] overflow-hidden">
-        {tabs.map((tab, i) => {
-          const isActive = location === tab.path;
-          if (!isActive) return null;
-          return (
-            <motion.div
-              key={tab.path}
-              layoutId="nav-glow"
-              className="absolute top-1/2 -translate-y-1/2 h-[40px] rounded-full"
-              style={{
-                background: "radial-gradient(ellipse, rgba(98,201,165,0.2) 0%, transparent 70%)",
-                filter: "blur(20px)",
-                left: `${i * 20 + 5}%`,
-                width: "15%",
-              }}
-              transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            />
-          );
-        })}
-      </div>
-
       {tabs.map((tab) => {
         const isActive = location === tab.path;
         const Icon = tab.icon === VoteIcon ? VoteIcon : tab.icon;
@@ -75,45 +53,35 @@ export default function BottomNav() {
             key={tab.path}
             onClick={() => setLocation(tab.path)}
             whileTap={{ scale: 0.88 }}
-            className="flex flex-col items-center gap-1 min-w-[60px] py-1.5 relative focus:outline-none focus:ring-2 focus:ring-mint/40 focus:ring-offset-2 focus:ring-offset-transparent rounded-xl"
+            className="flex flex-col items-center gap-0.5 min-w-[56px] py-1.5 relative focus:outline-none rounded-xl"
             data-testid={`nav-${tab.path.slice(1)}`}
           >
-            {/* Active pill background */}
+            {/* Active indicator dot */}
             {isActive && (
               <motion.div
-                layoutId="nav-pill"
-                className="absolute inset-0 rounded-xl"
-                style={{
-                  background: "rgba(98, 201, 165, 0.12)",
-                  border: "1px solid rgba(98, 201, 165, 0.2)",
-                }}
+                layoutId="nav-dot"
+                className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
+                style={{ background: "#00E5A8" }}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               />
             )}
 
             <motion.div
-              animate={isActive ? { scale: 1.15, y: -2 } : { scale: 1, y: 0 }}
+              animate={isActive ? { scale: 1.1 } : { scale: 1 }}
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              className={`relative z-10 ${isActive ? "text-emerald" : "text-clay"}`}
+              className="relative z-10"
+              style={{ color: isActive ? "#00E5A8" : "#52525B" }}
             >
               <Icon className="w-5 h-5" />
             </motion.div>
 
             <motion.span
-              animate={isActive ? { opacity: 1, scale: 1.05 } : { opacity: 0.6, scale: 1 }}
-              className={`relative z-10 text-[10px] font-medium ${isActive ? "text-emerald font-semibold" : "text-clay"}`}
+              animate={isActive ? { opacity: 1 } : { opacity: 0.5 }}
+              className="relative z-10 text-[9px] font-medium tracking-wide"
+              style={{ color: isActive ? "#00E5A8" : "#52525B" }}
             >
               {tab.label}
             </motion.span>
-
-            {/* Active dot */}
-            {isActive && (
-              <motion.span
-                layoutId="nav-dot"
-                className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald"
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-              />
-            )}
           </motion.button>
         );
       })}

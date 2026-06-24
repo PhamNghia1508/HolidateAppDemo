@@ -1,4 +1,7 @@
-module.exports = {
+import tailwindcssAnimate from "tailwindcss-animate";
+import tailwindcssTypography from "@tailwindcss/typography";
+
+export default {
   content: [
     "./client/index.html",
     "./client/src/**/*.{js,jsx,ts,tsx}",
@@ -9,7 +12,7 @@ module.exports = {
   corePlugins: { preflight: true },
   theme: {
     extend: {
-      /* === SEMANTIC COLOR PALETTE === */
+      /* === SHADCN DARK TOKENS === */
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -44,46 +47,42 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        /* === GATHERGO UNICORN PALETTE === */
-        emerald: {
-          DEFAULT: "hsl(var(--emerald))",
-          deep: "hsl(var(--emerald-deep))",
-          light: "hsl(var(--emerald-light))",
-          surface: "hsl(var(--emerald-surface))",
+        /* === GATHERGO OBSIDIAN PALETTE === */
+        obsidian: {
+          DEFAULT: "#09090B",
+          surface: "#121214",
+          elevated: "#18181B",
+          hover: "#1E1E22",
         },
-        cream: {
-          DEFAULT: "hsl(var(--cream))",
-          deep: "hsl(var(--cream-deep))",
-          warm: "hsl(var(--cream-warm))",
-        },
-        ink: {
-          DEFAULT: "hsl(var(--ink))",
-          light: "hsl(var(--ink-light))",
-        },
-        coral: {
-          DEFAULT: "hsl(var(--coral))",
-          light: "hsl(var(--coral-light))",
-        },
-        sunset: {
-          DEFAULT: "hsl(var(--sunset))",
-        },
-        champagne: {
-          DEFAULT: "hsl(var(--champagne))",
-          light: "hsl(var(--champagne-light))",
+        zinc: {
+          100: "#FAFAFA",
+          200: "#E4E4E7",
+          300: "#D4D4D8",
+          400: "#A1A1AA",
+          500: "#71717A",
+          600: "#52525B",
+          700: "#3F3F46",
+          800: "#27272A",
+          900: "#18181B",
         },
         mint: {
-          DEFAULT: "hsl(var(--mint))",
-          light: "hsl(var(--mint-light))",
+          DEFAULT: "#00E5A8",
+          hover: "#34F5C5",
+          dim: "rgba(0, 229, 168, 0.15)",
+          glow: "rgba(0, 229, 168, 0.25)",
         },
-        rose: {
-          DEFAULT: "hsl(var(--rose))",
+        warning: {
+          DEFAULT: "#F5C542",
         },
-        clay: {
-          DEFAULT: "hsl(var(--clay))",
+        danger: {
+          DEFAULT: "#FF4D6D",
         },
       },
 
-      /* === TYPOGRAPHY SCALE === */
+      /* === TYPOGRAPHY: SHARP, MODERN === */
+      fontFamily: {
+        sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "\"SF Pro Display\"", "sans-serif"],
+      },
       fontSize: {
         micro: ["10px", { lineHeight: "1.2", letterSpacing: "0.22em", fontWeight: "600" }],
         label: ["11px", { lineHeight: "1.3", letterSpacing: "0.05em", fontWeight: "600" }],
@@ -95,7 +94,7 @@ module.exports = {
         display: ["36px", { lineHeight: "1.05", letterSpacing: "-0.05em", fontWeight: "900" }],
       },
 
-      /* === SPACING TOKENS === */
+      /* === SPACING === */
       spacing: {
         bento: "12px",
         "bento-tight": "8px",
@@ -105,9 +104,9 @@ module.exports = {
       borderRadius: {
         glass: "24px",
         pill: "100px",
-        "2xl": "20px",
-        "3xl": "28px",
-        "4xl": "32px",
+        "2xl": "16px",
+        "3xl": "20px",
+        "4xl": "28px",
       },
 
       /* === ANIMATIONS === */
@@ -120,7 +119,6 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        /* === SPRING PHYSICS === */
         "spring-in": {
           "0%": { transform: "scale(0.8)", opacity: "0" },
           "50%": { transform: "scale(1.03)", opacity: "1" },
@@ -133,25 +131,13 @@ module.exports = {
           "80%": { transform: "translateY(2px)" },
           "100%": { transform: "translateY(0)", opacity: "1" },
         },
-        /* === AMBIENT GLOW === */
         "glow-pulse": {
           "0%, 100%": { opacity: "0.4", transform: "scale(1)" },
           "50%": { opacity: "0.8", transform: "scale(1.1)" },
         },
-        /* === SHIMMER === */
         "shimmer-sweep": {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(100%)" },
-        },
-        /* === FLOAT 3D === */
-        "float-3d": {
-          "0%, 100%": { transform: "translateY(0) rotateX(0deg)" },
-          "50%": { transform: "translateY(-8px) rotateX(2deg)" },
-        },
-        /* === BREATHE === */
-        breathe: {
-          "0%, 100%": { transform: "scale(1)" },
-          "50%": { transform: "scale(1.03)" },
         },
       },
       animation: {
@@ -161,12 +147,10 @@ module.exports = {
         "spring-up": "spring-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
         "glow-pulse": "glow-pulse 4s ease-in-out infinite",
         "shimmer-sweep": "shimmer-sweep 2s ease-in-out infinite",
-        "float-3d": "float-3d 6s ease-in-out infinite",
-        "breathe": "breathe 3s ease-in-out infinite",
       },
     },
     container: { center: true, padding: "2rem", screens: { "2xl": "1400px" } },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [tailwindcssAnimate, tailwindcssTypography],
   darkMode: ["class"],
 };

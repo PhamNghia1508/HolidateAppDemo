@@ -18,30 +18,16 @@ import Memories from "@/pages/Memories";
 import Pet from "@/pages/Pet";
 
 /* ============================================================
-   SPATIAL APP SHELL — Floating ambient glows, grain layer,
-   smooth page transitions
+   OBSIDIAN APP SHELL — Dark, premium, tech-unicorn grade
    ============================================================ */
 
 function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-x-hidden bg-cream-warm">
-      {/* Ambient floating blobs */}
+    <div className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-x-hidden bg-[#09090B]">
+      {/* Subtle ambient mint blur — behind content only */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div
-          className="absolute -top-32 -right-32 w-80 h-80 rounded-full blur-[100px] opacity-30"
-          style={{ background: "hsl(var(--coral))" }}
-        />
-        <div
-          className="absolute top-1/3 -left-32 w-60 h-60 rounded-full blur-[80px] opacity-20"
-          style={{ background: "hsl(var(--mint))" }}
-        />
-        <div
-          className="absolute bottom-20 right-10 w-64 h-64 rounded-full blur-[90px] opacity-20"
-          style={{ background: "hsl(var(--champagne))" }}
-        />
-        <div
-          className="absolute top-2/3 left-1/4 w-48 h-48 rounded-full blur-[70px] opacity-15"
-          style={{ background: "hsl(var(--rose))" }}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[400px] rounded-full opacity-[0.06]"
+          style={{ background: "radial-gradient(circle, #00E5A8 0%, transparent 70%)", filter: "blur(100px)" }}
         />
       </div>
 
@@ -58,10 +44,10 @@ function AppShell({ children }: { children: React.ReactNode }) {
 
 /* Page transition wrapper */
 const pageTransition = {
-  initial: { opacity: 0, y: 16, scale: 0.98 },
-  animate: { opacity: 1, y: 0, scale: 1 },
-  exit: { opacity: 0, y: -12, scale: 0.98 },
-  transition: { type: "spring", stiffness: 300, damping: 30, duration: 0.35 },
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -8 },
+  transition: { type: "spring", stiffness: 400, damping: 35, duration: 0.25 },
 };
 
 function PageWrapper({ children }: { children: React.ReactNode }) {

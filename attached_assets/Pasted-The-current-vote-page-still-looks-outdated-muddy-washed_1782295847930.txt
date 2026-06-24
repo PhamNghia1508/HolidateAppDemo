@@ -1,0 +1,174 @@
+The current `/vote` page still looks outdated, muddy, washed-out, and cheap. The pastel cream/coral/yellow/green palette is not acceptable anymore.
+
+I want you to completely restyle this page into a 2026 top-tier tech unicorn mobile UI, inspired by Linear, Arc Search, Vercel, Raycast, and premium AI apps.
+
+This is NOT a playful pastel lifestyle UI anymore.
+Use a strict, disciplined, expensive-looking dark visual identity.
+
+STRICT VISUAL DIRECTION:
+“Obsidian Glass + Electric Mint”
+
+Color system:
+
+* App background: `#09090B`
+* Main card surface: `#121214`
+* Elevated card surface: `#18181B`
+* Border: `rgba(255,255,255,0.08)`
+* Primary text: `#FAFAFA`
+* Secondary text: `#A1A1AA`
+* Muted text: `#71717A`
+* Accent color: `#00E5A8`
+* Accent hover: `#34F5C5`
+* Warning/pending only if needed: `#F5C542`
+* Danger/reschedule only if needed: `#FF4D6D`
+
+Important:
+Use `#00E5A8` as the ONLY main accent.
+Do not mix random pastel orange, yellow, green, and coral anymore.
+Remove the orange-yellow gradient button completely.
+
+Current problems to fix:
+
+* The background looks beige and cheap.
+* The cards look cloudy and muddy.
+* The CTA button looks outdated.
+* The avatars have cheap green glow.
+* Typography does not feel sharp enough.
+* The layout feels like a soft student prototype, not a premium app.
+* The bottom nav feels old and bulky.
+
+Redesign `/vote` with these rules:
+
+1. Background
+
+* Replace the current warm pastel background with a deep obsidian background.
+* Add one subtle ambient mint blur behind the main content using an absolutely positioned div:
+
+  * large blur
+  * very low opacity
+  * behind cards only
+* Do not attach colored box shadows directly to cards or buttons.
+* Use neutral depth and subtle borders.
+
+2. Page Header
+
+* Label `VOTE` should be tiny, uppercase, wide tracking, muted zinc.
+* Title should be sharp, high contrast, bold, and modern.
+* Subtitle should be zinc/secondary text, readable but quiet.
+* Use tighter spacing and more deliberate hierarchy.
+
+3. Progress Card
+
+* Make it a crisp dark glass card:
+
+  * background `#121214` or `bg-zinc-900/80`
+  * border `border-white/10`
+  * subtle neutral shadow
+  * `backdrop-blur-xl`
+* Progress text: accent mint.
+* Progress bar:
+
+  * dark track
+  * solid electric mint fill
+  * no gradient
+  * animate width smoothly with framer-motion if available.
+
+4. Group Avatars Card
+
+* Remove all colored glowing halos from avatars.
+* Use clean circular avatar tokens:
+
+  * dark surface
+  * thin border
+  * active users get accent mint border or small mint status dot
+  * pending user is muted/desaturated
+* Names should be sharp and readable.
+* Status pills should be small, elegant, and monochrome with accent only when active.
+* Add a subtle “live decision” feeling using small status dots, not huge glows.
+
+5. Vote Choice Card
+
+* Vote buttons should feel premium and tactile:
+
+  * selected option: electric mint background or border-highlighted dark card
+  * unselected options: dark elevated cards with thin borders
+  * danger option should be understated, not candy red
+* Use clean icon + text alignment.
+* Add hover/tap spring motion using framer-motion.
+* No pastel button backgrounds.
+
+6. Primary CTA
+
+* Replace the current orange gradient CTA with a sleek high-contrast button:
+  Option A:
+
+  * background `#FAFAFA`
+  * text `#09090B`
+  * subtle inner highlight
+  * hover slightly brighter
+    Option B:
+  * background `#00E5A8`
+  * text `#03110D`
+  * no glow
+    Choose the one that looks more premium in context.
+* Add inner highlight:
+  `shadow-[inset_0_1px_1px_rgba(255,255,255,0.35)]`
+* Use neutral external shadow only:
+  `shadow-[0_12px_40px_rgba(0,0,0,0.35)]`
+
+7. Bottom Navigation
+
+* Redesign bottom nav into a compact premium glass dock:
+
+  * dark translucent background
+  * border top or full border `border-white/10`
+  * backdrop blur
+  * active icon/text uses electric mint
+  * inactive icons use zinc muted
+  * active state has a small mint dot or pill
+* Remove beige nav background.
+* Make it feel like a 2026 mobile app dock.
+
+8. Typography
+
+* Use font stack:
+  `Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif`
+* Titles: `font-black`, `tracking-tight`
+* Labels: `text-[10px] uppercase tracking-[0.22em] font-semibold`
+* Body: clean zinc text
+* No low-contrast brown/grey text.
+
+9. Layout
+
+* Keep the same functional content, but improve spacing.
+* Cards should feel tighter, sharper, and more intentional.
+* Avoid huge empty space.
+* Maintain mobile-first layout.
+* Fix any horizontal overflow.
+
+10. Implementation
+
+* Update Tailwind classes and CSS for this page/component.
+* Add reusable classes if needed:
+
+  * `.obsidian-shell`
+  * `.obsidian-card`
+  * `.ambient-mint-blur`
+  * `.premium-vote-button`
+  * `.premium-bottom-dock`
+* Use framer-motion if already installed for:
+
+  * page entrance
+  * card stagger
+  * vote option tap animation
+  * progress bar animation
+* Do not break existing logic, routing, navigation, or state.
+
+Quality bar:
+The final `/vote` page should look like a premium 2026 dark-mode tech product, not a pastel student project.
+It should feel sharp, expensive, minimal, and emotionally satisfying.
+
+Do not keep the current beige/coral/yellow palette.
+Do not create more pastel gradients.
+Do not use colorful glows attached to elements.
+Use Obsidian + Electric Mint only.
