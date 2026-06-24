@@ -41,6 +41,20 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        cream: "hsl(var(--cream))",
+        ink: "hsl(var(--ink))",
+        sage: {
+          DEFAULT: "hsl(var(--sage))",
+          light: "hsl(var(--sage-light))",
+        },
+        coral: {
+          DEFAULT: "hsl(var(--coral))",
+          light: "hsl(var(--coral-light))",
+        },
+        mint: "hsl(var(--mint))",
+        sky: "hsl(var(--sky))",
+        plum: "hsl(var(--plum))",
+        yellow: "hsl(var(--yellow))",
       },
       borderRadius: {
         lg: "var(--radius)",
