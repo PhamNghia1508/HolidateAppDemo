@@ -69,7 +69,7 @@ export default function Home() {
         <div className="page-label mb-1">GatherGo</div>
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-[28px] font-black tracking-tight" style={{ color: T1 }}>
+            <h1 className="text-[34px] font-black tracking-tight leading-tight" style={{ color: T1 }}>
               {["Chào", " Nghĩa", " 👋"].map((word, i) => (
                 <motion.span key={word}
                   initial={{ opacity: 0, y: 10 }}
