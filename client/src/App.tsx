@@ -5,14 +5,28 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 
-import { PremiumCanvas } from "@/pages/PremiumCanvas";
+import Onboarding from "@/pages/Onboarding";
+import Home from "@/pages/Home";
+import CreatePlan from "@/pages/CreatePlan";
+import Suggested from "@/pages/Suggested";
+import PlanDetail from "@/pages/PlanDetail";
+import Vote from "@/pages/Vote";
+import Confirmed from "@/pages/Confirmed";
+import Memories from "@/pages/Memories";
+import Pet from "@/pages/Pet";
 
 function Router() {
   return (
     <Switch>
-      {/* Add pages below */}
-      <Route path="/" component={PremiumCanvas} />
-      {/* Fallback to 404 */}
+      <Route path="/" component={Onboarding} />
+      <Route path="/home" component={Home} />
+      <Route path="/create-plan" component={CreatePlan} />
+      <Route path="/suggested" component={Suggested} />
+      <Route path="/plan-detail" component={PlanDetail} />
+      <Route path="/vote" component={Vote} />
+      <Route path="/confirmed" component={Confirmed} />
+      <Route path="/memories" component={Memories} />
+      <Route path="/pet" component={Pet} />
       <Route component={NotFound} />
     </Switch>
   );
