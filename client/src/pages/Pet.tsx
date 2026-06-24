@@ -13,7 +13,13 @@ const T2 = "#475569";
 const T3 = "#94A3B8";
 const BORDER = "rgba(0,0,0,0.07)";
 const SHADOW = "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06)";
-const DANGER = "#EF4444";
+
+function getEnergyState(energy: number): { label: string; color: string; desc: string } {
+  if (energy >= 85) return { label: "Đang rất vui 😄", color: "#22C55E", desc: "Mimi tràn đầy năng lượng!" };
+  if (energy >= 65) return { label: "Ổn áp 😊", color: BLUE, desc: "Mimi đang trong trạng thái tốt." };
+  if (energy >= 40) return { label: "Hơi đói rồi 😐", color: "#F59E0B", desc: "Thêm vài kỷ niệm nữa là Mimi vui ngay." };
+  return { label: "Đói bụng rồi 🥺", color: "#EF4444", desc: "Mimi cần được cho ăn kỷ niệm!" };
+}
 
 const cardVariants = {
   hidden: { opacity: 0, y: 28 },
@@ -23,12 +29,13 @@ const cardVariants = {
 export default function Pet() {
   const [energy, setEnergy] = useState(70);
   const [isHappy, setIsHappy] = useState(false);
-  const [earWiggle, setEarWiggle] = useState(false);
   const [sparkId, setSparkId] = useState(0);
   const [gatherCount] = useState(12);
   const [photoCount] = useState(48);
   const [level] = useState(3);
   const [memoriesUntilLevel] = useState(2);
+
+  const energyState = getEnergyState(energy);
 
   const feedPet = () => {
     setEnergy(e => Math.min(100, e + 15));
@@ -38,10 +45,7 @@ export default function Pet() {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setEarWiggle(true);
-      setTimeout(() => setEarWiggle(false), 1500);
-    }, 6000);
+    const interval = setInterval(() => {}, 6000);
     return () => clearInterval(interval);
   }, []);
 
@@ -65,16 +69,13 @@ export default function Pet() {
       <motion.div custom={1} variants={cardVariants} initial="hidden" animate="visible" className="mb-4">
         <div className="rounded-3xl p-6 flex flex-col items-center relative overflow-hidden"
           style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
-          {/* Ambient light */}
           <div className="absolute top-0 left-0 right-0 h-40 rounded-t-3xl pointer-events-none"
             style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.07) 0%, transparent 70%)" }} />
 
           <div className="relative mb-5 w-full flex flex-col items-center">
-            {/* Subtle glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] rounded-full pointer-events-none"
               style={{ background: "radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)", filter: "blur(20px)" }} />
 
-            {/* Cat */}
             <motion.div
               animate={isHappy ? { y: [0, -28, -12, -22, 0], rotate: [0, -8, 8, -5, 0] } : { y: [0, -10, 0] }}
               transition={isHappy ? { duration: 0.8 } : { duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
@@ -111,7 +112,6 @@ export default function Pet() {
                     </svg>
                   </div>
                 </div>
-                {/* Sparkles */}
                 <AnimatePresence>
                   {isHappy && [...Array(10)].map((_, i) => (
                     <motion.div key={`spark-${sparkId}-${i}`} className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full"
@@ -121,7 +121,6 @@ export default function Pet() {
                       transition={{ duration: 0.75, ease: "easeOut" }} />
                   ))}
                 </AnimatePresence>
-                {/* Level badge */}
                 <div className="absolute top-2 right-2 flex items-center gap-1 px-2.5 py-1 rounded-full"
                   style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(12px)", border: BORDER, boxShadow: SHADOW }}>
                   <Star className="w-3 h-3 fill-current" style={{ color: BLUE }} />
@@ -134,7 +133,7 @@ export default function Pet() {
           <h2 className="text-[22px] font-black tracking-tight" style={{ color: T1 }}>Mimi</h2>
           <motion.p animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 3, repeat: Infinity }}
             className="text-[13px] mt-0.5" style={{ color: T2 }}>
-            {isHappy ? "Mimi no nê! Cảm ơn bạn!" : "Đang vui — muốn thêm kỷ niệm"}
+            {isHappy ? "Mimi no nê rồi! 🎉" : "Đang vui — muốn thêm kỷ niệm"}
           </motion.p>
 
           <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={feedPet}
@@ -144,24 +143,27 @@ export default function Pet() {
         </div>
       </motion.div>
 
-      {/* Energy bar */}
+      {/* Energy bar — label reflects actual state */}
       <motion.div custom={2} variants={cardVariants} initial="hidden" animate="visible" className="mb-4">
         <div className="rounded-2xl p-4" style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: DANGER }} />
-              <span className="text-[13px] font-bold" style={{ color: DANGER }}>Đói bụng</span>
+              <div className="w-2 h-2 rounded-full" style={{ background: energyState.color }} />
+              <span className="text-[13px] font-bold" style={{ color: energyState.color }}>{energyState.label}</span>
             </div>
             <span className="text-[18px] font-black" style={{ color: BLUE }}>{energy}%</span>
           </div>
           <div className="progress-track">
             <motion.div className="h-full rounded-full"
-              style={{ background: `linear-gradient(90deg, ${BLUE_BRIGHT}, ${BLUE})` }}
+              style={{ background: `linear-gradient(90deg, ${energyState.color}, ${BLUE})` }}
               initial={{ width: "0%" }} animate={{ width: `${energy}%` }}
               transition={{ duration: 1.2, type: "spring", stiffness: 60 }} />
           </div>
           <p className="text-[12px] mt-2" style={{ color: T3 }}>
-            Cần thêm <span style={{ color: BLUE, fontWeight: 700 }}>{memoriesUntilLevel} kỷ niệm</span> để Mimi lên Level {level + 1}
+            {energyState.desc}{" "}
+            {memoriesUntilLevel > 0 && (
+              <span>Cần thêm <span style={{ color: BLUE, fontWeight: 700 }}>{memoriesUntilLevel} kỷ niệm</span> để lên Level {level + 1}.</span>
+            )}
           </p>
         </div>
       </motion.div>
@@ -194,7 +196,7 @@ export default function Pet() {
           <div className="relative w-[72px] h-[72px]">
             <svg width="72" height="72" className="transform -rotate-90">
               <circle cx="36" cy="36" r="30" fill="none" stroke="#E2E8F0" strokeWidth="5" />
-              <motion.circle cx="36" cy="36" r="30" fill="none" stroke={BLUE} strokeWidth="5" strokeLinecap="round"
+              <motion.circle cx="36" cy="36" r="30" fill="none" stroke={energyState.color} strokeWidth="5" strokeLinecap="round"
                 strokeDasharray={188} initial={{ strokeDashoffset: 188 }}
                 animate={{ strokeDashoffset: 188 - (energy / 100) * 188 }}
                 transition={{ duration: 1.5, delay: 0.3, type: "spring", stiffness: 60 }} />
@@ -214,7 +216,7 @@ export default function Pet() {
           <div className="text-[13px] font-bold" style={{ color: T1 }}>Tiny Crown</div>
           <div className="text-[10px] mt-1" style={{ color: T3 }}>Còn {memoriesUntilLevel} kỷ niệm</div>
           <div className="w-full h-1 rounded-full mt-2 overflow-hidden" style={{ background: "#E2E8F0" }}>
-            <div className="h-full rounded-full" style={{ width: `${(2 - memoriesUntilLevel) / 2 * 100}%`, background: BLUE }} />
+            <div className="h-full rounded-full" style={{ width: "50%", background: BLUE }} />
           </div>
         </motion.div>
       </div>
@@ -238,7 +240,7 @@ export default function Pet() {
             ].map((r, i) => (
               <motion.div key={r.label}
                 initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.55 + i * 0.05, type: "spring", stiffness: 400, damping: 20 }}
+                transition={{ delay: 0.55 + i * 0.05, type: "spring" }}
                 whileHover={!r.locked ? { scale: 1.08, y: -4 } : {}}
                 className="relative flex flex-col items-center rounded-2xl p-2.5 border"
                 style={{

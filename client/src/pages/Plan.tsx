@@ -1,7 +1,7 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
-import { MapPin, Clock, Users, ChevronRight, Ticket } from "lucide-react";
+import { MapPin, Clock, Users, ChevronRight } from "lucide-react";
 
 const BG = "#F1F5FB";
 const SURF = "#FFFFFF";
@@ -54,7 +54,7 @@ export default function Plan() {
         ))}
       </div>
 
-      {/* Plan List */}
+      {/* Plan List — clean cards, no confusing dividers */}
       <div className="space-y-3">
         {savedPlans.map((plan, i) => (
           <motion.button key={plan.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={S(i + 3)}
@@ -62,32 +62,42 @@ export default function Plan() {
             onClick={() => setLocation(plan.status === "Chờ vote" ? "/vote" : "/plan-detail")}
             className="w-full text-left rounded-2xl relative overflow-hidden"
             style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
+            {/* Left accent bar */}
             <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl" style={{ background: plan.accent }} />
             <div className="p-4 pl-5">
-              <div className="flex items-start justify-between mb-2">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full"
-                      style={{ background: `${plan.accent}15`, color: plan.accent, border: `1px solid ${plan.accent}30` }}>
-                      {plan.status}
-                    </span>
-                    <span className="text-[11px]" style={{ color: T3 }}>{plan.group}</span>
-                  </div>
-                  <h3 className="text-[16px] font-bold" style={{ color: T1 }}>{plan.title}</h3>
+              {/* Status + Group row */}
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full"
+                    style={{ background: `${plan.accent}15`, color: plan.accent, border: `1px solid ${plan.accent}30` }}>
+                    {plan.status}
+                  </span>
+                  <span className="text-[11px]" style={{ color: T3 }}>{plan.group}</span>
                 </div>
-                <ChevronRight className="w-4 h-4 mt-1" style={{ color: T3 }} />
+                <ChevronRight className="w-4 h-4" style={{ color: T3 }} />
               </div>
-              <div className="flex items-center gap-1 mb-2.5">
-                <div className="w-1.5 h-1.5 rounded-full" style={{ background: plan.accent }} />
-                <div className="h-px flex-1" style={{ background: `linear-gradient(90deg, ${plan.accent}30, transparent)` }} />
-                <Ticket className="w-3 h-3" style={{ color: T3 }} />
-              </div>
+
+              {/* Title */}
+              <h3 className="text-[17px] font-bold mb-2.5" style={{ color: T1 }}>{plan.title}</h3>
+
+              {/* Metadata row — clean, no decorative dividers */}
               <div className="flex items-center gap-4 text-[12px]" style={{ color: T3 }}>
-                <div className="flex items-center gap-1"><Clock className="w-3 h-3" /><span>{plan.time}</span></div>
-                <div className="flex items-center gap-1"><MapPin className="w-3 h-3" /><span>{plan.stops}</span></div>
-                <div className="flex items-center gap-1"><Users className="w-3 h-3" /><span>{plan.cost}</span></div>
+                <div className="flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5" />
+                  <span>{plan.time}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>{plan.stops}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Users className="w-3.5 h-3.5" />
+                  <span>{plan.cost}</span>
+                </div>
               </div>
-              <div className="mt-2">
+
+              {/* Mood tag */}
+              <div className="mt-2.5">
                 <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold"
                   style={{ background: "rgba(59,130,246,0.08)", color: BLUE, border: `1px solid rgba(59,130,246,0.15)` }}>
                   {plan.mood}

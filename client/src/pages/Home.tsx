@@ -16,6 +16,13 @@ const SHADOW = "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06)";
 
 const S = (i: number) => ({ delay: 0.06 + i * 0.05, type: "spring" as const, stiffness: 420, damping: 32 });
 
+const quickLinks = [
+  { label: "Gợi ý gần tôi", sub: "Quán hot hôm nay", icon: MapPin, path: "/suggested" },
+  { label: "Plan của tôi", sub: "2 plan sẵn sàng", icon: Calendar, path: "/plan" },
+  { label: "Vote nhóm", sub: "1 đang chờ bạn", icon: Vote, path: "/vote", badge: true },
+  { label: "Kỷ niệm", sub: "Đêm rooftop", icon: Heart, path: "/memories" },
+];
+
 export default function Home() {
   const [, setLocation] = useLocation();
 
@@ -31,14 +38,14 @@ export default function Home() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={S(1)}
         className="flex items-center gap-3 rounded-2xl p-3 mb-4"
         style={{ background: SURF2, border: `1px solid rgba(59,130,246,0.15)` }}>
-        <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: "rgba(59,130,246,0.12)" }}>
+        <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "rgba(59,130,246,0.12)" }}>
           <TrendingUp className="w-4 h-4" style={{ color: BLUE }} />
         </div>
-        <div>
+        <div className="flex-1 min-w-0">
           <p className="text-[12px] font-semibold" style={{ color: T1 }}>Today's Gather Pulse</p>
           <p className="text-[11px]" style={{ color: T3 }}>Nhóm đang hào hứng — 3 plan sẵn sàng</p>
         </div>
-        <div className="ml-auto flex -space-x-1.5">
+        <div className="flex -space-x-1.5 flex-shrink-0">
           {[BLUE, "#8B5CF6", "#F59E0B"].map((c, i) => (
             <div key={i} className="w-6 h-6 rounded-full" style={{ background: `${c}44`, border: `1.5px solid ${c}66` }} />
           ))}
@@ -88,39 +95,26 @@ export default function Home() {
         </motion.button>
       </motion.div>
 
-      {/* Bento */}
-      <div className="bento-asymmetric mb-3">
-        {[
-          { label: "Gợi ý gần tôi", sub: "Quán hot gần bạn", icon: MapPin, path: "/suggested" },
-          { label: "Plan", sub: "2 sẵn", icon: Calendar, path: "/plan" },
-        ].map(({ label, sub, icon: Icon, path }, i) => (
+      {/* Quick Links — 2x2 equal grid, all cards fully visible */}
+      <div className="grid grid-cols-2 gap-3 mb-5">
+        {quickLinks.map(({ label, sub, icon: Icon, path, badge }, i) => (
           <motion.button key={path} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={S(4 + i)}
             whileTap={{ scale: 0.97 }} onClick={() => setLocation(path)}
-            className="rounded-2xl text-left p-4"
+            className="rounded-2xl text-left p-4 relative"
             style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-2" style={{ background: "rgba(59,130,246,0.10)" }}>
-              <Icon className="w-4 h-4" style={{ color: BLUE }} />
+            <div className="relative w-fit mb-2">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "rgba(59,130,246,0.10)" }}>
+                <Icon className="w-4 h-4" style={{ color: BLUE }} />
+              </div>
+              {badge && (
+                <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center"
+                  style={{ background: "#EF4444", border: "1.5px solid white" }}>
+                  <span className="text-[8px] font-black text-white">1</span>
+                </div>
+              )}
             </div>
-            <p className="text-[15px] font-bold" style={{ color: T1 }}>{label}</p>
-            <p className="text-[12px] mt-0.5" style={{ color: T3 }}>{sub}</p>
-          </motion.button>
-        ))}
-      </div>
-
-      <div className="bento mb-5">
-        {[
-          { label: "Join bằng mã", sub: "Vào plan bạn gửi", icon: Vote, path: "/vote" },
-          { label: "Kỷ niệm", sub: "Đêm rooftop", icon: Heart, path: "/memories" },
-        ].map(({ label, sub, icon: Icon, path }, i) => (
-          <motion.button key={path} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={S(6 + i)}
-            whileTap={{ scale: 0.97 }} onClick={() => setLocation(path)}
-            className="rounded-2xl text-left p-4"
-            style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-2" style={{ background: "rgba(59,130,246,0.10)" }}>
-              <Icon className="w-5 h-5" style={{ color: BLUE }} />
-            </div>
-            <p className="text-[15px] font-bold" style={{ color: T1 }}>{label}</p>
-            <p className="text-[12px] mt-0.5" style={{ color: T3 }}>{sub}</p>
+            <p className="text-[14px] font-bold leading-tight" style={{ color: T1 }}>{label}</p>
+            <p className="text-[11px] mt-0.5" style={{ color: T3 }}>{sub}</p>
           </motion.button>
         ))}
       </div>
@@ -129,7 +123,7 @@ export default function Home() {
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
         className="flex items-center gap-3 rounded-2xl px-4 py-3"
         style={{ background: SURF2, border: `1px solid rgba(59,130,246,0.15)` }}>
-        <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#22C55E" }} />
+        <div className="w-2 h-2 rounded-full animate-pulse flex-shrink-0" style={{ background: "#22C55E" }} />
         <p className="text-[13px] font-medium" style={{ color: BLUE_BRIGHT }}>GoPet đang vui vì bạn vừa lưu kỷ niệm.</p>
       </motion.div>
 

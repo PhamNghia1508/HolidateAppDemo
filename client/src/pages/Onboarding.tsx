@@ -1,5 +1,6 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
+import { Zap, Users, Camera } from "lucide-react";
 
 const BG = "#F1F5FB";
 const SURF = "#FFFFFF";
@@ -10,6 +11,12 @@ const T2 = "#475569";
 const T3 = "#94A3B8";
 const BORDER = "rgba(0,0,0,0.08)";
 const SHADOW = "0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.06)";
+
+const floatingChips = [
+  { text: "3 plan sẵn sàng", icon: Zap, top: "1rem", left: "1rem", delay: 0 },
+  { text: "4 bạn đang vote", icon: Users, top: "3.2rem", right: "1rem", delay: 0.22 },
+  { text: "Đã lưu kỷ niệm", icon: Camera, bottom: "3.2rem", left: "1.8rem", delay: 0.44 },
+];
 
 export default function Onboarding() {
   const [, setLocation] = useLocation();
@@ -31,7 +38,7 @@ export default function Onboarding() {
         <div className="page-label">GatherGo</div>
       </div>
 
-      {/* Hero */}
+      {/* Hero image */}
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -46,21 +53,24 @@ export default function Onboarding() {
         />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,23,42,0.65), rgba(15,23,42,0.15) 55%, transparent)" }} />
 
-        {/* Floating chips */}
-        {[
-          { text: "3 plan sẵn sàng", top: "1rem", left: "1rem", delay: 0 },
-          { text: "4 bạn đang vote", top: "3.5rem", right: "1rem", delay: 0.25 },
-          { text: "Đã lưu kỷ niệm", bottom: "3rem", left: "2rem", delay: 0.5 },
-        ].map(({ text, top, left, right, bottom, delay }: any, i) => (
+        {/* Floating chips — now with icons, no awkward vertical bar */}
+        {floatingChips.map(({ text, icon: Icon, top, left, right, bottom, delay }: any, i) => (
           <motion.div key={i}
             animate={{ y: [0, -(5 + i * 1.5), 0] }}
             transition={{ duration: 3.2 + i * 0.4, repeat: Infinity, ease: "easeInOut", delay }}
-            className="absolute px-3 py-2 rounded-xl"
-            style={{ top, left, right, bottom, background: "rgba(255,255,255,0.90)", backdropFilter: "blur(16px)", border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-6 rounded-full" style={{ background: BLUE }} />
-              <span className="text-[12px] font-semibold" style={{ color: T1 }}>{text}</span>
+            className="absolute flex items-center gap-2 px-3 py-2 rounded-xl"
+            style={{
+              top, left, right, bottom,
+              background: "rgba(255,255,255,0.92)",
+              backdropFilter: "blur(16px)",
+              border: `1px solid ${BORDER}`,
+              boxShadow: SHADOW,
+            }}>
+            <div className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
+              style={{ background: "rgba(59,130,246,0.12)" }}>
+              <Icon className="w-3.5 h-3.5" style={{ color: BLUE }} />
             </div>
+            <span className="text-[12px] font-semibold whitespace-nowrap" style={{ color: T1 }}>{text}</span>
           </motion.div>
         ))}
 
@@ -105,7 +115,7 @@ export default function Onboarding() {
         </div>
 
         <motion.button whileHover={{ scale: 1.01, y: -1 }} whileTap={{ scale: 0.98 }}
-          onClick={() => setLocation("/home")} className="w-full h-[56px] premium-cta">
+          onClick={() => setLocation("/home")} className="w-full h-[56px] premium-cta-mint">
           Bắt đầu tạo Gather
         </motion.button>
         <p className="text-center text-[13px] mt-4" style={{ color: T3 }}>Không feed công khai. Không chat lòng vòng.</p>

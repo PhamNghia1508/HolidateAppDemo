@@ -2,14 +2,6 @@ import { useLocation } from "wouter";
 import { Home, Calendar, Heart, PawPrint } from "lucide-react";
 import { motion } from "framer-motion";
 
-const tabs = [
-  { path: "/home", label: "Trang chủ", icon: Home },
-  { path: "/plan", label: "Plan", icon: Calendar },
-  { path: "/vote", label: "Vote", icon: VoteIcon },
-  { path: "/memories", label: "Kỷ niệm", icon: Heart },
-  { path: "/pet", label: "Pet", icon: PawPrint },
-];
-
 function VoteIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -18,6 +10,14 @@ function VoteIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+const tabs = [
+  { path: "/home", label: "Trang chủ", icon: Home, badge: 0 },
+  { path: "/plan", label: "Plan", icon: Calendar, badge: 0 },
+  { path: "/vote", label: "Vote", icon: VoteIcon, badge: 1 },
+  { path: "/memories", label: "Kỷ niệm", icon: Heart, badge: 0 },
+  { path: "/pet", label: "Pet", icon: PawPrint, badge: 0 },
+];
 
 export default function BottomNav() {
   const [location, setLocation] = useLocation();
@@ -57,13 +57,25 @@ export default function BottomNav() {
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
               )}
-              <motion.div
-                animate={isActive ? { scale: 1.1 } : { scale: 1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                style={{ color: isActive ? "#3B82F6" : "#94A3B8" }}
-              >
-                <Icon className="w-[22px] h-[22px]" />
-              </motion.div>
+              <div className="relative">
+                <motion.div
+                  animate={isActive ? { scale: 1.1 } : { scale: 1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  style={{ color: isActive ? "#3B82F6" : "#94A3B8" }}
+                >
+                  <Icon className="w-[22px] h-[22px]" />
+                </motion.div>
+                {tab.badge > 0 && (
+                  <motion.div
+                    initial={{ scale: 0 }} animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 20 }}
+                    className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center"
+                    style={{ background: "#EF4444", border: "1.5px solid white" }}
+                  >
+                    <span className="text-[8px] font-black text-white leading-none">{tab.badge}</span>
+                  </motion.div>
+                )}
+              </div>
               <motion.span
                 animate={isActive ? { opacity: 1 } : { opacity: 0.5 }}
                 className="text-[9.5px] font-semibold tracking-wide leading-none"

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
-import { Calendar, Heart, Share2, Check, Clock, MapPin, Users } from "lucide-react";
+import { Calendar, Heart, Share2, Check, Clock, MapPin, Users, ArrowLeft } from "lucide-react";
 import Confetti from "@/components/Confetti";
 
 const BG = "#F1F5FB";
@@ -26,11 +26,17 @@ export default function Confirmed() {
   }, []);
 
   return (
-    <div className="flex-1 overflow-y-auto pb-20 px-5 relative" style={{ background: BG }}>
+    <div className="flex-1 overflow-y-auto pb-20 px-5 relative overflow-x-hidden" style={{ background: BG }}>
       <Confetti trigger={confettiTrigger} />
 
-      <div className="pt-6 mb-4">
-        <div className="page-label mb-1">Confirmed</div>
+      {/* Back button */}
+      <div className="flex items-center gap-3 pt-6 mb-4">
+        <motion.button whileTap={{ scale: 0.9 }} onClick={() => setLocation("/vote")}
+          className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+          style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
+          <ArrowLeft className="w-4 h-4" style={{ color: T1 }} />
+        </motion.button>
+        <div className="page-label">Confirmed</div>
       </div>
 
       {/* Success badge */}
@@ -67,7 +73,7 @@ export default function Confirmed() {
         </div>
         <div className="grid grid-cols-3 gap-3 mb-4">
           {[
-            { icon: Users, value: "3", label: "người" },
+            { icon: Users, value: "4", label: "người" },
             { icon: MapPin, value: "3", label: "điểm đến" },
             { icon: Clock, value: "1h", label: "nhắc trước" },
           ].map((s, i) => (
@@ -85,7 +91,7 @@ export default function Confirmed() {
 
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mb-3">
         <motion.button whileHover={{ scale: 1.01, y: -1 }} whileTap={{ scale: 0.98 }}
-          onClick={() => setLocation("/plan-detail")} className="w-full h-[52px] premium-cta">
+          onClick={() => setLocation("/plan-detail")} className="w-full h-[52px] premium-cta-mint">
           Xem lịch trình
         </motion.button>
       </motion.div>
