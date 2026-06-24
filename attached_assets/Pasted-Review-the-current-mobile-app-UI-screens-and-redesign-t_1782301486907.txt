@@ -1,0 +1,61 @@
+Review the current mobile app UI screens and redesign them to feel less safe, less generic, and more like a premium 2026 social planning app.
+
+The current design is clean but too template-like: too many identical white cards, too much generic blue, safe shadows, and not enough brand personality. Keep the app usable and friendly, but push the visual identity further.
+
+Design direction:
+“Soft Futuristic Social Planner” — premium, warm, emotional, playful, but still polished.
+
+Core product concept:
+GatherGo is a social planning app for creating plans, voting with friends/couple/family, saving memories, and growing a small companion pet named Mimi through shared memories.
+
+Visual identity rules:
+1. Create a stronger signature motif across all screens:
+   - Use route lines, orbit dots, itinerary paths, live vote pulses, and memory trails.
+   - This motif should connect Home, Plan, Vote, Memory, and Pet visually.
+
+2. Reduce generic card repetition:
+   - Do not make every module the same white rounded card.
+   - Mix card sizes, editorial sections, timeline blocks, image-led cards, compact chips, and glass panels.
+   - Use fewer heavy shadows; prefer subtle borders, layered depth, soft blur, and premium spacing.
+
+3. Improve color system:
+   - Keep a clean warm frost background, not pure flat white.
+   - Use electric blue as the primary accent, but use it more selectively.
+   - Use amber/orange only for pending vote, Mimi energy, streaks, and warm emotional moments.
+   - Avoid random pastel icons that make the product feel cheap.
+
+4. Strengthen typography:
+   - Use stronger hierarchy with large confident screen titles.
+   - Make section labels more elegant and less generic.
+   - Improve body text contrast and spacing.
+   - Make status text feel alive and useful.
+
+5. Make the Vote screen feel alive:
+   - Replace the empty “recent activity” card with real live activity rows.
+   - Add microcopy like “Linh vừa đồng ý”, “An chưa phản hồi”, “Minh đổi sang có thể”.
+   - Make the progress section more premium and social, not just a basic progress bar.
+   - Add subtle live pulse / glowing status for active voting.
+
+6. Make the Plan screen feel more like an itinerary product:
+   - Add route/timeline indicators to each plan.
+   - Visually distinguish Draft, Voting, and Locked plans.
+   - Make saved plans feel more premium and less like task cards.
+
+7. Make the Memory screen more emotional:
+   - Add a memory timeline or polaroid-style treatment.
+   - Make photos feel curated, not just a generic grid.
+   - Show social context: who was there, vibe, last memory, shared streak.
+
+8. Make Mimi a cross-app mascot:
+   - Mimi should not only exist in the Pet tab.
+   - Add small contextual Mimi bubbles in Home, Vote, and Memory.
+   - Example: “Mimi vui vì bạn vừa lưu kỷ niệm” or “Mimi đang chờ cả nhóm vote”.
+
+9. Keep the app mobile-first:
+   - Maintain clear tap targets.
+   - Keep the bottom navigation clean.
+   - Avoid clutter.
+   - Every visual upgrade must still improve usability.
+
+Goal:
+The final UI should feel like a distinctive premium consumer app, not a safe UI kit. It should look memorable, polished, emotional, and investor-demo ready.
