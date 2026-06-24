@@ -108,7 +108,7 @@ function FrameThumb({ frameId, photoUrl, size = 72 }: { frameId: string; photoUr
       <span style={{ position: "absolute", bottom: 0, right: 0, fontSize: s * 0.2 }}>🍃</span>
     </div>
   );
-  return <div style={{ width: s, height: s, background: "#E2E8F0", borderRadius: 8 }} />;
+  return <div style={{ width: s, height: s, background: "#EDE3D0", borderRadius: 8 }} />;
 }
 
 /* ---- Full compositor ---- */
@@ -362,7 +362,7 @@ export default function Photobooth() {
               transition={{ type: "spring", stiffness: 380, damping: 32 }}
               className="fixed bottom-0 left-0 right-0 z-50 max-w-md mx-auto rounded-t-3xl px-5 pt-5 pb-10"
               style={{ background: SURF, boxShadow: "0 -8px 40px rgba(0,0,0,0.14)" }}>
-              <div className="w-12 h-1.5 rounded-full bg-gray-200 mx-auto mb-5" />
+              <div className="w-12 h-1.5 rounded-full bg-wi-tinted mx-auto mb-5" />
               <h2 className="text-[18px] font-black mb-1" style={{ color: T1 }}>Lưu vào album nào?</h2>
               <p className="text-[13px] mb-4" style={{ color: T2 }}>Chọn nhóm để lưu bức ảnh này.</p>
               <div className="space-y-2.5 mb-5">

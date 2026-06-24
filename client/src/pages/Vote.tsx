@@ -240,12 +240,12 @@ export default function Vote() {
             className="h-full" style={{ background: WARN }} />
           <motion.div initial={{ flex: 0 }} animate={{ flex: 1 }}
             transition={{ duration: 0.9, delay: 0.55 }}
-            className="h-full rounded-r-full" style={{ background: "#E2E8F0" }} />
+            className="h-full rounded-r-full" style={{ background: "rgba(26,14,7,0.10)" }} />
         </div>
         <div className="flex items-center gap-3 text-[11px]" style={{ color: T3 }}>
           <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: BLUE }} />2 đồng ý</span>
           <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: WARN }} />1 có thể</span>
-          <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "#E2E8F0" }} />1 chưa vote</span>
+          <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "rgba(26,14,7,0.15)" }} />1 chưa vote</span>
         </div>
         {voteCount < 4 && (
           <motion.p animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity }}
@@ -271,7 +271,7 @@ export default function Vote() {
                   transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3 }}
                   className="w-[52px] h-[52px] rounded-full flex items-center justify-center font-bold text-[15px]"
                   style={{
-                    background: m.state === "active" ? `${m.color}16` : m.state === "maybe" ? "rgba(245,158,11,0.10)" : "#F1F5F9",
+                    background: m.state === "active" ? `${m.color}16` : m.state === "maybe" ? "rgba(245,158,11,0.10)" : "#EDE3D0",
                     border: `2px solid ${m.state === "active" ? m.color : m.state === "maybe" ? WARN : BORDER}`,
                     color: m.state === "active" ? m.color : m.state === "maybe" ? "#B45309" : T3,
                     boxShadow: m.state === "active" ? `0 0 0 4px ${m.color}14` : "none",
@@ -280,7 +280,7 @@ export default function Vote() {
                 </motion.div>
                 {m.state === "active" && <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white" style={{ background: "#3D6B4F" }} />}
                 {m.state === "maybe" && <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white flex items-center justify-center text-[8px]" style={{ background: WARN }}>?</div>}
-                {m.state === "pending" && <motion.div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white flex items-center justify-center" style={{ background: "#F1F5F9" }} animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1.8, repeat: Infinity }}><Clock className="w-2.5 h-2.5" style={{ color: T3 }} /></motion.div>}
+                {m.state === "pending" && <motion.div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white flex items-center justify-center" style={{ background: "#EDE3D0" }} animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1.8, repeat: Infinity }}><Clock className="w-2.5 h-2.5" style={{ color: T3 }} /></motion.div>}
               </div>
               <p className="text-[11px] font-semibold mt-1.5" style={{ color: T1 }}>{m.name}</p>
               <span className={`status-pill mt-1 ${m.state === "active" ? "mint" : m.state === "maybe" ? "warning" : "muted"}`}>{m.status}</span>

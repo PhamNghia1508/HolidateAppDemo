@@ -345,7 +345,7 @@ export default function Pet() {
             </div>
             <span className="text-[18px] font-black" style={{ color: BLUE }}>{energy}%</span>
           </div>
-          <div className="progress-track" style={{ height: 8, background: "#F1F5F9", borderRadius: 4, overflow: "hidden" }}>
+          <div className="progress-track" style={{ height: 8, background: "rgba(26,14,7,0.08)", borderRadius: 4, overflow: "hidden" }}>
             <motion.div className="h-full rounded-full"
               style={{ background: `linear-gradient(90deg, ${energyState.color}, ${BLUE})` }}
               initial={{ width: "0%" }} animate={{ width: `${energy}%` }}
@@ -388,7 +388,7 @@ export default function Pet() {
           style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
           <div className="relative w-[72px] h-[72px]">
             <svg width="72" height="72" className="transform -rotate-90">
-              <circle cx="36" cy="36" r="30" fill="none" stroke="#E2E8F0" strokeWidth="5" />
+              <circle cx="36" cy="36" r="30" fill="none" stroke="rgba(26,14,7,0.12)" strokeWidth="5" />
               <motion.circle cx="36" cy="36" r="30" fill="none" stroke={energyState.color} strokeWidth="5" strokeLinecap="round"
                 strokeDasharray={188} initial={{ strokeDashoffset: 188 }}
                 animate={{ strokeDashoffset: 188 - (energy / 100) * 188 }}
@@ -408,7 +408,7 @@ export default function Pet() {
           <div className="text-[26px] mb-1">👑</div>
           <div className="text-[13px] font-bold" style={{ color: T1 }}>Tiny Crown</div>
           <div className="text-[10px] mt-1" style={{ color: T3 }}>Còn {memoriesUntilLevel} kỷ niệm</div>
-          <div className="w-full h-1 rounded-full mt-2 overflow-hidden" style={{ background: "#E2E8F0" }}>
+          <div className="w-full h-1 rounded-full mt-2 overflow-hidden" style={{ background: "rgba(26,14,7,0.10)" }}>
             <div className="h-full rounded-full" style={{ width: "50%", background: BLUE }} />
           </div>
         </motion.div>

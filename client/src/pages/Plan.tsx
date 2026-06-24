@@ -67,7 +67,7 @@ function MemberVotes({
             transition={{ delay: 0.1 + idx * 0.05, type: "spring", stiffness: 500, damping: 24 }}
             className="relative w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
             style={{
-              background: voted ? m.color : "#E2E8F0",
+              background: voted ? m.color : "rgba(26,14,7,0.10)",
               border: `1.5px solid ${voted ? "white" : "transparent"}`,
               color: voted ? "white" : T3,
               opacity: voted ? 1 : 0.55,
@@ -324,7 +324,7 @@ export default function Plan() {
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <div className="flex items-center gap-1 px-2 py-0.5 rounded-full"
-                            style={{ background: "#F1F5F9", border: "1px solid #E2E8F0" }}>
+                            style={{ background: "#EDE3D0", border: "1px solid rgba(26,14,7,0.12)" }}>
                             <FileEdit className="w-3 h-3" style={{ color: T3 }} />
                             <span className="text-[10px] font-bold" style={{ color: T3 }}>NHÁP</span>
                           </div>

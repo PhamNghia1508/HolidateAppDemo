@@ -93,7 +93,7 @@ function ShareCard({ onClose }: { onClose: () => void }) {
           </button>
           <button onClick={onClose}
             className="w-12 h-12 rounded-2xl flex items-center justify-center"
-            style={{ background: "#F1F5F9" }}>
+            style={{ background: "#EDE3D0" }}>
             <X className="w-4 h-4" style={{ color: "#5C4033" }} />
           </button>
         </div>

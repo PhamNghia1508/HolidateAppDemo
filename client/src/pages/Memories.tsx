@@ -122,9 +122,10 @@ function PolaroidPhoto({
       whileTap={{ scale: 0.96 }}
       className="relative cursor-pointer"
       style={{ zIndex: 1 }}>
-      <div className="bg-white p-1.5 pb-5 rounded-sm"
+      <div className="p-1.5 pb-5 rounded-sm"
         style={{
-          boxShadow: "0 4px 16px rgba(0,0,0,0.13), 0 1px 3px rgba(0,0,0,0.08)",
+          background: "#F9F4EA",
+          boxShadow: "0 4px 16px rgba(26,14,7,0.13), 0 1px 3px rgba(26,14,7,0.08)",
         }}>
         <div className="aspect-square overflow-hidden rounded-sm">
           <img src={url} alt={caption} className="w-full h-full object-cover" />
@@ -241,7 +242,7 @@ export default function Memories() {
                   whileTap={{ scale: 0.95 }}
                   className="flex-1 py-2 rounded-xl text-[12px] font-semibold"
                   style={{
-                    background: isActive ? group.color : "#F1F5F9",
+                    background: isActive ? group.color : "#EDE3D0",
                     color: isActive ? "#fff" : T2,
                     border: `1px solid ${isActive ? group.color : BORDER}`,
                     boxShadow: isActive ? `0 2px 12px ${group.color}30` : "none",
@@ -266,8 +267,8 @@ export default function Memories() {
                     transition={{ type: "spring", stiffness: 300 }}
                     className="relative mb-3 cursor-pointer"
                     style={{ rotate: `${group.photos[0].rot}deg` }}>
-                    <div className="bg-white p-2 pb-6 rounded-sm"
-                      style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.15), 0 2px 6px rgba(0,0,0,0.10)" }}>
+                    <div className="p-2 pb-6 rounded-sm"
+                      style={{ background: "#F9F4EA", boxShadow: "0 8px 32px rgba(26,14,7,0.15), 0 2px 6px rgba(26,14,7,0.10)" }}>
                       <div className="w-full h-[170px] rounded-sm overflow-hidden">
                         <img src={group.photos[0].url} alt="" className="w-full h-full object-cover" />
                       </div>
@@ -289,10 +290,11 @@ export default function Memories() {
                   {/* Add button */}
                   <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
                     onClick={() => setLocation("/photobooth")}
-                    className="aspect-square rounded-sm flex flex-col items-center justify-center gap-1 cursor-pointer bg-white"
+                    className="aspect-square rounded-sm flex flex-col items-center justify-center gap-1 cursor-pointer"
                     style={{
+                      background: "#F9F4EA",
                       border: `2px dashed ${group.color}50`,
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+                      boxShadow: "0 2px 8px rgba(26,14,7,0.06)",
                     }}>
                     <Plus className="w-5 h-5" style={{ color: group.color }} />
                     <span className="text-[9px] font-semibold" style={{ color: group.color }}>Thêm</span>
@@ -312,7 +314,7 @@ export default function Memories() {
                     <motion.div animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 2, repeat: Infinity }}>
                       <Sparkles className="w-4 h-4" style={{ color: group.color }} />
                     </motion.div>
-                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-white" style={{ color: group.color }}>AI recap</span>
+                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-full" style={{ background: "#F9F4EA", color: group.color }}>AI recap</span>
                   </div>
                   <p className="text-[13px] leading-relaxed" style={{ color: T1 }}>{group.recap}</p>
                   <div className="flex items-center gap-1 mt-2">
@@ -332,14 +334,14 @@ export default function Memories() {
                           transition={{ delay: 0.15 + i * 0.1, type: "spring" }}
                           className="w-4 h-4 rounded-full flex items-center justify-center mt-2 flex-shrink-0 z-10"
                           style={{
-                            background: i === 0 ? group.color : "#E2E8F0",
-                            border: `2px solid ${i === 0 ? "white" : "#CBD5E1"}`,
+                            background: i === 0 ? group.color : "rgba(26,14,7,0.12)",
+                            border: `2px solid ${i === 0 ? "#F9F4EA" : "rgba(26,14,7,0.18)"}`,
                             boxShadow: i === 0 ? `0 0 0 3px ${group.color}25` : "none",
                           }}>
-                          {i === 0 && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                          {i === 0 && <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#F9F4EA" }} />}
                         </motion.div>
                         {i < group.moments.length - 1 && (
-                          <div className="w-px flex-1 mt-1 mb-1" style={{ background: "#E2E8F0", minHeight: 24 }} />
+                          <div className="w-px flex-1 mt-1 mb-1" style={{ background: "rgba(26,14,7,0.12)", minHeight: 24 }} />
                         )}
                       </div>
                       {/* Memory card */}
@@ -396,7 +398,7 @@ export default function Memories() {
                   style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
                   <div className="relative w-[80px] h-[80px] flex-shrink-0">
                     <svg width="80" height="80" className="transform -rotate-90">
-                      <circle cx="40" cy="40" r="34" fill="none" stroke="#E2E8F0" strokeWidth="6" />
+                      <circle cx="40" cy="40" r="34" fill="none" stroke="rgba(26,14,7,0.12)" strokeWidth="6" />
                       <motion.circle cx="40" cy="40" r="34" fill="none" stroke={group.color} strokeWidth="6"
                         strokeLinecap="round" strokeDasharray={213} initial={{ strokeDashoffset: 213 }}
                         animate={{ strokeDashoffset: 213 - (group.vibeScore / 100) * 213 }}

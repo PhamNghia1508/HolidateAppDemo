@@ -93,8 +93,8 @@ export default function PlanDetail() {
               <div key={i} className="flex items-start gap-4">
                 <div className="flex flex-col items-center flex-shrink-0">
                   <div className="w-3 h-3 rounded-full mt-1"
-                    style={{ background: item.active ? BLUE : "#E2E8F0", border: item.active ? "none" : `2px solid #CBD5E1` }} />
-                  {i < timeline.length - 1 && <div className="w-px h-10 mt-1 bg-slate-200" />}
+                    style={{ background: item.active ? BLUE : "rgba(26,14,7,0.12)", border: item.active ? "none" : `2px solid rgba(26,14,7,0.18)` }} />
+                  {i < timeline.length - 1 && <div className="w-px h-10 mt-1" style={{ background: "rgba(26,14,7,0.12)" }} />}
                 </div>
                 <div>
                   <p className="text-[12px] font-bold" style={{ color: BLUE }}>{item.time}</p>

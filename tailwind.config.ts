@@ -47,6 +47,24 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        /* === GATHERGO WARM INK PALETTE === */
+        wi: {
+          bg: "#EEE6D4",
+          surface: "#F9F4EA",
+          "surface-warm": "#F4EDD8",
+          tinted: "#E8D8BC",
+          dark: "#1A0E07",
+          t1: "#1A0E07",
+          t2: "#5C4033",
+          t3: "#9C8470",
+          primary: "#C8371E",
+          "primary-bright": "#A62D17",
+          "primary-dim": "rgba(200,55,30,0.10)",
+          green: "#3D6B4F",
+          warn: "#C8860A",
+          border: "rgba(26,14,7,0.10)",
+          "border-medium": "rgba(26,14,7,0.18)",
+        },
         /* === GATHERGO OBSIDIAN PALETTE === */
         obsidian: {
           DEFAULT: "#09090B",
