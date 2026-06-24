@@ -1,6 +1,6 @@
 import { useLocation } from "wouter";
 import BottomNav from "@/components/BottomNav";
-import { Calendar, Heart } from "lucide-react";
+import { Calendar, Heart, Share2, Check } from "lucide-react";
 
 export default function Confirmed() {
   const [, setLocation] = useLocation();
@@ -18,13 +18,14 @@ export default function Confirmed() {
           </div>
         </div>
 
-        {/* Success Animation */}
+        {/* Success Section */}
         <div className="flex flex-col items-center mt-8 mb-8">
-          <div className="w-24 h-24 rounded-full bg-sage-light flex items-center justify-center mb-4">
-            <svg className="w-12 h-12 text-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
+          {/* Check circle */}
+          <div className="relative w-24 h-24 rounded-full bg-sage-light flex items-center justify-center mb-4">
+            <div className="absolute inset-0 rounded-full bg-sage/20 animate-ping" />
+            <Check className="w-12 h-12 text-sage relative z-10" strokeWidth={2.5} />
           </div>
+
           <Heart className="w-5 h-5 text-coral mb-2" />
           <h1 className="text-[26px] font-bold text-ink mb-2">Plan đã chốt!</h1>
           <p className="text-[14px] text-muted-foreground">Rooftop chill night • Thứ bảy, 18:30</p>
@@ -61,9 +62,10 @@ export default function Confirmed() {
           Xem lịch trình
         </button>
         <button
-          className="w-full h-[52px] rounded-[14px] bg-white text-coral font-semibold text-[16px] border border-coral hover:bg-coral/5 transition-colors"
+          className="w-full h-[52px] rounded-[14px] bg-white text-coral font-semibold text-[16px] border border-coral hover:bg-coral/5 transition-colors flex items-center justify-center gap-2"
           data-testid="button-invite"
         >
+          <Share2 className="w-4 h-4" />
           Mời thêm bạn
         </button>
       </div>

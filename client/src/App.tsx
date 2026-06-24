@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 
 import Onboarding from "@/pages/Onboarding";
 import Home from "@/pages/Home";
+import Plan from "@/pages/Plan";
 import CreatePlan from "@/pages/CreatePlan";
 import Suggested from "@/pages/Suggested";
 import PlanDetail from "@/pages/PlanDetail";
@@ -20,6 +21,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Onboarding} />
       <Route path="/home" component={Home} />
+      <Route path="/plan" component={Plan} />
       <Route path="/create-plan" component={CreatePlan} />
       <Route path="/suggested" component={Suggested} />
       <Route path="/plan-detail" component={PlanDetail} />

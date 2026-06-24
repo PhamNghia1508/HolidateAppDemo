@@ -1,6 +1,6 @@
-import { useLocation } from "wouter";
+import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
-import { Heart, Sparkles, PawPrint } from "lucide-react";
+import { Heart, Sparkles, PawPrint, Trophy } from "lucide-react";
 
 export default function Pet() {
   return (
@@ -17,17 +17,39 @@ export default function Pet() {
         </div>
 
         {/* Title */}
-        <h1 className="text-[26px] font-bold text-ink mb-2">GoPet</h1>
-        <p className="text-[14px] text-muted-foreground mb-5">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring" }}
+          className="text-[26px] font-bold text-ink mb-2"
+        >
+          GoPet
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-[14px] text-muted-foreground mb-5"
+        >
           Mỗi chuyến đi hoàn thành giúp GoPet lớn lên.
-        </p>
+        </motion.p>
 
-        {/* Pet Card */}
-        <div className="bg-white rounded-[20px] p-5 border border-border/30 mb-5">
+        {/* Pet Card with floating animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.2, type: "spring" }}
+          whileHover={{ scale: 1.02, y: -2 }}
+          className="bg-white rounded-[20px] p-5 border border-border/30 mb-5"
+        >
           <p className="text-[13px] text-muted-foreground mb-3">Level 3</p>
-          {/* Pet Illustration */}
+          {/* Pet Illustration with bounce */}
           <div className="flex justify-center mb-4">
-            <div className="w-28 h-28 rounded-full bg-sage/10 flex items-center justify-center">
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="w-28 h-28 rounded-full bg-sage/10 flex items-center justify-center"
+            >
               <svg className="w-20 h-20" viewBox="0 0 100 100">
                 <circle cx="50" cy="50" r="30" fill="none" stroke="#4a7c59" strokeWidth="2.5" />
                 <circle cx="38" cy="45" r="4" fill="#4a7c59" />
@@ -39,46 +61,107 @@ export default function Pet() {
                 <circle cx="72" cy="35" r="3" fill="#e76f51" />
                 <rect x="35" y="62" width="30" height="12" rx="6" fill="#4a7c59" />
               </svg>
-            </div>
+            </motion.div>
           </div>
           <h3 className="text-[20px] font-bold text-ink text-center mb-1">GoPet</h3>
-          <p className="text-[13px] text-muted-foreground text-center">Đang vui • Muốn thêm kỷ niệm</p>
-        </div>
+          <motion.p
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="text-[13px] text-muted-foreground text-center"
+          >
+            Đang vui • Muốn thêm kỷ niệm
+          </motion.p>
+        </motion.div>
 
-        {/* Energy */}
-        <div className="bg-white rounded-[20px] p-5 border border-border/30 mb-5">
+        {/* Energy with animated progress */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="bg-white rounded-[20px] p-5 border border-border/30 mb-5"
+        >
           <h3 className="text-[16px] font-bold text-ink mb-2">Năng lượng kỷ niệm</h3>
           <p className="text-[13px] text-muted-foreground mb-3">
             Hoàn thành plan, lưu ảnh và recap để tăng năng lượng cho GoPet.
           </p>
-          <div className="w-full h-2 bg-sage/10 rounded-full overflow-hidden">
-            <div className="w-[70%] h-full bg-coral rounded-full" />
+          <div className="w-full h-3 bg-sage/10 rounded-full overflow-hidden">
+            <motion.div
+              className="h-full bg-gradient-to-r from-coral to-coral/80 rounded-full"
+              initial={{ width: "0%" }}
+              animate={{ width: "70%" }}
+              transition={{ duration: 1.5, delay: 0.5, type: "spring" }}
+            />
           </div>
-        </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+            className="text-[12px] text-muted-foreground mt-2 text-right"
+          >
+            70% — Cần thêm 1 kỷ niệm
+          </motion.p>
+        </motion.div>
 
-        {/* Rewards */}
-        <div className="bg-white rounded-[20px] p-5 border border-border/30 mb-5">
+        {/* Rewards with hover effects */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="bg-white rounded-[20px] p-5 border border-border/30 mb-5"
+        >
           <h3 className="text-[16px] font-bold text-ink mb-3">Mở khóa tiếp theo</h3>
           <div className="flex gap-3">
-            <div className="flex-1 flex flex-col items-center bg-sage-light/30 rounded-[12px] p-3">
-              <Heart className="w-6 h-6 text-sage mb-1" />
-              <span className="text-[12px] font-medium text-ink">Nhãn dán</span>
-            </div>
-            <div className="flex-1 flex flex-col items-center bg-sage-light/30 rounded-[12px] p-3">
-              <Sparkles className="w-6 h-6 text-sage mb-1" />
-              <span className="text-[12px] font-medium text-ink">Mũ len</span>
-            </div>
-            <div className="flex-1 flex flex-col items-center bg-sage-light/30 rounded-[12px] p-3">
-              <PawPrint className="w-6 h-6 text-sage mb-1" />
-              <span className="text-[12px] font-medium text-ink">Huy hiệu</span>
-            </div>
+            {[
+              { icon: Heart, label: "Nhãn dán", locked: false },
+              { icon: Sparkles, label: "Mũ len", locked: false },
+              { icon: Trophy, label: "Huy hiệu", locked: true },
+            ].map((reward, i) => (
+              <motion.div
+                key={reward.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6 + i * 0.1 }}
+                whileHover={!reward.locked ? { scale: 1.1, y: -4 } : {}}
+                className={`flex-1 flex flex-col items-center rounded-[12px] p-3 ${
+                  reward.locked
+                    ? "bg-muted/30 opacity-50"
+                    : "bg-sage-light/30 cursor-pointer"
+                }`}
+              >
+                <motion.div
+                  animate={!reward.locked ? { rotate: [0, 10, -10, 0] } : {}}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                >
+                  <reward.icon
+                    className={`w-6 h-6 mb-1 ${
+                      reward.locked ? "text-muted-foreground" : "text-sage"
+                    }`}
+                  />
+                </motion.div>
+                <span className="text-[12px] font-medium text-ink">{reward.label}</span>
+                {reward.locked && (
+                  <span className="text-[10px] text-muted-foreground">Level 5</span>
+                )}
+              </motion.div>
+            ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* CTA */}
-        <button className="w-full h-[52px] rounded-[14px] bg-coral text-white font-semibold text-[16px] shadow-lg shadow-coral/20 hover:bg-coral/90 transition-colors">
-          Cho pet ăn kỷ niệm
-        </button>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+        >
+          <motion.button
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full h-[52px] rounded-[14px] bg-coral text-white font-semibold text-[16px] shadow-lg shadow-coral/20 hover:bg-coral/90 transition-colors flex items-center justify-center gap-2"
+          >
+            <PawPrint className="w-4 h-4" />
+            Cho pet ăn kỷ niệm
+          </motion.button>
+        </motion.div>
       </div>
 
       <BottomNav />
