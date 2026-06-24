@@ -1,6 +1,8 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
+import SpatialCard from "@/components/SpatialCard";
+import SpringButton from "@/components/SpringButton";
 
 const timeline = [
   { time: "18:30", title: "Bistro Nhà Gỗ", desc: "Ăn tối nhẹ", active: true },
@@ -52,23 +54,25 @@ export default function PlanDetail() {
           </div>
         </div>
 
-        {/* Metrics - Glassmorphism */}
-        <div className="flex items-center justify-between rounded-[16px] p-4 border border-white/60 mb-5 backdrop-blur-md bg-white/60">
-          {[
-            { value: "4.2km", label: "Quãng đường" },
-            { value: "520k", label: "Mỗi người" },
-            { value: "3", label: "Điểm đến" },
-            { value: "4", label: "Người" },
-          ].map((s, i) => (
-            <div key={i} className="text-center">
-              <p className="text-[16px] font-bold text-sage">{s.value}</p>
-              <p className="text-[11px] text-muted-foreground">{s.label}</p>
-            </div>
-          ))}
-        </div>
+        {/* Metrics - SpatialCard */}
+        <SpatialCard glow="sage" className="mb-5 p-4">
+          <div className="flex items-center justify-between">
+            {[
+              { value: "4.2km", label: "Quãng đường" },
+              { value: "520k", label: "Mỗi người" },
+              { value: "3", label: "Điểm đến" },
+              { value: "4", label: "Người" },
+            ].map((s, i) => (
+              <div key={i} className="text-center">
+                <p className="text-[16px] font-bold text-sage">{s.value}</p>
+                <p className="text-[11px] text-muted-foreground">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </SpatialCard>
 
-        {/* Timeline - Glassmorphism */}
-        <div className="rounded-[20px] p-5 border border-white/60 mb-5 backdrop-blur-md bg-white/60">
+        {/* Timeline - SpatialCard */}
+        <SpatialCard glow="sage" className="mb-5">
           <h3 className="text-[16px] font-bold text-ink mb-4">Timeline</h3>
           <div className="space-y-4">
             {timeline.map((item, i) => (
@@ -85,19 +89,12 @@ export default function PlanDetail() {
               </div>
             ))}
           </div>
-        </div>
+        </SpatialCard>
 
-        {/* Gradient CTA */}
-        <motion.button
-          onClick={() => setLocation("/vote")}
-          whileHover={{ scale: 1.02, y: -2 }}
-          whileTap={{ scale: 0.97 }}
-          className="w-full h-[52px] rounded-[14px] font-semibold text-[16px] text-white shadow-lg overflow-hidden relative"
-          style={{ background: "linear-gradient(135deg, #e76f51 0%, #f4a261 100%)" }}
-          data-testid="button-send-vote"
-        >
+        {/* Spring CTA */}
+        <SpringButton onClick={() => setLocation("/vote")} data-testid="button-send-vote">
           Gửi nhóm vote
-        </motion.button>
+        </SpringButton>
       </div>
 
       <BottomNav />

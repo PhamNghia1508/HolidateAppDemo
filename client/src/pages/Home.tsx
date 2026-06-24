@@ -1,6 +1,8 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
+import SpatialCard from "@/components/SpatialCard";
+import SpringButton from "@/components/SpringButton";
 import { MapPin, Calendar, Vote, Heart, Sparkles } from "lucide-react";
 
 export default function Home() {
@@ -73,23 +75,11 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Gradient CTA */}
-        <motion.button
-          onClick={() => setLocation("/create-plan")}
-          whileHover={{ scale: 1.02, y: -2 }}
-          whileTap={{ scale: 0.97 }}
-          className="w-full h-[52px] rounded-[14px] font-semibold text-[16px] text-white shadow-lg mb-5 overflow-hidden relative"
-          style={{
-            background: "linear-gradient(135deg, #e76f51 0%, #f4a261 50%, #e76f51 100%)",
-            backgroundSize: "200% 200%",
-          }}
-          data-testid="button-create-plan"
-        >
-          <span className="relative z-10 flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4" />
-            Tạo Gather mới
-          </span>
-        </motion.button>
+        {/* Spring CTA */}
+        <SpringButton onClick={() => setLocation("/create-plan")} data-testid="button-create-plan">
+          <Sparkles className="w-4 h-4" />
+          Tạo Gather mới
+        </SpringButton>
 
         {/* Quick Actions - Glassmorphism cards */}
         <div className="grid grid-cols-2 gap-3 mb-4">
@@ -127,16 +117,12 @@ export default function Home() {
               onClick: () => setLocation("/memories"),
             },
           ].map((action, i) => (
-            <motion.div
+            <SpatialCard
               key={action.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.08 }}
-              whileHover={{ scale: 1.03, y: -3 }}
-              whileTap={{ scale: 0.97 }}
+              glow="sage"
               onClick={action.onClick}
-              className="rounded-[16px] p-4 border border-white/50 backdrop-blur-md bg-white/70 shadow-sm cursor-pointer"
-              data-testid={`action-${i}`}
+              delay={0.1 + i * 0.08}
+              className="p-4 cursor-pointer"
             >
               <div
                 className={`w-9 h-9 rounded-xl ${action.color} flex items-center justify-center mb-2`}
@@ -145,7 +131,7 @@ export default function Home() {
               </div>
               <p className="text-[14px] font-semibold text-ink">{action.title}</p>
               <p className="text-[12px] text-muted-foreground">{action.desc}</p>
-            </motion.div>
+            </SpatialCard>
           ))}
         </div>
 

@@ -1,6 +1,8 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
+import SpatialCard from "@/components/SpatialCard";
+import SpringButton from "@/components/SpringButton";
 import { Sparkles, Plus, Star, Clock, MapPin } from "lucide-react";
 
 export default function Memories() {
@@ -55,14 +57,14 @@ export default function Memories() {
           ))}
         </div>
 
-        {/* Memory Title Card - Glassmorphism */}
-        <div className="rounded-[16px] p-4 border border-white/60 backdrop-blur-md bg-white/60 mb-4">
+        {/* Memory Title Card - SpatialCard */}
+        <SpatialCard glow="sage" className="mb-4">
           <h3 className="text-[16px] font-bold text-ink mb-1">Đêm rooftop đầu hè</h3>
           <p className="text-[12px] text-muted-foreground">12 ảnh • 3 địa điểm • 4 người</p>
-        </div>
+        </SpatialCard>
 
         {/* AI Recap with sparkle */}
-        <div className="rounded-[16px] p-4 mb-4 border border-white/60 backdrop-blur-md bg-white/60">
+        <SpatialCard glow="sage" className="mb-4">
           <div className="flex items-center gap-2 mb-2">
             <motion.div
               animate={{ rotate: [0, 15, -15, 0] }}
@@ -76,22 +78,24 @@ export default function Memories() {
           <p className="text-[13px] text-ink leading-relaxed">
             Một buổi tối chill đúng nghĩa — cả nhóm ăn nhẹ, ngắm thành phố và kịp sẵn vài tấm ảnh đẹp.
           </p>
-        </div>
+        </SpatialCard>
 
-        {/* Stats - Glassmorphism */}
-        <div className="flex items-center justify-between rounded-[16px] p-4 border border-white/60 backdrop-blur-md bg-white/60 mb-4">
-          {[
-            { icon: MapPin, value: "3", label: "Stops" },
-            { icon: Star, value: "4", label: "People" },
-            { icon: Clock, value: "520k", label: "Each" },
-          ].map((s, i) => (
-            <div key={i} className="text-center flex flex-col items-center">
-              <s.icon className="w-4 h-4 text-sage mb-1" />
-              <p className="text-[16px] font-bold text-ink">{s.value}</p>
-              <p className="text-[11px] text-muted-foreground">{s.label}</p>
-            </div>
-          ))}
-        </div>
+        {/* Stats - SpatialCard */}
+        <SpatialCard glow="sage" className="mb-4">
+          <div className="flex items-center justify-between">
+            {[
+              { icon: MapPin, value: "3", label: "Stops" },
+              { icon: Star, value: "4", label: "People" },
+              { icon: Clock, value: "520k", label: "Each" },
+            ].map((s, i) => (
+              <div key={i} className="text-center flex flex-col items-center">
+                <s.icon className="w-4 h-4 text-sage mb-1" />
+                <p className="text-[16px] font-bold text-ink">{s.value}</p>
+                <p className="text-[11px] text-muted-foreground">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </SpatialCard>
 
         {/* Note + FAB */}
         <div className="flex items-center justify-between">

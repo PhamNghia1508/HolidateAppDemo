@@ -1,0 +1,22 @@
+Bạn là một Giám đốc Thiết kế Sản phẩm (Chief Design Officer) từng đạt giải Apple Design Award. Nhiệm vụ của bạn là đưa UX/UI của ứng dụng gatherGO lên một đẳng cấp 'Mind-blowing' (gây choáng ngợp) để bất kỳ ai nhìn vào cũng muốn chạm thử ngay. Hãy đập tan sự tĩnh lặng của giao diện và áp dụng các nguyên tắc sau vào toàn bộ app:
+
+1. FLUID MICRO-INTERACTIONS (Chuyển động vật lý gây nghiện):
+- Sử dụng triệt để `framer-motion` với cấu hình lò xo (spring physics) cho TẤT CẢ các nút bấm (Buttons) và Thẻ (Cards). Khi user chạm/hover, Card phải lún xuống nhẹ nhàng (scale: 0.95) và nảy lại tự nhiên, tạo cảm giác phản hồi xúc giác (Haptic feedback).
+- Khi chuyển đổi giữa các tab (Home, Plan, Vote, Pet), hãy áp dụng hiệu ứng mờ dần và trượt nhẹ (Fade & Slide-up) mượt mà như bơ, tuyệt đối không để giao diện chuyển cảnh giật cục.
+
+2. SPATIAL UI & VISIONOS STYLE (Giao diện Không gian siêu thực):
+- Nâng cấp các thẻ Glassmorphism hiện tại lên chuẩn "Spatial Design": Thêm một lớp viền sáng (inner border: 1px solid rgba(255,255,255,0.4)) ở cạnh trên và hiệu ứng phản chiếu ánh sáng gradient chéo ở góc để tạo cảm giác chất liệu kính thật.
+- Các thành phần nổi bật (Hero Card, CTA lớn) cần có một lớp bóng đổ phát sáng đồng màu với background của nó (Glow shadow) nhưng rất mịn và lan tỏa rộng.
+
+3. DYNAMIC CONTEXTUAL ENVIRONMENT (Thổi hồn vào GoPet):
+- Trang Pet (/pet) không được tĩnh! Biến nó thành một hệ sinh thái sống động:
+  + Thêm các hạt bụi ma thuật (magical glowing particles) hoặc đom đóm bay lơ lửng chậm rãi quanh màn hình bằng CSS animation.
+  + Hòn đảo của mèo Mimi phải liên tục bập bềnh (floating up & down nhẹ nhàng).
+  + Bản thân Mimi phải có hiệu ứng "thở" (scale dọc nhẹ nhàng) và thỉnh thoảng ngọ nguậy tai hoặc chớp mắt.
+- Thanh năng lượng khi cho Mimi ăn không chỉ chạy ngang, hãy làm nó tóe ra các tia sáng nhỏ ở đầu thanh khi đang chạy.
+
+4. THE "AHA" MOMENT (Khoảnh khắc vỡ òa):
+- Khi một Plan được tạo thành công hoặc khi Vote đạt 100%, hãy kích hoạt hiệu ứng pháo hoa giấy (Confetti explosion) rơi xuống hoặc bung ra từ giữa màn hình.
+- Các thông báo quan trọng (Toast/Alert) hãy để nó rơi từ trên xuống với độ nảy (bounce) dễ thương.
+
+Hãy tự do import thêm các thư viện cần thiết (như canvas-confetti, framer-motion) nếu chưa có. Viết lại mã để gatherGO trở thành một kiệt tác sống động ngay bây giờ!

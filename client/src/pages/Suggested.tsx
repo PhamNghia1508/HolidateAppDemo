@@ -1,6 +1,8 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
+import SpatialCard from "@/components/SpatialCard";
+import SpringButton from "@/components/SpringButton";
 
 const plans = [
   {

@@ -1,6 +1,8 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
+import SpatialCard from "@/components/SpatialCard";
+import SpringButton from "@/components/SpringButton";
 import { MapPin, Clock, Users, ChevronRight } from "lucide-react";
 
 const savedPlans = [
@@ -61,46 +63,38 @@ export default function Plan() {
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
           <h1 className="text-[26px] font-bold text-ink">Plan đã lưu</h1>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <SpringButton
+            variant="gradient"
+            fullWidth={false}
             onClick={() => setLocation("/create-plan")}
-            className="px-4 py-2 rounded-full text-white text-[13px] font-semibold shadow-md"
-            style={{ background: "linear-gradient(135deg, #4a7c59, #2a9d8f)" }}
           >
             + Tạo mới
-          </motion.button>
+          </SpringButton>
         </div>
 
-        {/* Stats - Glassmorphism */}
+        {/* Stats - SpatialCards */}
         <div className="flex gap-3 mb-5">
           {[
             { value: "3", label: "Plan sẵn sàng", color: "#4a7c59" },
             { value: "1", label: "Đang chờ vote", color: "#e9c46a" },
             { value: "1", label: "Đã chốt", color: "#4a7c59" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="flex-1 rounded-[16px] p-3 border border-white/60 text-center backdrop-blur-md bg-white/60"
-            >
+          ].map((stat, i) => (
+            <SpatialCard key={stat.label} glow="sage" delay={i * 0.05} className="flex-1 p-3 text-center">
               <p className="text-[20px] font-bold" style={{ color: stat.color }}>{stat.value}</p>
               <p className="text-[12px] text-muted-foreground">{stat.label}</p>
-            </div>
+            </SpatialCard>
           ))}
         </div>
 
         {/* Plan List */}
         <div className="space-y-3">
           {savedPlans.map((plan, i) => (
-            <motion.div
+            <SpatialCard
               key={plan.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.1 }}
-              whileHover={{ scale: 1.02, y: -2 }}
+              glow="sage"
+              delay={0.1 + i * 0.1}
               onClick={() => setLocation(plan.status === "Chờ vote" ? "/vote" : "/plan-detail")}
-              className="rounded-[16px] p-4 border border-white/60 cursor-pointer backdrop-blur-md bg-white/60 shadow-sm"
-              data-testid={`plan-card-${plan.id}`}
+              className="p-4 cursor-pointer"
             >
               <div className="flex items-start justify-between mb-2">
                 <div>
@@ -136,7 +130,7 @@ export default function Plan() {
                   {plan.mood}
                 </span>
               </div>
-            </motion.div>
+            </SpatialCard>
           ))}
         </div>
       </div>

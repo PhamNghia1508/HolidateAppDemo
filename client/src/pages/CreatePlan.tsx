@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
+import SpatialCard from "@/components/SpatialCard";
+import SpringButton from "@/components/SpringButton";
 import { MapPin, Heart, Sparkles, Calendar, Users } from "lucide-react";
 
 export default function CreatePlan() {
@@ -69,8 +71,8 @@ export default function CreatePlan() {
           ))}
         </div>
 
-        {/* Form Card - Glassmorphism */}
-        <div className="rounded-[20px] p-5 border border-white/60 backdrop-blur-md bg-white/60 mb-5">
+        {/* Form Card - SpatialCard */}
+        <SpatialCard glow="sage" className="mb-5">
           <AnimatePresence mode="wait">
             {step === "mood" && (
               <motion.div
@@ -198,7 +200,7 @@ export default function CreatePlan() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </SpatialCard>
 
         {/* Time card */}
         <div className="flex items-center gap-3 rounded-[16px] p-4 mb-5 border border-white/60 backdrop-blur-md bg-white/50 cursor-pointer hover:bg-white/70 transition-colors">
@@ -211,22 +213,11 @@ export default function CreatePlan() {
           </div>
         </div>
 
-        {/* Gradient CTA */}
-        <motion.button
-          onClick={() => setLocation("/suggested")}
-          whileHover={{ scale: 1.02, y: -2 }}
-          whileTap={{ scale: 0.97 }}
-          className="w-full h-[52px] rounded-[14px] font-semibold text-[16px] text-white shadow-lg overflow-hidden relative"
-          style={{
-            background: "linear-gradient(135deg, #e76f51 0%, #f4a261 100%)",
-          }}
-          data-testid="button-suggest"
-        >
-          <span className="relative z-10 flex items-center justify-center gap-2">
-            <Sparkles className="w-4 h-4" />
-            Gợi ý lịch trình
-          </span>
-        </motion.button>
+        {/* Spring CTA */}
+        <SpringButton onClick={() => setLocation("/suggested")} data-testid="button-suggest">
+          <Sparkles className="w-4 h-4" />
+          Gợi ý lịch trình
+        </SpringButton>
       </div>
 
       <BottomNav />

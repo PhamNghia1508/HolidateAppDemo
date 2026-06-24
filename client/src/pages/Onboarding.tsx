@@ -1,5 +1,7 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
+import SpatialCard from "@/components/SpatialCard";
+import SpringButton from "@/components/SpringButton";
 
 export default function Onboarding() {
   const [, setLocation] = useLocation();
@@ -119,19 +121,10 @@ export default function Onboarding() {
           ))}
         </div>
 
-        {/* Gradient CTA */}
-        <motion.button
-          onClick={() => setLocation("/home")}
-          whileHover={{ scale: 1.03, y: -2 }}
-          whileTap={{ scale: 0.97 }}
-          className="w-full h-[56px] rounded-[16px] font-semibold text-[16px] text-white shadow-lg shadow-coral/30 overflow-hidden relative"
-          style={{
-            background: "linear-gradient(135deg, #e76f51 0%, #f4a261 100%)",
-          }}
-          data-testid="button-start"
-        >
-          <span className="relative z-10">Bắt đầu tạo Gather</span>
-        </motion.button>
+        {/* Spring CTA */}
+        <SpringButton onClick={() => setLocation("/home")} data-testid="button-start">
+          Bắt đầu tạo Gather
+        </SpringButton>
 
         <p className="text-center text-[13px] text-muted-foreground mt-4">
           Không feed công khai. Không chat lòng vòng.

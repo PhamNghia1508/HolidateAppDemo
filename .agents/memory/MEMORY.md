@@ -1,0 +1,5 @@
+- [GatherGo Glassmorphism System](glassmorphism.md) — Glass cards use backdrop-blur-md + bg-white/60-0.7 + border-white/50-0.6, never bg-white/10 with backdrop blur. Gradient CTAs: 135deg from #e76f51 to #f4a261.
+- [GoPet Mimi SVG](gopet-mimi.md) — Cat SVG built inline with CSS keyframe animations: blink (scaleY), float (y offset), tail-wag (rotate), breathe (scale), ear-wiggle. Energy bar triggers sparkle burst on feed.
+- [SpatialCard & SpringButton](spatial-spring.md) — SpatialCard: Framer Motion spring physics (scale 0.96→1, y offset), inner border glow, gradient shadow. SpringButton: spring hover/tap with gradient background. Variants: gradient/outline/ghost.
+- [Confetti & Particles](confetti-particles.md) — Confetti: 40 pieces, random colors/shapes, 3s duration, triggered on load/100% vote. MagicalParticles: CSS firefly drift + particle float for GoPet ecosystem.
+- [JSX Closing Tag Pattern](jsx-closing.md) — When refactoring `<div>` to `<SpatialCard>`, always check both opening and closing tags; mismatched closings cause silent JSX parser failures.
