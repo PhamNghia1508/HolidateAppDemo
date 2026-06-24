@@ -3,15 +3,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PawPrint, Heart, Zap, Star, Trophy, MapPin, Camera, Lock, Crown, Sparkles } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 
-const BLUE = "#3B82F6";
-const BLUE_BRIGHT = "#2563EB";
-const T1 = "#0F172A";
-const T2 = "#475569";
-const T3 = "#94A3B8";
-const BORDER = "rgba(0,0,0,0.07)";
-const SHADOW = "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06)";
-const SURF = "#FFFFFF";
-const SURF2 = "#F0F5FF";
+const BLUE = "#C8371E";
+const BLUE_BRIGHT = "#A62D17";
+const T1 = "#1A0E07";
+const T2 = "#5C4033";
+const T3 = "#9C8470";
+const BORDER = "rgba(26,14,7,0.10)";
+const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 16px rgba(26,14,7,0.06)";
+const SURF = "#F9F4EA";
+const SURF2 = "#EDE0C8";
 
 // Warm Mimi colors
 const MIMI_BODY = "#FFD4A8";
@@ -23,7 +23,7 @@ const MIMI_EYE = "#1A0800";
 const MIMI_WHISKER = "#FDBA74";
 
 function getEnergyState(energy: number) {
-  if (energy >= 85) return { label: "Đang rất vui 😄", color: "#22C55E", desc: "Mimi tràn đầy năng lượng!" };
+  if (energy >= 85) return { label: "Đang rất vui 😄", color: "#3D6B4F", desc: "Mimi tràn đầy năng lượng!" };
   if (energy >= 65) return { label: "Ổn áp 😊", color: BLUE, desc: "Mimi đang trong trạng thái tốt." };
   if (energy >= 40) return { label: "Hơi đói rồi 😐", color: "#F59E0B", desc: "Thêm vài kỷ niệm nữa là Mimi vui ngay." };
   return { label: "Đói bụng rồi 🥺", color: "#EF4444", desc: "Mimi cần được cho ăn kỷ niệm!" };
@@ -180,7 +180,7 @@ export default function Pet() {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto pb-20 px-5 relative" style={{ background: "#F7F5F0" }}>
+    <div className="flex-1 overflow-y-auto pb-20 px-5 relative" style={{ background: "#EEE6D4" }}>
 
       {/* Level-up ceremony overlay */}
       <AnimatePresence>
@@ -220,7 +220,7 @@ export default function Pet() {
           <h1 className="text-[26px] font-black tracking-tight" style={{ color: T1 }}>Mimi</h1>
         </div>
         <div className="flex items-center gap-1 px-3 py-1.5 rounded-full"
-          style={{ background: SURF2, border: `1px solid rgba(59,130,246,0.20)`, boxShadow: SHADOW }}>
+          style={{ background: SURF2, border: `1px solid rgba(200,55,30,0.18)`, boxShadow: SHADOW }}>
           <Star className="w-3.5 h-3.5 fill-current" style={{ color: "#F59E0B" }} />
           <span className="text-[12px] font-bold" style={{ color: T1 }}>Lv {level}</span>
         </div>
@@ -250,7 +250,7 @@ export default function Pet() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
             style={{
               width: 200, height: 200,
-              background: "radial-gradient(circle, rgba(59,130,246,0.22) 0%, rgba(139,92,246,0.08) 50%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(200,55,30,0.18) 0%, rgba(200,134,10,0.06) 50%, transparent 70%)",
               filter: "blur(30px)",
             }} />
 
@@ -289,7 +289,7 @@ export default function Pet() {
                       style={{
                         width: i % 3 === 0 ? 8 : 5,
                         height: i % 3 === 0 ? 8 : 5,
-                        background: [BLUE, "#8B5CF6", "#F59E0B", MIMI_NOSE, "#22C55E"][i % 5],
+                        background: [BLUE, "#8B5CF6", "#C8860A", MIMI_NOSE, "#3D6B4F"][i % 5],
                         marginTop: -3, marginLeft: -3,
                       }}
                       initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
@@ -403,7 +403,7 @@ export default function Pet() {
 
         <motion.div custom={7} variants={cardVariants} initial="hidden" animate="visible"
           className="rounded-2xl p-4 flex flex-col items-center justify-center text-center"
-          style={{ background: SURF2, border: `1px solid rgba(59,130,246,0.15)` }}>
+          style={{ background: SURF2, border: `1px solid rgba(200,55,30,0.14)` }}>
           <div className="text-[9px] font-semibold uppercase tracking-[0.22em] mb-2" style={{ color: T3 }}>Mở khóa tiếp</div>
           <div className="text-[26px] mb-1">👑</div>
           <div className="text-[13px] font-bold" style={{ color: T1 }}>Tiny Crown</div>
@@ -420,7 +420,7 @@ export default function Pet() {
           <div className="flex items-center justify-between mb-3">
             <div className="page-label">Phần thưởng</div>
             <div className="text-[11px] font-semibold px-2.5 py-1 rounded-full"
-              style={{ background: SURF2, color: BLUE, border: `1px solid rgba(59,130,246,0.20)` }}>Level {level}</div>
+              style={{ background: SURF2, color: BLUE, border: `1px solid rgba(200,55,30,0.18)` }}>Level {level}</div>
           </div>
           <div className="grid grid-cols-3 gap-2">
             {[
@@ -437,8 +437,8 @@ export default function Pet() {
                 whileHover={!r.locked ? { scale: 1.10, y: -4 } : {}}
                 className="relative flex flex-col items-center rounded-2xl p-2.5 border"
                 style={{
-                  background: r.locked ? "#F8FAFC" : SURF2,
-                  borderColor: r.locked ? "rgba(0,0,0,0.06)" : "rgba(59,130,246,0.20)",
+                  background: r.locked ? "#EDE3D0" : SURF2,
+                  borderColor: r.locked ? "rgba(26,14,7,0.06)" : "rgba(200,55,30,0.18)",
                   opacity: r.locked ? 0.55 : 1,
                 }}>
                 <div className="mb-1" style={{ color: r.locked ? T3 : BLUE }}>{r.icon}</div>
@@ -469,8 +469,8 @@ export default function Pet() {
                 whileHover={{ scale: 1.05, y: -2 }}
                 className="flex-1 flex flex-col items-center rounded-2xl p-2.5 border"
                 style={{
-                  background: b.active ? SURF2 : "#F8FAFC",
-                  borderColor: b.active ? "rgba(59,130,246,0.20)" : BORDER,
+                  background: b.active ? SURF2 : "#EDE3D0",
+                  borderColor: b.active ? "rgba(200,55,30,0.18)" : BORDER,
                   opacity: b.active ? 1 : 0.5,
                 }}>
                 <b.icon className="w-4 h-4 mb-1" style={{ color: b.active ? BLUE : T3 }} />

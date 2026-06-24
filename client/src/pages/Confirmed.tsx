@@ -4,14 +4,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, Share2, Check, ArrowLeft, ChevronRight, X } from "lucide-react";
 import Confetti from "@/components/Confetti";
 
-const BLUE = "#3B82F6";
-const T1 = "#0F172A";
+const BLUE = "#C8371E";
+const T1 = "#1A0E07";
 
 const groupMembers = [
-  { initial: "N", name: "Nghĩa", color: "#3B82F6" },
+  { initial: "N", name: "Nghĩa", color: "#C8371E" },
   { initial: "L", name: "Linh", color: "#8B5CF6" },
   { initial: "M", name: "Minh", color: "#F59E0B" },
-  { initial: "A", name: "An", color: "#22C55E" },
+  { initial: "A", name: "An", color: "#3D6B4F" },
 ];
 
 // Share card modal
@@ -94,7 +94,7 @@ function ShareCard({ onClose }: { onClose: () => void }) {
           <button onClick={onClose}
             className="w-12 h-12 rounded-2xl flex items-center justify-center"
             style={{ background: "#F1F5F9" }}>
-            <X className="w-4 h-4" style={{ color: "#475569" }} />
+            <X className="w-4 h-4" style={{ color: "#5C4033" }} />
           </button>
         </div>
       </motion.div>
@@ -170,12 +170,12 @@ export default function Confirmed() {
           animate={{ scale: [1, 1.18, 1], opacity: [0.28, 0.50, 0.28] }}
           transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-[14%] left-1/2 -translate-x-1/2 w-[320px] h-[320px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.40) 0%, transparent 70%)", filter: "blur(40px)" }} />
+          style={{ background: "radial-gradient(circle, rgba(200,55,30,0.32) 0%, transparent 70%)", filter: "blur(40px)" }} />
         <motion.div
           animate={{ scale: [1, 1.3, 1], opacity: [0.12, 0.22, 0.12] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
           className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[460px] h-[460px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(139,92,246,0.28) 0%, transparent 70%)", filter: "blur(60px)" }} />
+          style={{ background: "radial-gradient(circle, rgba(200,134,10,0.22) 0%, transparent 70%)", filter: "blur(60px)" }} />
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-start px-5 pb-8 relative z-10">
@@ -192,15 +192,15 @@ export default function Confirmed() {
               className="absolute rounded-full"
               style={{
                 width: 120 + i * 55, height: 120 + i * 55,
-                background: `radial-gradient(circle, rgba(59,130,246,${opacity * 0.45}) 0%, transparent 70%)`,
+                background: `radial-gradient(circle, rgba(200,55,30,${opacity * 0.40}) 0%, transparent 70%)`,
               }} />
           ))}
           <div className="relative w-24 h-24 rounded-full flex items-center justify-center"
             style={{
-              background: "linear-gradient(135deg, rgba(59,130,246,0.28), rgba(139,92,246,0.28))",
+              background: "linear-gradient(135deg, rgba(200,55,30,0.24), rgba(200,134,10,0.20))",
               border: "2px solid rgba(255,255,255,0.22)",
               backdropFilter: "blur(20px)",
-              boxShadow: "0 8px 40px rgba(59,130,246,0.35)",
+              boxShadow: "0 8px 40px rgba(200,55,30,0.35)",
             }}>
             <motion.div animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}>
               <Check className="w-12 h-12 text-white" strokeWidth={2.5} />
@@ -287,7 +287,7 @@ export default function Confirmed() {
             ))}
           </div>
           <div className="mt-4 rounded-xl p-2.5 text-center"
-            style={{ background: "rgba(59,130,246,0.18)", border: "1px solid rgba(59,130,246,0.30)" }}>
+            style={{ background: "rgba(200,55,30,0.12)", border: "1px solid rgba(200,55,30,0.24)" }}>
             <p className="text-[12px] font-medium" style={{ color: "rgba(255,255,255,0.72)" }}>
               GatherGo sẽ nhắc cả nhóm trước giờ đi.
             </p>

@@ -3,12 +3,12 @@ import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zap, Users, Camera, ArrowRight } from "lucide-react";
 
-const BLUE = "#3B82F6";
-const T1 = "#0F172A";
-const T2 = "#475569";
-const T3 = "#94A3B8";
-const SURF = "#FFFFFF";
-const SHADOW = "0 2px 8px rgba(0,0,0,0.10), 0 8px 24px rgba(0,0,0,0.07)";
+const BLUE = "#C8371E";
+const T1 = "#1A0E07";
+const T2 = "#5C4033";
+const T3 = "#9C8470";
+const SURF = "#F9F4EA";
+const SHADOW = "0 2px 8px rgba(26,14,7,0.10), 0 8px 24px rgba(26,14,7,0.07)";
 
 // Word-by-word headline
 const headlineWords = [
@@ -38,7 +38,7 @@ function SparkBurst({ visible }: { visible: boolean }) {
             style={{
               width: i % 2 === 0 ? 6 : 4,
               height: i % 2 === 0 ? 6 : 4,
-              background: [BLUE, "#8B5CF6", "#F59E0B", "#22C55E"][i % 4],
+              background: [BLUE, "#8B5CF6", "#C8860A", "#3D6B4F"][i % 4],
               top: "50%", left: "50%",
             }}
             initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
@@ -71,16 +71,16 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="flex-1 flex flex-col px-6 py-4 overflow-hidden relative" style={{ background: "#F7F5F0" }}>
+    <div className="flex-1 flex flex-col px-6 py-4 overflow-hidden relative" style={{ background: "#EEE6D4" }}>
 
       {/* Aurora background blobs — 3 animated blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
-        {/* Blue aurora */}
+        {/* Lacquer aurora */}
         <div className="aurora-blob"
           style={{
             width: 340, height: 340,
             top: -60, right: -80,
-            background: "radial-gradient(circle, rgba(59,130,246,0.22) 0%, rgba(139,92,246,0.12) 50%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(200,55,30,0.16) 0%, rgba(200,134,10,0.08) 50%, transparent 70%)",
             animation: "aurora-1 12s ease-in-out infinite",
           }} />
         {/* Amber aurora */}
@@ -127,7 +127,7 @@ export default function Onboarding() {
             src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=700&auto=format&fit=crop"
             alt="Friends gathering" className="w-full h-full object-cover" />
           <div className="absolute inset-0"
-            style={{ background: "linear-gradient(175deg, rgba(15,23,42,0.04) 0%, rgba(15,23,42,0.35) 50%, rgba(15,23,42,0.72) 100%)" }} />
+            style={{ background: "linear-gradient(175deg, rgba(26,14,7,0.04) 0%, rgba(26,14,7,0.35) 50%, rgba(26,14,7,0.72) 100%)" }} />
 
           {/* Floating chips */}
           {floatingChips.map(({ text, icon: Icon, top, left, right, bottom, delay }: any, i) => (
@@ -136,9 +136,9 @@ export default function Onboarding() {
               animate={{ opacity: 1, scale: 1, y: [0, -(3 + i * 1.5), 0] }}
               transition={{ opacity: { delay, duration: 0.4 }, scale: { delay, duration: 0.4 }, y: { duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut", delay: delay + 0.4 } }}
               className="absolute flex items-center gap-2 px-3 py-2 rounded-2xl"
-              style={{ top, left, right, bottom, background: "rgba(255,255,255,0.94)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.60)", boxShadow: SHADOW }}>
+              style={{ top, left, right, bottom, background: "rgba(249,244,234,0.95)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.60)", boxShadow: SHADOW }}>
               <div className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
-                style={{ background: "rgba(59,130,246,0.12)" }}>
+                style={{ background: "rgba(200,55,30,0.10)" }}>
                 <Icon className="w-3.5 h-3.5" style={{ color: BLUE }} />
               </div>
               <span className="text-[12px] font-semibold whitespace-nowrap" style={{ color: T1 }}>{text}</span>
@@ -149,7 +149,7 @@ export default function Onboarding() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 }}
             className="absolute bottom-4 right-4 text-right">
             <div className="flex items-center gap-1.5 justify-end mb-1">
-              {["#3B82F6", "#8B5CF6", "#F59E0B", "#22C55E"].map((c, i) => (
+              {["#C8371E", "#8B5CF6", "#C8860A", "#3D6B4F"].map((c, i) => (
                 <div key={i} className="w-7 h-7 rounded-full"
                   style={{ background: `${c}CC`, border: "2px solid rgba(255,255,255,0.7)", marginLeft: i > 0 ? "-8px" : "0" }} />
               ))}
@@ -223,7 +223,7 @@ export default function Onboarding() {
         </motion.p>
 
         <div className="flex justify-center mt-auto mb-2 pt-4">
-          <div className="w-[120px] h-1 rounded-full" style={{ background: "rgba(15,23,42,0.12)" }} />
+          <div className="w-[120px] h-1 rounded-full" style={{ background: "rgba(26,14,7,0.10)" }} />
         </div>
       </div>
     </div>

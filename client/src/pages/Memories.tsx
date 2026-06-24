@@ -7,22 +7,22 @@ import {
   Users, Heart, Home, BookOpen, TrendingUp, Image
 } from "lucide-react";
 
-const BLUE = "#3B82F6";
-const BLUE_BRIGHT = "#2563EB";
-const T1 = "#0F172A";
-const T2 = "#475569";
-const T3 = "#94A3B8";
-const SURF = "#FFFFFF";
-const BORDER = "rgba(0,0,0,0.07)";
-const SHADOW = "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06)";
+const BLUE = "#C8371E";
+const BLUE_BRIGHT = "#A62D17";
+const T1 = "#1A0E07";
+const T2 = "#5C4033";
+const T3 = "#9C8470";
+const SURF = "#F9F4EA";
+const BORDER = "rgba(26,14,7,0.10)";
+const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 16px rgba(26,14,7,0.06)";
 
 const groups = [
   {
     id: "friends",
     label: "Bạn bè",
     icon: Users,
-    color: "#3B82F6",
-    colorDim: "rgba(59,130,246,0.08)",
+    color: "#C8371E",
+    colorDim: "rgba(200,55,30,0.08)",
     emoji: "👥",
     coverImg: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&h=300&fit=crop",
     tagline: "Nhóm bạn thân",
@@ -146,7 +146,7 @@ export default function Memories() {
   const group = groups.find(g => g.id === activeGroup)!;
 
   return (
-    <div className="flex-1 overflow-y-auto pb-20 relative" style={{ background: "#F7F5F0" }}>
+    <div className="flex-1 overflow-y-auto pb-20 relative" style={{ background: "#EEE6D4" }}>
 
       {/* Header */}
       <div className="px-5">
@@ -356,7 +356,7 @@ export default function Memories() {
                         <div className="relative h-[105px]">
                           <img src={m.img} alt={m.title} className="w-full h-full object-cover" />
                           <div className="absolute inset-0"
-                            style={{ background: "linear-gradient(to right, rgba(15,23,42,0.55), transparent)" }} />
+                            style={{ background: "linear-gradient(to right, rgba(26,14,7,0.55), transparent)" }} />
                           <div className="absolute bottom-2.5 left-3">
                             <p className="text-[10px] font-semibold text-white/55">{m.date}</p>
                             <p className="text-[15px] font-black text-white leading-tight">{m.title}</p>
@@ -379,7 +379,7 @@ export default function Memories() {
                     </div>
                     <motion.button whileTap={{ scale: 0.97 }}
                       className="flex-1 rounded-2xl p-3 text-left mb-3"
-                      style={{ background: "#F8FAFC", border: `1.5px dashed ${BORDER}` }}>
+                      style={{ background: "#EDE3D0", border: `1.5px dashed ${BORDER}` }}>
                       <span className="text-[13px]" style={{ color: T3 }}>+ Thêm kỷ niệm mới</span>
                     </motion.button>
                   </div>

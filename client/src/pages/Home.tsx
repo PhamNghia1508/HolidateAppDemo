@@ -4,15 +4,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import { MapPin, Calendar, Heart, Sparkles, ArrowRight, Bell } from "lucide-react";
 
-const BG = "#F7F5F0";
-const SURF = "#FFFFFF";
-const BLUE = "#3B82F6";
-const BLUE_BRIGHT = "#2563EB";
-const T1 = "#0F172A";
-const T2 = "#475569";
-const T3 = "#94A3B8";
-const BORDER = "rgba(0,0,0,0.07)";
-const SHADOW = "0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.05)";
+const BG = "#EEE6D4";
+const SURF = "#F9F4EA";
+const BLUE = "#C8371E";
+const BLUE_BRIGHT = "#A62D17";
+const T1 = "#1A0E07";
+const T2 = "#5C4033";
+const T3 = "#9C8470";
+const BORDER = "rgba(26,14,7,0.10)";
+const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 16px rgba(26,14,7,0.06)";
 
 // Warm Mimi colors (matches Pet.tsx)
 const MIMI_BODY = "#FFD4A8";
@@ -120,7 +120,7 @@ export default function Home() {
           <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop"
             alt="Rooftop bar" className="w-full h-[220px] object-cover" />
           <div className="absolute inset-0"
-            style={{ background: "linear-gradient(to top, rgba(15,23,42,0.82) 0%, rgba(15,23,42,0.28) 50%, transparent 100%)" }} />
+            style={{ background: "linear-gradient(to top, rgba(26,14,7,0.82) 0%, rgba(26,14,7,0.28) 50%, transparent 100%)" }} />
 
           <div className="absolute bottom-0 left-0 right-0 p-4">
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full w-fit mb-2"
@@ -142,7 +142,7 @@ export default function Home() {
           <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
             className="absolute top-3.5 right-3.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold flex items-center gap-1.5"
             style={{ background: "rgba(255,255,255,0.95)", color: T1, boxShadow: "0 2px 12px rgba(0,0,0,0.15)" }}>
-            <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#22C55E" }} />
+            <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#3D6B4F" }} />
             2 bạn đang vote
           </motion.div>
 
@@ -182,10 +182,10 @@ export default function Home() {
 
       {/* Bento grid */}
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={S(4)}>
-        <p className="text-[11px] font-bold uppercase tracking-widest mb-3" style={{ color: T3 }}>Khám phá</p>
+        <p className="text-[12px] font-semibold mb-3" style={{ color: T2 }}>Khám phá</p>
         <div className="grid grid-cols-2 gap-3 mb-3">
           {[
-            { label: "Gợi ý gần tôi", sub: "12 quán hot hôm nay", icon: MapPin, path: "/suggested", color: "#3B82F6" },
+            { label: "Gợi ý gần tôi", sub: "12 quán hot hôm nay", icon: MapPin, path: "/suggested", color: "#C8371E" },
             { label: "Plan của tôi", sub: "3 plan sẵn sàng", icon: Calendar, path: "/plan", color: "#8B5CF6" },
           ].map(({ label, sub, icon: Icon, path, color }, i) => (
             <motion.button key={path}
@@ -216,7 +216,7 @@ export default function Home() {
                 <motion.div
                   animate={{ rotate: [0, 8, -8, 0] }} transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 2 }}
                   className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 text-[22px]"
-                  style={{ background: "rgba(59,130,246,0.08)" }}>
+                  style={{ background: "rgba(200,55,30,0.08)" }}>
                   {icon}
                 </motion.div>
               ) : (
@@ -235,7 +235,7 @@ export default function Home() {
       {/* Mimi ambient strip */}
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}
         className="flex items-center gap-3 rounded-2xl px-4 py-3 mt-4"
-        style={{ background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.12)" }}>
+        style={{ background: "rgba(200,55,30,0.06)", border: "1px solid rgba(200,55,30,0.12)" }}>
         <motion.span animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
           className="text-[20px]">🐾</motion.span>
         <p className="text-[13px] font-medium" style={{ color: BLUE_BRIGHT }}>

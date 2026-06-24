@@ -5,16 +5,16 @@ import BottomNav from "@/components/BottomNav";
 import { Clock, Zap, Check } from "lucide-react";
 import Confetti from "@/components/Confetti";
 
-const BG = "#F7F5F0";
-const SURF = "#FFFFFF";
-const BLUE = "#3B82F6";
-const BLUE_BRIGHT = "#2563EB";
-const T1 = "#0F172A";
-const T2 = "#475569";
-const T3 = "#94A3B8";
-const BORDER = "rgba(0,0,0,0.07)";
-const SHADOW = "0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.05)";
-const WARN = "#F59E0B";
+const BG = "#EEE6D4";
+const SURF = "#F9F4EA";
+const BLUE = "#C8371E";
+const BLUE_BRIGHT = "#A62D17";
+const T1 = "#1A0E07";
+const T2 = "#5C4033";
+const T3 = "#9C8470";
+const BORDER = "rgba(26,14,7,0.10)";
+const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 16px rgba(26,14,7,0.06)";
+const WARN = "#C8860A";
 
 const members = [
   { name: "Nghĩa", initial: "N", status: "Đồng ý", state: "active" as const, color: BLUE },
@@ -149,7 +149,7 @@ export default function Vote() {
       {/* Plan context card */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={S(1)}
         className="flex items-center gap-3 rounded-2xl overflow-hidden mb-4"
-        style={{ background: T1, boxShadow: "0 4px 20px rgba(15,23,42,0.20)" }}>
+        style={{ background: T1, boxShadow: "0 4px 20px rgba(26,14,7,0.20)" }}>
         <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=120&h=80&fit=crop"
           alt="Plan" className="w-[80px] h-[68px] object-cover flex-shrink-0" />
         <div className="py-2 pr-3 flex-1 min-w-0">
@@ -158,7 +158,7 @@ export default function Vote() {
           <p className="text-[12px] text-white/55">Thứ bảy, 18:30 · 3 điểm đến</p>
         </div>
         <div className="pr-4 flex-shrink-0 text-center">
-          <span className="text-[18px] font-black" style={{ color: "#93C5FD" }}>{voteCount}/4</span>
+          <span className="text-[18px] font-black" style={{ color: "#F4A07A" }}>{voteCount}/4</span>
           <p className="text-[9px] font-bold uppercase tracking-wide text-white/40">vote</p>
         </div>
       </motion.div>
@@ -177,8 +177,8 @@ export default function Vote() {
                 <div className="flex items-center gap-1.5">
                   <motion.div animate={{ scale: [1, 1.6, 1], opacity: [1, 0.4, 1] }}
                     transition={{ duration: 1.6, repeat: Infinity }}
-                    className="w-1.5 h-1.5 rounded-full" style={{ background: "#22C55E" }} />
-                  <span className="text-[10px] font-bold" style={{ color: "#22C55E" }}>LIVE</span>
+                    className="w-1.5 h-1.5 rounded-full" style={{ background: "#3D6B4F" }} />
+                  <span className="text-[10px] font-bold" style={{ color: "#3D6B4F" }}>LIVE</span>
                 </div>
               </div>
               <div className="space-y-2.5">
@@ -225,7 +225,7 @@ export default function Vote() {
           </div>
           <span className="text-[12px] font-semibold px-2 py-0.5 rounded-full"
             style={{
-              background: voteCount === 4 ? "rgba(34,197,94,0.10)" : "rgba(245,158,11,0.10)",
+              background: voteCount === 4 ? "rgba(61,107,79,0.10)" : "rgba(200,134,10,0.10)",
               color: voteCount === 4 ? "#15803D" : "#92400E",
             }}>
             {voteCount === 4 ? "Đủ rồi! 🎉" : "Còn thiếu 1"}
@@ -278,7 +278,7 @@ export default function Vote() {
                   }}>
                   {m.initial}
                 </motion.div>
-                {m.state === "active" && <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white" style={{ background: "#22C55E" }} />}
+                {m.state === "active" && <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white" style={{ background: "#3D6B4F" }} />}
                 {m.state === "maybe" && <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white flex items-center justify-center text-[8px]" style={{ background: WARN }}>?</div>}
                 {m.state === "pending" && <motion.div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white flex items-center justify-center" style={{ background: "#F1F5F9" }} animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1.8, repeat: Infinity }}><Clock className="w-2.5 h-2.5" style={{ color: T3 }} /></motion.div>}
               </div>
@@ -309,7 +309,7 @@ export default function Vote() {
                   onClick={() => handleVote(choice.label)}
                   className="w-full flex flex-col items-center gap-2 rounded-[16px] py-4 relative overflow-visible focus:outline-none"
                   style={{
-                    background: isSelected ? (choice.variant === "blue" ? "rgba(59,130,246,0.09)" : "rgba(245,158,11,0.08)") : "#F8F7F4",
+                    background: isSelected ? (choice.variant === "blue" ? "rgba(200,55,30,0.09)" : "rgba(200,134,10,0.08)") : "#F5EFE3",
                     border: `2px solid ${isSelected ? accentColor : "rgba(0,0,0,0.06)"}`,
                     boxShadow: isSelected ? `0 0 0 3px ${accentColor}18, 0 4px 20px ${accentColor}22` : "none",
                     transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s",
@@ -332,7 +332,7 @@ export default function Vote() {
       {/* Mimi waiting bubble */}
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}
         className="flex items-center gap-2.5 rounded-2xl px-4 py-3 mb-4"
-        style={{ background: "rgba(59,130,246,0.05)", border: "1px solid rgba(59,130,246,0.12)" }}>
+        style={{ background: "rgba(200,55,30,0.05)", border: "1px solid rgba(200,55,30,0.12)" }}>
         <motion.span animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-[18px] flex-shrink-0">🐾</motion.span>
         <p className="text-[12px] font-medium flex-1" style={{ color: BLUE_BRIGHT }}>
           Mimi đang chờ cả nhóm vote xong để cùng đi chơi!

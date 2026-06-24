@@ -3,13 +3,13 @@ import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Camera, Download, RotateCcw, Check, Sparkles, Users, Heart, Home } from "lucide-react";
 
-const T1 = "#0F172A";
-const T2 = "#475569";
-const T3 = "#94A3B8";
-const SURF = "#FFFFFF";
-const BLUE = "#3B82F6";
-const BORDER = "rgba(0,0,0,0.07)";
-const SHADOW = "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06)";
+const T1 = "#1A0E07";
+const T2 = "#5C4033";
+const T3 = "#9C8470";
+const SURF = "#F9F4EA";
+const BLUE = "#C8371E";
+const BORDER = "rgba(26,14,7,0.10)";
+const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 16px rgba(26,14,7,0.06)";
 
 const frames = [
   { id: "film", name: "Film Strip", group: "friends", emoji: "🎞️", color: "#1E293B", desc: "Retro 90s" },
@@ -54,7 +54,7 @@ function FrameThumb({ frameId, photoUrl, size = 72 }: { frameId: string; photoUr
     <div style={{ width: s, height: s * 1.1, background: "#FAFAFA", borderRadius: 4, padding: 3, boxShadow: "0 2px 8px rgba(0,0,0,0.18)", display: "flex", flexDirection: "column" }}>
       <img src={photoUrl} style={{ width: "100%", flex: 1, objectFit: "cover", borderRadius: 2 }} />
       <div style={{ height: s * 0.18, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ fontSize: 8, color: "#94A3B8", fontStyle: "italic" }}>a moment</span>
+        <span style={{ fontSize: 8, color: "#9C8470", fontStyle: "italic" }}>a moment</span>
       </div>
     </div>
   );
@@ -64,7 +64,7 @@ function FrameThumb({ frameId, photoUrl, size = 72 }: { frameId: string; photoUr
       {[...Array(8)].map((_, i) => {
         const isTop = i < 4;
         return (
-          <div key={i} style={{ position: "absolute", width: 6, height: 6, borderRadius: i % 2 === 0 ? "50%" : 2, background: ["#F59E0B","#EC4899","#3B82F6","#10B981"][i % 4], left: `${10 + (i % 4) * 25}%`, top: isTop ? 3 : "auto", bottom: isTop ? "auto" : 3, opacity: 0.9 }} />
+          <div key={i} style={{ position: "absolute", width: 6, height: 6, borderRadius: i % 2 === 0 ? "50%" : 2, background: ["#C8860A","#EC4899","#C8371E","#3D6B4F"][i % 4], left: `${10 + (i % 4) * 25}%`, top: isTop ? 3 : "auto", bottom: isTop ? "auto" : 3, opacity: 0.9 }} />
         );
       })}
       <div style={{ position: "absolute", inset: 0, border: "2.5px solid #8B5CF6", borderRadius: 8 }} />
@@ -115,16 +115,16 @@ function FrameThumb({ frameId, photoUrl, size = 72 }: { frameId: string; photoUr
 function BoothCanvas({ photoUrl, frameId }: { photoUrl: string; frameId: string }) {
   return (
     <div className="relative w-full aspect-square rounded-2xl overflow-hidden"
-      style={{ background: "#F8FAFC", boxShadow: "0 8px 40px rgba(0,0,0,0.15)" }}>
+      style={{ background: "#EDE3D0", boxShadow: "0 8px 40px rgba(0,0,0,0.15)" }}>
       <img src={photoUrl} alt="Photo" className="absolute inset-0 w-full h-full object-cover" />
       {frameId === "film" && <>
         <div className="absolute left-0 top-0 bottom-0 w-[13%] z-10"
           style={{ background: "#0F172A", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center", padding: "12px 0" }}>
-          {[0,1,2,3,4,5].map(i => <div key={i} className="w-3 h-3 rounded-sm" style={{ background: "#F8FAFC", opacity: 0.85 }} />)}
+          {[0,1,2,3,4,5].map(i => <div key={i} className="w-3 h-3 rounded-sm" style={{ background: "#EDE3D0", opacity: 0.85 }} />)}
         </div>
         <div className="absolute right-0 top-0 bottom-0 w-[13%] z-10"
           style={{ background: "#0F172A", display: "flex", flexDirection: "column", justifyContent: "space-around", alignItems: "center", padding: "12px 0" }}>
-          {[0,1,2,3,4,5].map(i => <div key={i} className="w-3 h-3 rounded-sm" style={{ background: "#F8FAFC", opacity: 0.85 }} />)}
+          {[0,1,2,3,4,5].map(i => <div key={i} className="w-3 h-3 rounded-sm" style={{ background: "#EDE3D0", opacity: 0.85 }} />)}
         </div>
         <div className="absolute bottom-0 left-[13%] right-[13%] z-10 h-7 flex items-center justify-center"
           style={{ background: "#0F172A" }}>
@@ -134,13 +134,13 @@ function BoothCanvas({ photoUrl, frameId }: { photoUrl: string; frameId: string 
       {frameId === "polaroid" && <>
         <div className="absolute inset-0 z-10" style={{ border: "18px solid #FAFAFA", borderBottomWidth: 56 }} />
         <div className="absolute bottom-0 left-0 right-0 z-20 h-14 flex items-center justify-center">
-          <span style={{ color: "#94A3B8", fontStyle: "italic", fontSize: 13 }}>a moment to keep</span>
+          <span style={{ color: "#9C8470", fontStyle: "italic", fontSize: 13 }}>a moment to keep</span>
         </div>
       </>}
       {frameId === "confetti" && <>
         <div className="absolute inset-0 z-10 pointer-events-none">
           {[...Array(24)].map((_, i) => (
-            <div key={i} style={{ position: "absolute", width: 10, height: 10, borderRadius: i % 3 === 0 ? "50%" : 2, background: ["#F59E0B","#EC4899","#3B82F6","#10B981","#8B5CF6","#F43F5E"][i % 6], left: `${(i % 8) * 13}%`, top: i < 12 ? `${1 + (i % 4) * 2}%` : `${88 + (i % 4) * 2}%`, opacity: 0.95, transform: `rotate(${i * 45}deg)` }} />
+            <div key={i} style={{ position: "absolute", width: 10, height: 10, borderRadius: i % 3 === 0 ? "50%" : 2, background: ["#C8860A","#EC4899","#C8371E","#3D6B4F","#8B5CF6","#F43F5E"][i % 6], left: `${(i % 8) * 13}%`, top: i < 12 ? `${1 + (i % 4) * 2}%` : `${88 + (i % 4) * 2}%`, opacity: 0.95, transform: `rotate(${i * 45}deg)` }} />
           ))}
         </div>
         <div className="absolute inset-0 z-10" style={{ border: "4px solid #8B5CF6", borderRadius: 8 }} />
@@ -215,10 +215,10 @@ export default function Photobooth() {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto pb-8 relative" style={{ background: "#F1F5FB" }}>
+    <div className="flex-1 overflow-y-auto pb-8 relative" style={{ background: "#EEE6D4" }}>
       {/* Sticky header */}
       <div className="sticky top-0 z-30 px-4 pt-5 pb-3"
-        style={{ background: "rgba(241,245,251,0.90)", backdropFilter: "blur(20px)" }}>
+        style={{ background: "rgba(238,230,212,0.92)", backdropFilter: "blur(20px)" }}>
         <div className="flex items-center gap-3">
           <motion.button whileTap={{ scale: 0.9 }} onClick={() => setLocation("/memories")}
             className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
@@ -255,10 +255,10 @@ export default function Photobooth() {
             {samplePhotos.map((url, i) => (
               <motion.button key={i} whileTap={{ scale: 0.93 }} onClick={() => setSelectedPhoto(i)}
                 className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden relative"
-                style={{ border: `2.5px solid ${selectedPhoto === i ? BLUE : BORDER}`, boxShadow: selectedPhoto === i ? "0 0 0 3px rgba(59,130,246,0.20)" : SHADOW }}>
+                style={{ border: `2.5px solid ${selectedPhoto === i ? BLUE : BORDER}`, boxShadow: selectedPhoto === i ? "0 0 0 3px rgba(200,55,30,0.20)" : SHADOW }}>
                 <img src={url} className="w-full h-full object-cover" />
                 {selectedPhoto === i && (
-                  <div className="absolute inset-0 flex items-center justify-center" style={{ background: "rgba(59,130,246,0.25)" }}>
+                  <div className="absolute inset-0 flex items-center justify-center" style={{ background: "rgba(200,55,30,0.25)" }}>
                     <Check className="w-5 h-5 text-white" strokeWidth={3} />
                   </div>
                 )}
@@ -266,7 +266,7 @@ export default function Photobooth() {
             ))}
             <motion.button whileTap={{ scale: 0.93 }}
               className="flex-shrink-0 w-16 h-16 rounded-xl flex flex-col items-center justify-center gap-1"
-              style={{ border: `2px dashed ${BORDER}`, background: "#F8FAFC" }}>
+              style={{ border: `2px dashed ${BORDER}`, background: "#EDE3D0" }}>
               <Camera className="w-5 h-5" style={{ color: T3 }} />
               <span className="text-[9px] font-semibold" style={{ color: T3 }}>Upload</span>
             </motion.button>
@@ -330,7 +330,7 @@ export default function Photobooth() {
             <motion.div key="saved"
               initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
               className="w-full h-[52px] rounded-2xl flex items-center justify-center gap-2 font-bold text-[15px]"
-              style={{ background: "#22C55E", color: "white" }}>
+              style={{ background: "#3D6B4F", color: "white" }}>
               <Check className="w-5 h-5" strokeWidth={2.5} /> Đã lưu vào album!
             </motion.div>
           ) : (
@@ -368,12 +368,12 @@ export default function Photobooth() {
               <div className="space-y-2.5 mb-5">
                 {[
                   { id: "friends", label: "Bạn bè", emoji: "👥", color: BLUE, desc: "12 ảnh đã lưu" },
-                  { id: "family", label: "Gia đình", emoji: "🏠", color: "#F59E0B", desc: "31 ảnh đã lưu" },
+                  { id: "family", label: "Gia đình", emoji: "🏠", color: "#C8860A", desc: "31 ảnh đã lưu" },
                   { id: "couple", label: "Couple", emoji: "💑", color: "#EC4899", desc: "67 ảnh đã lưu" },
                 ].map(g => (
                   <motion.button key={g.id} whileTap={{ scale: 0.97 }} onClick={() => setSaveGroup(g.id)}
                     className="w-full flex items-center gap-4 p-4 rounded-2xl"
-                    style={{ background: saveGroup === g.id ? `${g.color}10` : "#F8FAFC", border: `1.5px solid ${saveGroup === g.id ? g.color : BORDER}`, boxShadow: saveGroup === g.id ? `0 2px 12px ${g.color}20` : "none" }}>
+                    style={{ background: saveGroup === g.id ? `${g.color}10` : "#EDE3D0", border: `1.5px solid ${saveGroup === g.id ? g.color : BORDER}`, boxShadow: saveGroup === g.id ? `0 2px 12px ${g.color}20` : "none" }}>
                     <span className="text-[28px]">{g.emoji}</span>
                     <div className="text-left flex-1">
                       <p className="text-[15px] font-bold" style={{ color: T1 }}>{g.label}</p>

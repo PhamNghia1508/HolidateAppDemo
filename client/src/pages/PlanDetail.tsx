@@ -3,15 +3,15 @@ import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import { ArrowLeft, MapPin, Clock, Users, Share2 } from "lucide-react";
 
-const BG = "#F1F5FB";
-const SURF = "#FFFFFF";
-const SURF2 = "#F0F5FF";
-const BLUE = "#3B82F6";
-const T1 = "#0F172A";
-const T2 = "#475569";
-const T3 = "#94A3B8";
-const BORDER = "rgba(0,0,0,0.07)";
-const SHADOW = "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06)";
+const BG = "#EEE6D4";
+const SURF = "#F9F4EA";
+const SURF2 = "#EDE0C8";
+const BLUE = "#C8371E";
+const T1 = "#1A0E07";
+const T2 = "#5C4033";
+const T3 = "#9C8470";
+const BORDER = "rgba(26,14,7,0.10)";
+const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 16px rgba(26,14,7,0.06)";
 
 const timeline = [
   { time: "18:30", title: "Bistro Nhà Gỗ", desc: "Ăn tối nhẹ — chọn đồ ăn kiểu tapas", active: true },
@@ -28,7 +28,7 @@ export default function PlanDetail() {
     <div className="flex-1 overflow-y-auto pb-20 relative" style={{ background: BG }}>
       {/* Sticky header with back button */}
       <div className="sticky top-0 z-20 px-5 pt-5 pb-3"
-        style={{ background: "rgba(241,245,251,0.90)", backdropFilter: "blur(20px)" }}>
+        style={{ background: "rgba(238,230,212,0.90)", backdropFilter: "blur(20px)" }}>
         <div className="flex items-center gap-3">
           <motion.button whileTap={{ scale: 0.9 }} onClick={() => setLocation("/suggested")}
             className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
@@ -53,7 +53,7 @@ export default function PlanDetail() {
           className="w-full h-[164px] rounded-2xl overflow-hidden mb-4 relative"
           style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.10)" }}>
           <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop" alt="Rooftop" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,23,42,0.70), rgba(15,23,42,0.20) 55%, transparent)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(26,14,7,0.70), rgba(26,14,7,0.20) 55%, transparent)" }} />
           <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
             <p className="text-[15px] font-bold text-white">Ăn tối nhẹ → rooftop → đi dạo</p>
             <div className="flex gap-2 justify-center mt-2">
@@ -109,8 +109,8 @@ export default function PlanDetail() {
         {/* Note */}
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={S(3)}
           className="rounded-2xl p-3 mb-5"
-          style={{ background: SURF2, border: `1px solid rgba(59,130,246,0.15)` }}>
-          <p className="text-[12px]" style={{ color: "#3B82F6" }}>
+          style={{ background: SURF2, border: `1px solid rgba(200,55,30,0.14)` }}>
+          <p className="text-[12px]" style={{ color: BLUE }}>
             GatherGo đã cân bằng khoảng cách giữa các điểm đến — đi bộ hoặc xe tối đa 10 phút mỗi chặng.
           </p>
         </motion.div>

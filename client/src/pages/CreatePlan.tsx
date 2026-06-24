@@ -4,15 +4,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import { MapPin, Sparkles, Calendar, Users, ChevronRight } from "lucide-react";
 
-const BG = "#F7F5F0";
-const SURF = "#FFFFFF";
-const BLUE = "#3B82F6";
-const BLUE_BRIGHT = "#2563EB";
-const T1 = "#0F172A";
-const T2 = "#475569";
-const T3 = "#94A3B8";
-const BORDER = "rgba(0,0,0,0.07)";
-const SHADOW = "0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.05)";
+const BG = "#EEE6D4";
+const SURF = "#F9F4EA";
+const BLUE = "#C8371E";
+const BLUE_BRIGHT = "#A62D17";
+const T1 = "#1A0E07";
+const T2 = "#5C4033";
+const T3 = "#9C8470";
+const BORDER = "rgba(26,14,7,0.10)";
+const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 16px rgba(26,14,7,0.06)";
 
 const STEPS = [
   { key: "mood", label: "Mood & Nhóm", num: 1 },
@@ -60,7 +60,7 @@ export default function CreatePlan() {
         background: active ? T1 : SURF,
         color: active ? "#FFFFFF" : T2,
         border: `1.5px solid ${active ? T1 : BORDER}`,
-        boxShadow: active ? "0 2px 12px rgba(15,23,42,0.20)" : SHADOW,
+        boxShadow: active ? "0 2px 12px rgba(26,14,7,0.20)" : SHADOW,
         transition: "all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)",
       }}>
       {label}
@@ -92,21 +92,21 @@ export default function CreatePlan() {
                   transition={{ type: "spring", stiffness: 400, damping: 20 }}
                   className="w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-black"
                   style={{
-                    background: isDone ? "#22C55E" : isActive ? BLUE : SURF,
+                    background: isDone ? "#3D6B4F" : isActive ? BLUE : SURF,
                     color: isDone || isActive ? "#FFFFFF" : T3,
-                    border: `2px solid ${isDone ? "#22C55E" : isActive ? BLUE : BORDER}`,
-                    boxShadow: isActive ? `0 0 0 4px rgba(59,130,246,0.15)` : "none",
+                    border: `2px solid ${isDone ? "#3D6B4F" : isActive ? BLUE : BORDER}`,
+                    boxShadow: isActive ? `0 0 0 4px rgba(200,55,30,0.15)` : "none",
                   }}>
                   {isDone ? "✓" : step.num}
                 </motion.div>
                 <span className="text-[10px] font-semibold whitespace-nowrap"
-                  style={{ color: isActive ? BLUE_BRIGHT : isDone ? "#22C55E" : T3 }}>
+                  style={{ color: isActive ? BLUE_BRIGHT : isDone ? "#3D6B4F" : T3 }}>
                   {step.label}
                 </span>
               </button>
               {i < STEPS.length - 1 && (
                 <div className="flex-1 h-[2px] mx-2 rounded-full"
-                  style={{ background: i < stepIdx ? "#22C55E" : BORDER }} />
+                  style={{ background: i < stepIdx ? "#3D6B4F" : BORDER }} />
               )}
             </div>
           );
@@ -184,7 +184,7 @@ export default function CreatePlan() {
                 <motion.button key={i} whileTap={{ scale: 0.97 }}
                   className="w-full flex items-center justify-between p-3.5 rounded-xl mb-2"
                   style={{
-                    background: opt.highlight ? "rgba(59,130,246,0.07)" : "#F8F7F4",
+                    background: opt.highlight ? "rgba(200,55,30,0.07)" : "#EDE3D0",
                     border: `1.5px solid ${opt.highlight ? BLUE : BORDER}`,
                   }}>
                   <div className="text-left">
@@ -216,7 +216,7 @@ export default function CreatePlan() {
               <div className="flex justify-between text-[11px] mb-4" style={{ color: T3 }}>
                 {budgetLabels.map(l => <span key={l}>{l}</span>)}
               </div>
-              <div className="p-3.5 rounded-xl" style={{ background: "rgba(59,130,246,0.06)", border: `1px solid rgba(59,130,246,0.14)` }}>
+              <div className="p-3.5 rounded-xl" style={{ background: "rgba(200,55,30,0.06)", border: `1px solid rgba(200,55,30,0.14)` }}>
                 <p className="text-[12px] font-medium" style={{ color: BLUE_BRIGHT }}>
                   ✨ GatherGo sẽ tìm địa điểm phù hợp ngân sách này cho cả nhóm bạn.
                 </p>

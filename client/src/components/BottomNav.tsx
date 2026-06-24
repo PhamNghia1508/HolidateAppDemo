@@ -53,7 +53,7 @@ export default function BottomNav() {
                 <motion.div
                   layoutId="nav-indicator"
                   className="absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-6 rounded-full"
-                  style={{ background: "#3B82F6" }}
+                  style={{ background: "#C8371E" }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
               )}
@@ -61,7 +61,7 @@ export default function BottomNav() {
                 <motion.div
                   animate={isActive ? { scale: 1.1 } : { scale: 1 }}
                   transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                  style={{ color: isActive ? "#3B82F6" : "#94A3B8" }}
+                  style={{ color: isActive ? "#C8371E" : "#9C8470" }}
                 >
                   <Icon className="w-[22px] h-[22px]" />
                 </motion.div>
@@ -79,7 +79,7 @@ export default function BottomNav() {
               <motion.span
                 animate={isActive ? { opacity: 1 } : { opacity: 0.5 }}
                 className="text-[9.5px] font-semibold tracking-wide leading-none"
-                style={{ color: isActive ? "#3B82F6" : "#94A3B8" }}
+                style={{ color: isActive ? "#C8371E" : "#9C8470" }}
               >
                 {tab.label}
               </motion.span>

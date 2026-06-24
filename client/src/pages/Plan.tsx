@@ -3,17 +3,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import { MapPin, Clock, Users, ChevronRight, Plus, Zap, Lock, FileEdit, CheckCircle2 } from "lucide-react";
 
-const BG = "#F7F5F0";
-const SURF = "#FFFFFF";
-const BLUE = "#3B82F6";
-const BLUE_BRIGHT = "#2563EB";
-const T1 = "#0F172A";
-const T2 = "#475569";
-const T3 = "#94A3B8";
-const BORDER = "rgba(0,0,0,0.07)";
-const SHADOW = "0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.05)";
-const WARN = "#F59E0B";
-const GREEN = "#22C55E";
+const BG = "#EEE6D4";
+const SURF = "#F9F4EA";
+const BLUE = "#C8371E";
+const BLUE_BRIGHT = "#A62D17";
+const T1 = "#1A0E07";
+const T2 = "#5C4033";
+const T3 = "#9C8470";
+const BORDER = "rgba(26,14,7,0.10)";
+const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 16px rgba(26,14,7,0.06)";
+const WARN = "#C8860A";
+const GREEN = "#3D6B4F";
 
 // Route stop motif — the signature design element
 function RouteTrail({ stops, color, compact = false }: { stops: string[]; color: string; compact?: boolean }) {
@@ -105,7 +105,7 @@ const savedPlans = [
       { i: "N", color: BLUE },
       { i: "L", color: "#8B5CF6" },
       { i: "M", color: WARN },
-      { i: "A", color: "#94A3B8" },
+      { i: "A", color: "#9C8470" },
     ],
     votedCount: 2,
     totalCount: 4,
@@ -188,9 +188,9 @@ export default function Plan() {
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={S(0)}
         className="flex gap-2 mb-5">
         {[
-          { value: "3", label: "Plan", color: BLUE, bg: "rgba(59,130,246,0.08)" },
-          { value: "1", label: "Đang vote", color: WARN, bg: "rgba(245,158,11,0.08)" },
-          { value: "1", label: "Đã chốt", color: GREEN, bg: "rgba(34,197,94,0.08)" },
+          { value: "3", label: "Plan", color: BLUE, bg: "rgba(200,55,30,0.08)" },
+          { value: "1", label: "Đang vote", color: WARN, bg: "rgba(200,134,10,0.08)" },
+          { value: "1", label: "Đã chốt", color: GREEN, bg: "rgba(61,107,79,0.08)" },
         ].map((s, i) => (
           <div key={s.label} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full"
             style={{ background: s.bg, border: `1px solid ${s.color}22` }}>
@@ -217,15 +217,15 @@ export default function Plan() {
                   onClick={() => setLocation("/vote")}
                   className="w-full text-left rounded-3xl overflow-hidden focus:outline-none"
                   style={{
-                    boxShadow: "0 4px 24px rgba(59,130,246,0.18), 0 1px 4px rgba(59,130,246,0.10)",
-                    border: "1.5px solid rgba(59,130,246,0.25)",
+                    boxShadow: "0 4px 24px rgba(200,55,30,0.15), 0 1px 4px rgba(200,55,30,0.10)",
+                    border: "1.5px solid rgba(200,55,30,0.22)",
                   }}>
                   {/* Photo hero */}
                   {plan.img && (
                     <div className="relative h-[120px] w-full overflow-hidden">
                       <img src={plan.img} alt={plan.title} className="w-full h-full object-cover" />
                       <div className="absolute inset-0"
-                        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(15,23,42,0.70) 100%)" }} />
+                        style={{ background: "linear-gradient(to bottom, rgba(26,14,7,0.10) 0%, rgba(26,14,7,0.70) 100%)" }} />
                       {/* LIVE badge */}
                       <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full"
                         style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(12px)" }}>
@@ -238,7 +238,7 @@ export default function Plan() {
                       <div className="absolute bottom-3 left-3 right-3">
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-[11px] font-semibold text-white/80">{plan.urgencyText}</span>
-                          <span className="text-[11px] font-black" style={{ color: "#93C5FD" }}>
+                          <span className="text-[11px] font-black" style={{ color: "#F4A07A" }}>
                             {plan.votedCount}/{plan.totalCount}
                           </span>
                         </div>
@@ -282,9 +282,9 @@ export default function Plan() {
                   style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
                   {/* Green locked top strip */}
                   <div className="flex items-center gap-2.5 px-4 pt-4 pb-3"
-                    style={{ borderBottom: "1px solid rgba(34,197,94,0.12)" }}>
+                    style={{ borderBottom: "1px solid rgba(61,107,79,0.12)" }}>
                     <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ background: "rgba(34,197,94,0.12)" }}>
+                      style={{ background: "rgba(61,107,79,0.12)" }}>
                       <Lock className="w-3.5 h-3.5" style={{ color: GREEN }} />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -292,7 +292,7 @@ export default function Plan() {
                       <h3 className="text-[16px] font-black leading-tight truncate" style={{ color: T1 }}>{plan.title}</h3>
                     </div>
                     <div className="flex items-center gap-1 px-2.5 py-1 rounded-full flex-shrink-0"
-                      style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.20)" }}>
+                      style={{ background: "rgba(61,107,79,0.08)", border: "1px solid rgba(61,107,79,0.20)" }}>
                       <span className="text-[11px] font-semibold" style={{ color: GREEN }}>{plan.group}</span>
                     </div>
                   </div>
@@ -350,7 +350,7 @@ export default function Plan() {
       {/* Mimi nudge */}
       <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}
         className="flex items-center gap-2.5 rounded-2xl px-4 py-3 mt-4"
-        style={{ background: "rgba(59,130,246,0.05)", border: "1px solid rgba(59,130,246,0.10)" }}>
+        style={{ background: "rgba(200,55,30,0.05)", border: "1px solid rgba(200,55,30,0.10)" }}>
         <motion.span animate={{ rotate: [0, 8, -8, 0] }} transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
           className="text-[18px]">🐾</motion.span>
         <p className="text-[12px] font-medium flex-1" style={{ color: BLUE_BRIGHT }}>

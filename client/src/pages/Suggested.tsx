@@ -3,15 +3,15 @@ import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
 import { ArrowLeft, Sparkles, ChevronRight } from "lucide-react";
 
-const BG = "#F7F5F0";
-const SURF = "#FFFFFF";
-const BLUE = "#3B82F6";
-const BLUE_BRIGHT = "#2563EB";
-const T1 = "#0F172A";
-const T2 = "#475569";
-const T3 = "#94A3B8";
-const BORDER = "rgba(0,0,0,0.07)";
-const SHADOW = "0 1px 3px rgba(0,0,0,0.05), 0 4px 20px rgba(0,0,0,0.06)";
+const BG = "#EEE6D4";
+const SURF = "#F9F4EA";
+const BLUE = "#C8371E";
+const BLUE_BRIGHT = "#A62D17";
+const T1 = "#1A0E07";
+const T2 = "#5C4033";
+const T3 = "#9C8470";
+const BORDER = "rgba(26,14,7,0.10)";
+const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 20px rgba(26,14,7,0.06)";
 
 const plans = [
   {
@@ -44,7 +44,7 @@ export default function Suggested() {
     <div className="flex-1 overflow-y-auto pb-24 relative" style={{ background: BG }}>
       {/* Header */}
       <div className="sticky top-0 z-20 px-5 pt-5 pb-3"
-        style={{ background: "rgba(247,245,240,0.92)", backdropFilter: "blur(20px)" }}>
+        style={{ background: "rgba(238,230,212,0.92)", backdropFilter: "blur(20px)" }}>
         <div className="flex items-center gap-3">
           <motion.button whileTap={{ scale: 0.9 }} onClick={() => setLocation("/create-plan")}
             className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
@@ -70,9 +70,9 @@ export default function Suggested() {
               whileHover={{ scale: 1.01, y: -2 }} whileTap={{ scale: 0.98 }}
               className="rounded-2xl overflow-hidden mb-4 cursor-pointer"
               style={{
-                border: isBest ? `2px solid rgba(59,130,246,0.35)` : `1px solid ${BORDER}`,
+                border: isBest ? `2px solid rgba(200,55,30,0.32)` : `1px solid ${BORDER}`,
                 boxShadow: isBest
-                  ? "0 0 0 4px rgba(59,130,246,0.07), 0 8px 36px rgba(59,130,246,0.16), 0 2px 8px rgba(0,0,0,0.06)"
+                  ? "0 0 0 4px rgba(200,55,30,0.07), 0 8px 36px rgba(200,55,30,0.16), 0 2px 8px rgba(26,14,7,0.06)"
                   : SHADOW,
               }}
               onClick={() => plan.id === 1 ? setLocation("/plan-detail") : setLocation("/vote")}>
@@ -80,15 +80,15 @@ export default function Suggested() {
               {/* Hero image — Best Match is taller */}
               <div className="relative overflow-hidden" style={{ height: isBest ? "200px" : "156px" }}>
                 <img src={plan.img} alt={plan.title} className="w-full h-full object-cover" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,23,42,0.75), rgba(15,23,42,0.22) 55%, transparent)" }} />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(26,14,7,0.75), rgba(26,14,7,0.22) 55%, transparent)" }} />
 
                 {/* Best match badge — glowing */}
                 {isBest && (
                   <motion.div
-                    animate={{ boxShadow: ["0 0 0 0px rgba(59,130,246,0.40)", "0 0 0 6px rgba(59,130,246,0)", "0 0 0 0px rgba(59,130,246,0.40)"] }}
+                    animate={{ boxShadow: ["0 0 0 0px rgba(200,55,30,0.35)", "0 0 0 6px rgba(200,55,30,0)", "0 0 0 0px rgba(200,55,30,0.35)"] }}
                     transition={{ duration: 2, repeat: Infinity }}
                     className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-                    style={{ background: BLUE, boxShadow: "0 2px 12px rgba(59,130,246,0.50)" }}>
+                    style={{ background: BLUE, boxShadow: "0 2px 12px rgba(200,55,30,0.45)" }}>
                     <Sparkles className="w-3 h-3 text-white" />
                     <span className="text-[10px] font-bold text-white uppercase tracking-wider">Best Match</span>
                   </motion.div>
@@ -118,7 +118,7 @@ export default function Suggested() {
                       <span className="text-[11px] font-semibold" style={{ color: T3 }}>Độ phù hợp nhóm</span>
                       <span className="text-[11px] font-bold" style={{ color: BLUE_BRIGHT }}>{plan.matchScore}%</span>
                     </div>
-                    <div className="h-1.5 rounded-full" style={{ background: "rgba(59,130,246,0.10)" }}>
+                    <div className="h-1.5 rounded-full" style={{ background: "rgba(200,55,30,0.10)" }}>
                       <motion.div
                         initial={{ width: 0 }} animate={{ width: `${plan.matchScore}%` }}
                         transition={{ delay: 0.5, duration: 0.9, ease: [0.34, 1.56, 0.64, 1] }}
@@ -129,13 +129,13 @@ export default function Suggested() {
 
                 <div className="flex items-center justify-between">
                   <span className="px-2.5 py-1 rounded-full text-[12px] font-semibold"
-                    style={{ background: "rgba(59,130,246,0.08)", color: BLUE, border: `1px solid rgba(59,130,246,0.18)` }}>
+                    style={{ background: "rgba(200,55,30,0.08)", color: BLUE, border: `1px solid rgba(200,55,30,0.18)` }}>
                     {plan.mood}
                   </span>
                   <button
                     onClick={(e) => { e.stopPropagation(); plan.id === 1 ? setLocation("/plan-detail") : setLocation("/vote"); }}
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-bold ${isBest ? "premium-cta-mint" : ""}`}
-                    style={isBest ? {} : { background: T1, color: "#FFFFFF", boxShadow: "0 2px 8px rgba(15,23,42,0.18)" }}>
+                    style={isBest ? {} : { background: T1, color: "#FFFFFF", boxShadow: "0 2px 8px rgba(26,14,7,0.18)" }}>
                     {plan.id === 1 ? "Chọn plan này" : "Bình chọn"}
                     <ChevronRight className="w-3 h-3" />
                   </button>
