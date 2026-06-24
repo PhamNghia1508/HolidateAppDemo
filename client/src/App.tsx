@@ -20,13 +20,14 @@ import Pet from "@/pages/Pet";
 
 function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-x-hidden" style={{ background: "#F1F5FB" }}>
+    <div className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-x-hidden" style={{ background: "#F7F5F0" }}>
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-80px] right-[-60px] w-[320px] h-[320px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.07) 0%, transparent 70%)", filter: "blur(60px)" }} />
+          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)", filter: "blur(60px)" }} />
         <div className="absolute bottom-[20%] left-[-40px] w-[240px] h-[240px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(139,92,246,0.05) 0%, transparent 70%)", filter: "blur(50px)" }} />
+          style={{ background: "radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 70%)", filter: "blur(50px)" }} />
       </div>
+      <div className="grain-overlay" />
       <div className="relative z-10 flex-1 flex flex-col">
         {children}
       </div>
@@ -35,10 +36,10 @@ function AppShell({ children }: { children: React.ReactNode }) {
 }
 
 const pageTransition = {
-  initial: { opacity: 0, y: 10 },
+  initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -6 },
-  transition: { type: "spring" as const, stiffness: 420, damping: 36 },
+  exit: { opacity: 0, y: -8 },
+  transition: { type: "spring" as const, stiffness: 400, damping: 34 },
 };
 
 function PageWrapper({ children }: { children: React.ReactNode }) {
