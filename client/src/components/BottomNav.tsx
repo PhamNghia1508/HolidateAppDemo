@@ -29,12 +29,12 @@ export default function BottomNav() {
     <nav
       className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-around px-2 py-2 pb-6 max-w-md mx-auto"
       style={{
-        background: "rgba(255, 255, 255, 0.75)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        borderTop: "1px solid rgba(255, 255, 255, 0.6)",
+        background: "rgba(255, 248, 239, 0.75)",
+        backdropFilter: "blur(24px) saturate(150%)",
+        WebkitBackdropFilter: "blur(24px) saturate(150%)",
+        borderTop: "1px solid rgba(255, 255, 255, 0.5)",
         borderRadius: "24px 24px 0 0",
-        boxShadow: "0 -8px 32px rgba(0,0,0,0.08), 0 -2px 8px rgba(0,0,0,0.04)",
+        boxShadow: "0 -8px 32px rgba(0,0,0,0.06), 0 -2px 8px rgba(0,0,0,0.02)",
       }}
     >
       {tabs.map((tab) => {
@@ -45,26 +45,26 @@ export default function BottomNav() {
             key={tab.path}
             onClick={() => setLocation(tab.path)}
             whileTap={{ scale: 0.9 }}
-            className="flex flex-col items-center gap-0.5 min-w-[60px] py-1 relative"
+            className="flex flex-col items-center gap-0.5 min-w-[56px] py-1 relative"
             data-testid={`nav-${tab.path.slice(1)}`}
           >
             <motion.div
               animate={isActive ? { scale: 1.1, y: -2 } : { scale: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className={`${isActive ? "text-sage" : "text-muted-foreground"}`}
+              className={`${isActive ? "text-[#4a7c59]" : "text-[#7B6658]"}`}
             >
-              <Icon className="w-6 h-6" />
+              <Icon className="w-5 h-5" />
             </motion.div>
             <motion.span
               animate={isActive ? { scale: 1.05 } : { scale: 1 }}
-              className={`text-[11px] font-medium ${isActive ? "text-sage" : "text-muted-foreground"}`}
+              className={`text-[10px] font-medium ${isActive ? "text-[#4a7c59] font-semibold" : "text-[#7B6658]"}`}
             >
               {tab.label}
             </motion.span>
             {isActive && (
               <motion.span
                 layoutId="nav-dot"
-                className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-sage"
+                className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#4a7c59]"
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               />
             )}

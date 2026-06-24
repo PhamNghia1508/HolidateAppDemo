@@ -1,0 +1,236 @@
+You are now acting as a ruthless Senior Product Designer + Frontend Engineer. The current GatherGo UI is too safe, beige, flat, repetitive, and visually boring. I do NOT want another small polish pass. I want a serious redesign pass that fixes visual direction, layout hierarchy, color system, spacing, and mobile UX.
+
+First, inspect these pages carefully:
+
+* `/`
+* `/home`
+* `/plan`
+* `/vote`
+* `/confirmed`
+* `/memories`
+* `/pet`
+
+The current problems:
+
+* Everything looks beige, washed out, and low-energy.
+* Cards all look the same, with weak hierarchy.
+* The orange/green palette feels generic and not premium.
+* The `/pet` page still looks like a flat stats dashboard.
+* The cat illustration is too simple and childish.
+* Bento layout is not strong enough.
+* There is visible horizontal overflow on mobile. Fix this completely.
+* Bottom navigation is too bulky and visually old.
+* The app lacks a distinctive brand atmosphere.
+
+Your task:
+Redesign the visual system of GatherGo into a premium social planning app with a stronger identity.
+
+New art direction:
+“Premium Social Night-Out Companion”
+Think: modern lifestyle app, cinematic group planning, soft 3D cards, high contrast, dark emerald depth, warm coral energy, champagne highlights, clean Apple-level typography.
+
+Do NOT keep the current boring beige-only style.
+
+Use this new design system:
+
+Color direction:
+
+* Deep emerald / ink base: `#10231E`, `#132A24`, `#172F28`
+* Warm cream surface: `#FFF8EF`, `#F7EFE5`
+* Coral action color: `#FF6B4A`, `#FF8A4C`
+* Champagne accent: `#F3D37A`
+* Mint accent: `#65C6A2`
+* Soft clay text: `#7B6658`
+* Main dark text: `#231F1B`
+
+Global background:
+
+* Create a richer background, not flat beige.
+* Use layered radial gradients:
+
+  * dark emerald glow near top
+  * warm cream center
+  * coral/champagne glow in CTA areas
+  * mint glow behind success/pet states
+* Add a subtle grain/noise overlay using CSS pseudo-element.
+* Fix all horizontal overflow:
+
+  * `html, body { overflow-x: hidden; }`
+  * root containers must never exceed viewport width
+  * mobile card grids must use `minmax(0, 1fr)`
+  * no element should create unwanted horizontal scroll.
+
+Typography:
+
+* Use a modern Apple-like font stack:
+  `Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif`
+* Titles must become bolder, sharper, and more editorial.
+* Labels should be tiny uppercase with wide tracking.
+* Use stronger contrast between label, title, body, number, CTA.
+
+Major redesign requirements:
+
+1. Home page
+
+* Make the top hero card more cinematic.
+* Add stronger dark overlay on images.
+* Make the CTA button feel premium, not generic orange.
+* The four feature cards should become a proper Bento grid with varied emphasis.
+* Add small status pills with glass effect.
+* Improve spacing and reduce the “stack of white boxes” feeling.
+
+2. Plan page
+
+* The stat counters at the top need to feel like premium dashboard chips, not plain cards.
+* Saved plan cards should have stronger hierarchy:
+
+  * status pill
+  * title
+  * route/time/budget row
+  * group/mood tag
+  * subtle arrow affordance
+* Use richer surface shadows and background depth.
+* Make the list easier to scan.
+
+3. Vote page
+
+* Make this page feel more energetic and social.
+* Voting avatars should have depth and personality.
+* Vote buttons should feel tactile and game-like but premium.
+* Progress bar should animate smoothly.
+* Add stronger group decision visual hierarchy.
+
+4. Confirmed page
+
+* Make the success state more cinematic.
+* Replace simple confetti feeling with a premium celebration scene:
+
+  * glowing success orb
+  * soft radial background
+  * animated check mark
+  * premium summary card
+* CTA hierarchy should be clearer.
+
+5. Memories page
+
+* Make it feel like a premium memory vault, not a simple gallery.
+* Image grid should feel editorial.
+* Add better image radius, shadows, and overlay captions.
+* AI recap card should look special and warm.
+* Fix text overlap and spacing issues.
+
+6. Pet page — most important
+   Completely redesign `/pet`.
+
+The current `/pet` is still boring because:
+
+* The cat is a flat SVG.
+* The Bento cards feel randomly placed.
+* The color palette is weak.
+* The pet does not feel alive or premium.
+
+Make `/pet` feel like:
+“Premium companion collectible screen inside GatherGo.”
+
+Required layout:
+
+* Top header:
+
+  * small uppercase label: `GOPET ECOSYSTEM`
+  * big title: `Mimi`
+  * level/status pill on the right
+* Hero Bento card:
+
+  * large 3D-like pet stage
+  * floating circular platform
+  * multi-layered shadow
+  * glowing backdrop
+  * pet/avatar object floating gently
+  * name/status underneath
+* Bento stats grid:
+
+  * Gather count
+  * Photos count
+  * Streak
+  * Mood
+  * Energy
+  * Next unlock
+* Make cards asymmetric:
+
+  * one large energy card
+  * one tall unlock card
+  * smaller stat cards
+* The Bento grid must look deliberately composed, not like equal boxes.
+
+Pet visual:
+
+* If no real 3D model exists, build a CSS-based 3D pet stage:
+
+  * circular glass orb
+  * soft inner shadow
+  * animated floating mascot container
+  * fake 3D lighting using gradients
+  * platform ellipse shadow below
+  * small sparkles/particles around
+* The existing SVG cat can be used only if placed inside a premium 3D stage, but it must not look flat.
+* Add floating animation with `framer-motion`.
+
+Micro-interactions:
+
+* Use `framer-motion`.
+* Bento cards should animate in with stagger.
+* On hover/tap:
+
+  * lift slightly
+  * scale subtly
+  * rotateX/rotateY lightly
+  * spring transition
+* Progress bars/rings should animate from 0 to current value.
+* Bottom nav active icon should have a smooth pill/dot motion.
+
+Bottom navigation:
+
+* Redesign it to feel modern and compact.
+* Use glass background.
+* Reduce visual heaviness.
+* Improve active state:
+
+  * active icon color
+  * small glowing dot or pill
+  * subtle lifted state
+* Keep it usable on mobile.
+
+Implementation requirements:
+
+* Use Tailwind heavily.
+* Add clean custom CSS classes where needed:
+
+  * `.gathergo-shell`
+  * `.premium-mesh-bg`
+  * `.grain-overlay`
+  * `.glass-panel`
+  * `.bento-card`
+  * `.pet-stage`
+  * `.floating-glow`
+  * `.premium-bottom-nav`
+* Do not break current routing or business logic.
+* Do not rename existing data fields unless required.
+* Keep all pages responsive.
+* Fix mobile viewport and horizontal overflow.
+* Run the app/build and fix errors.
+
+Quality bar:
+This should NOT look like a default Tailwind app.
+This should NOT look like a beige student project.
+This should feel like a real premium mobile app prototype that could appear on Dribbble.
+
+Important:
+Do not only change colors.
+Do not only add shadows.
+Recompose the layout, hierarchy, spacing, and visual system.
+
+After implementation, give me:
+
+1. Changed files.
+2. What visual system was improved.
+3. Any remaining limitations.

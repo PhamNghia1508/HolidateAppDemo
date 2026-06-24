@@ -1,8 +1,6 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
-import SpatialCard from "@/components/SpatialCard";
-import SpringButton from "@/components/SpringButton";
 import { Sparkles, Plus, Star, Clock, MapPin } from "lucide-react";
 
 export default function Memories() {
@@ -10,33 +8,25 @@ export default function Memories() {
 
   return (
     <div
-      className="min-h-screen flex flex-col max-w-md mx-auto relative"
+      className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-x-hidden"
       style={{
-        background: "linear-gradient(180deg, #f3eee8 0%, #e8e0d6 100%)",
+        background: "radial-gradient(ellipse at 50% 0%, rgba(16,35,30,0.08) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(255,107,74,0.06) 0%, transparent 50%), linear-gradient(180deg, #FFF8EF 0%, #F7EFE5 100%)",
       }}
     >
-      {/* Background decoration */}
-      <div className="absolute top-20 right-0 w-32 h-32 rounded-full bg-coral/10 blur-[50px]" />
-
-      <div className="flex-1 overflow-y-auto pb-24 px-6 relative z-10">
-        {/* Status bar */}
-        <div className="flex items-center justify-between pt-4 mb-4">
-          <span className="text-sm font-medium text-ink">9:41</span>
-          <div className="flex items-center gap-1">
-            <div className="w-1 h-1 rounded-full bg-ink" />
-            <div className="w-1 h-1 rounded-full bg-ink" />
-            <div className="w-4 h-2 rounded-sm border border-ink bg-ink" />
+      <div className="flex-1 overflow-y-auto pb-28 px-5 relative z-10">
+        {/* Header */}
+        <div className="pt-5 mb-5">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#7B6658] opacity-60">
+            Kỷ niệm
           </div>
+          <h1 className="text-[22px] font-black text-[#231F1B] tracking-tight mt-0.5">Memory Vault</h1>
+          <p className="text-[14px] text-[#7B6658] mt-1">
+            Kỷ ức của chuyến đi được gom lại thành album, note và recap.
+          </p>
         </div>
 
-        {/* Title */}
-        <h1 className="text-[26px] font-bold text-ink mb-2">Memory Vault</h1>
-        <p className="text-[14px] text-muted-foreground mb-5">
-          Ký ức của chuyến đi được gom lại thành album, note và recap.
-        </p>
-
-        {/* Album Grid - with real images */}
-        <div className="grid grid-cols-2 gap-3 mb-5">
+        {/* Album Grid */}
+        <div className="grid grid-cols-2 gap-3 mb-5" style={{ gridAutoRows: "minmax(0, 1fr)" }}>
           {[
             "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=300&h=200&fit=crop",
             "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=300&h=200&fit=crop",
@@ -50,38 +40,59 @@ export default function Memories() {
               transition={{ delay: 0.1 + i * 0.08 }}
               whileHover={{ scale: 1.05, y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="h-[110px] rounded-[16px] overflow-hidden cursor-pointer shadow-md"
+              className="h-[120px] rounded-[20px] overflow-hidden cursor-pointer shadow-lg"
             >
               <img src={img} alt={`memory ${i + 1}`} className="w-full h-full object-cover" />
             </motion.div>
           ))}
         </div>
 
-        {/* Memory Title Card - SpatialCard */}
-        <SpatialCard glow="sage" className="mb-4">
-          <h3 className="text-[16px] font-bold text-ink mb-1">Đêm rooftop đầu hè</h3>
-          <p className="text-[12px] text-muted-foreground">12 ảnh • 3 địa điểm • 4 người</p>
-        </SpatialCard>
+        {/* Memory Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="premium-glass-card p-4 mb-3"
+          style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.4)" }}
+        >
+          <h3 className="text-[16px] font-bold text-[#231F1B]">Đêm rooftop đầu hè</h3>
+          <p className="text-[12px] text-[#7B6658]">12 ảnh • 3 địa điểm • 4 người</p>
+        </motion.div>
 
-        {/* AI Recap with sparkle */}
-        <SpatialCard glow="sage" className="mb-4">
+        {/* AI Recap */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="premium-glass-card p-4 mb-3"
+          style={{
+            boxShadow: "0 4px 24px rgba(0,0,0,0.06), 0 0 40px rgba(243,211,122,0.1), inset 0 1px 0 rgba(255,255,255,0.4)",
+            background: "rgba(255,248,239,0.7)",
+          }}
+        >
           <div className="flex items-center gap-2 mb-2">
             <motion.div
               animate={{ rotate: [0, 15, -15, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <Sparkles className="w-4 h-4 text-sage" />
+              <Sparkles className="w-4 h-4 text-[#F3D37A]" />
             </motion.div>
-            <span className="text-[11px] font-semibold text-sage bg-sage/10 px-2 py-0.5 rounded-full">AI recap</span>
-            <span className="text-[11px] text-muted-foreground">Tạo từ Gather đã chốt</span>
+            <span className="text-[11px] font-semibold text-[#4a7c59] bg-[#4a7c59]/10 px-2 py-0.5 rounded-full">AI recap</span>
+            <span className="text-[11px] text-[#7B6658]">Tạo từ Gather đã chốt</span>
           </div>
-          <p className="text-[13px] text-ink leading-relaxed">
+          <p className="text-[13px] text-[#231F1B] leading-relaxed">
             Một buổi tối chill đúng nghĩa — cả nhóm ăn nhẹ, ngắm thành phố và kịp sẵn vài tấm ảnh đẹp.
           </p>
-        </SpatialCard>
+        </motion.div>
 
-        {/* Stats - SpatialCard */}
-        <SpatialCard glow="sage" className="mb-4">
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="premium-glass-card p-4 mb-5"
+          style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.4)" }}
+        >
           <div className="flex items-center justify-between">
             {[
               { icon: MapPin, value: "3", label: "Stops" },
@@ -89,23 +100,24 @@ export default function Memories() {
               { icon: Clock, value: "520k", label: "Each" },
             ].map((s, i) => (
               <div key={i} className="text-center flex flex-col items-center">
-                <s.icon className="w-4 h-4 text-sage mb-1" />
-                <p className="text-[16px] font-bold text-ink">{s.value}</p>
-                <p className="text-[11px] text-muted-foreground">{s.label}</p>
+                <s.icon className="w-4 h-4 text-[#4a7c59] mb-1" />
+                <p className="text-[16px] font-bold text-[#231F1B]">{s.value}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7B6658] opacity-60">{s.label}</p>
               </div>
             ))}
           </div>
-        </SpatialCard>
+        </motion.div>
 
         {/* Note + FAB */}
         <div className="flex items-center justify-between">
-          <p className="text-[13px] text-sage">Lần sau săn hoàng hôn.</p>
+          <p className="text-[13px] text-[#4a7c59]">Lần sau săn hoàng hôn.</p>
           <motion.button
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
-            className="w-12 h-12 rounded-full text-white flex items-center justify-center shadow-lg shadow-coral/30"
+            className="w-12 h-12 rounded-full text-white flex items-center justify-center shadow-lg"
             style={{
-              background: "linear-gradient(135deg, #e76f51, #f4a261)",
+              background: "linear-gradient(135deg, #FF6B4A, #FF8A4C)",
+              boxShadow: "0 4px 16px rgba(255,107,74,0.3)",
             }}
           >
             <Plus className="w-5 h-5" />
