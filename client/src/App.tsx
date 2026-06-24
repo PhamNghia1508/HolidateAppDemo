@@ -15,6 +15,7 @@ import PlanDetail from "@/pages/PlanDetail";
 import Vote from "@/pages/Vote";
 import Confirmed from "@/pages/Confirmed";
 import Memories from "@/pages/Memories";
+import Photobooth from "@/pages/Photobooth";
 import Pet from "@/pages/Pet";
 
 function AppShell({ children }: { children: React.ReactNode }) {
@@ -66,6 +67,7 @@ function Router() {
       <Route path="/vote"><PageWrapper><Vote /></PageWrapper></Route>
       <Route path="/confirmed"><PageWrapper><Confirmed /></PageWrapper></Route>
       <Route path="/memories"><PageWrapper><Memories /></PageWrapper></Route>
+      <Route path="/photobooth"><PageWrapper><Photobooth /></PageWrapper></Route>
       <Route path="/pet"><PageWrapper><Pet /></PageWrapper></Route>
       <Route><PageWrapper><NotFound /></PageWrapper></Route>
     </Switch>
