@@ -1,0 +1,51 @@
+  Act as the Chief Design Officer and Lead Frontend Architect of a 2026 Tech Unicorn. Your mission is to completely
+  overhaul and re-architect the entire User Interface of this React + Tailwind CSS + Framer Motion application.
+
+    The goal is to elevate this app from a "concept" to an "Awwwards/Mobbin App of the Year" standard. The UI must
+  feel expensive, immersive, spatial, and highly intuitive.
+
+    ### CORE DESIGN LANGUAGE (THE "2026 UNICORN STANDARD")
+    1. Spatial UI & Glassmorphism 2.0:
+       - Eliminate flat designs. Use multi-layered depth with `backdrop-blur` and `saturate` filters.
+       - Introduce "Ambient Glows" (soft, blurred radial gradients behind active cards) to create a sense of physical
+  space.
+       - Add subtle 3D perspective to hover/tap states (`rotateX`, `y`, `perspective`).
+
+    2. Fluid & Organic Motion (Framer Motion):
+       - No linear or basic ease-in-out animations. Use Spring Physics universally (`type: "spring", stiffness: 300,
+  damping: 25`).
+       - Implement staggered entrance animations for lists and grids.
+
+    3. AI-Native & Contextual Elements:
+       - Redesign main CTA buttons into "Predictive Action Islands" (glowing, pill-shaped, animated border components
+  that look like AI suggestions).
+       - Floating elements and Bottom Navigations should have a glassy, floating effect detached from the absolute
+  bottom edge.
+
+    4. Micro-Typography & Grid Systems:
+       - Enforce a strict Bento Grid system for dashboards and content displays.
+       - Use extreme typography contrast: micro-labels (uppercase, `tracking-widest`, `text-[10px]`, `font-bold`, low
+  opacity) contrasting with massive, tight-tracking headers (`tracking-tighter`, `leading-none`).
+
+    ### STRICT ENGINEERING RULES
+    - ACCESSIBILITY FIRST: Never use `onClick` on `<div>` or `<motion.div>`. Every interactive element MUST be a
+  `<button>` or `<motion.button>` with proper `focus:ring` and `focus:outline-none`.
+    - DESIGN TOKENS: Stop using arbitrary Tailwind values (like `text-[13px]`). Standardize the text scale and extract
+  hardcoded hex colors into semantic Tailwind classes.
+    - CLEAN CODE: Modularize repeated UI patterns into reusable components in the `/components` folder.
+
+    ### EXECUTION STRATEGY
+    Do not try to change everything at once. Please execute this overhaul step-by-step. Ask for my confirmation before
+  proceeding to the next step:
+
+    *   STEP 1: Global Foundation. Update `index.css` and `tailwind.config.ts` to establish the new design tokens,
+  advanced glassmorphism utilities, ambient glow classes, and typography scale.
+    *   STEP 2: Core Layout & Navigation. Overhaul `App.tsx` and `BottomNav.tsx` to reflect the new floating, spatial
+  aesthetic.
+    *   STEP 3: Component Library. Upgrade shared UI components (Buttons, Cards, Chips) to match the Unicorn Standard
+  and fix all A11y issues.
+    *   STEP 4: Page-by-Page Transformation. Start with `Home.tsx`, completely redesigning it into a high-end Bento
+  Grid with Spatial AI elements. Then proceed to other pages one by one.
+
+    If you understand the mission and the standard required, reply with "MISSION ACCEPTED" and immediately begin STEP
+  1 by proposing the exact code changes for the global foundation.

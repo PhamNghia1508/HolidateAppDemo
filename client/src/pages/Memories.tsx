@@ -1,6 +1,8 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
+import GlassCard from "@/components/GlassCard";
+import PageHeader from "@/components/PageHeader";
 import { Sparkles, Plus, Star, Clock, MapPin, Zap } from "lucide-react";
 
 export default function Memories() {
@@ -14,134 +16,103 @@ export default function Memories() {
   ];
 
   return (
-    <div
-      className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-x-hidden"
-      style={{
-        background: "linear-gradient(180deg, #FFF7EA 0%, #F6EDE1 100%)",
-      }}
-    >
-      <div className="flex-1 overflow-y-auto pb-28 px-5 relative z-10">
-        {/* Header */}
-        <div className="pt-5 mb-5">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#78675B] opacity-60">
-            Kỷ niệm
-          </div>
-          <h1 className="text-[22px] font-black text-[#201B17] tracking-tight mt-0.5">Memory Vault</h1>
-          <p className="text-[14px] text-[#78675B] mt-1">
-            Kỷ ức của chuyến đi được gom lại thành album, note và recap.
-          </p>
+    <div className="flex-1 overflow-y-auto pb-32 px-5">
+      <PageHeader
+        label="Kỷ niệm"
+        title="Memory Vault"
+        subtitle="Kỷ ức của chuyến đi được gom lại thành album, note và recap."
+      />
+
+      {/* Memory Score */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="glass-dark p-3 mb-4 flex items-center gap-3"
+      >
+        <div className="w-10 h-10 rounded-full bg-champagne/20 flex items-center justify-center">
+          <Zap className="w-5 h-5 text-champagne" />
         </div>
+        <div>
+          <p className="text-label text-white">Vibe captured</p>
+          <p className="text-[11px] text-mint/70">12 kỷ niệm • 48 ảnh • 5 streak</p>
+        </div>
+        <div className="ml-auto text-[20px] font-black text-champagne">87</div>
+      </motion.div>
 
-        {/* Memory Score */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="dark-hero-card p-3 mb-4 flex items-center gap-3"
-        >
-          <div className="w-10 h-10 rounded-full bg-[#F4D06F]/20 flex items-center justify-center">
-            <Zap className="w-5 h-5 text-[#F4D06F]" />
-          </div>
-          <div>
-            <p className="text-[12px] font-bold text-white">Vibe captured</p>
-            <p className="text-[11px] text-[#62C9A5]/70">12 kỷ niệm • 48 ảnh • 5 streak</p>
-          </div>
-          <div className="ml-auto text-[20px] font-black text-[#F4D06F]">87</div>
-        </motion.div>
+      {/* Editorial Album Grid */}
+      <div className="grid grid-cols-2 gap-3 mb-5" style={{ gridAutoRows: "minmax(0, 1fr)" }}>
+        {memories.map((m, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 + i * 0.08 }}
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+            className={`rounded-[20px] overflow-hidden cursor-pointer shadow-lg relative ${m.size === "large" ? "h-[140px]" : "h-[110px]"}`}
+          >
+            <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-deep/60 via-transparent to-transparent" />
+            <div className="absolute bottom-2 left-3">
+              <span className="text-[11px] font-semibold text-white/90">{m.caption}</span>
+            </div>
+          </motion.div>
+        ))}
+      </div>
 
-        {/* Editorial Album Grid */}
-        <div className="grid grid-cols-2 gap-3 mb-5" style={{ gridAutoRows: "minmax(0, 1fr)" }}>
-          {memories.map((m, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.08 }}
-              whileHover={{ scale: 1.05, y: -3 }}
-              whileTap={{ scale: 0.95 }}
-              className={`rounded-[20px] overflow-hidden cursor-pointer shadow-lg relative ${m.size === "large" ? "h-[140px]" : "h-[110px]"}`}
-            >
-              <img src={m.img} alt={m.caption} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#071F1A]/60 via-transparent to-transparent" />
-              <div className="absolute bottom-2 left-3">
-                <span className="text-[11px] font-semibold text-white/90">{m.caption}</span>
+      {/* Memory Title */}
+      <GlassCard delay={0.4} className="p-4 mb-3">
+        <h3 className="text-title text-ink">Đêm rooftop đầu hè</h3>
+        <p className="text-body text-clay">12 ảnh • 3 địa điểm • 4 người</p>
+      </GlassCard>
+
+      {/* AI Recap */}
+      <GlassCard dark delay={0.5} className="p-4 mb-3">
+        <div className="flex items-center gap-2 mb-2">
+          <motion.div
+            animate={{ rotate: [0, 15, -15, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <Sparkles className="w-4 h-4 text-champagne" />
+          </motion.div>
+          <span className="text-[11px] font-semibold text-champagne bg-champagne/15 px-2 py-0.5 rounded-full">AI recap</span>
+          <span className="text-[11px] text-mint/70">Tạo từ Gather đã chốt</span>
+        </div>
+        <p className="text-body text-white/90 leading-relaxed">
+          Một buổi tối chill đúng nghĩa — cả nhóm ăn nhẹ, ngắm thành phố và kịp sẵn vài tấm ảnh đẹp.
+        </p>
+      </GlassCard>
+
+      {/* Stats */}
+      <GlassCard delay={0.6} className="p-4 mb-5">
+        <div className="flex items-center justify-between">
+          {[
+            { icon: MapPin, value: "3", label: "Stops" },
+            { icon: Star, value: "4", label: "People" },
+            { icon: Clock, value: "520k", label: "Each" },
+          ].map((s, i) => (
+            <div key={i} className="text-center flex flex-col items-center">
+              <div className="w-8 h-8 rounded-full bg-mint/10 flex items-center justify-center mb-1">
+                <s.icon className="w-4 h-4 text-mint" />
               </div>
-            </motion.div>
+              <p className="text-[16px] font-black text-ink">{s.value}</p>
+              <p className="text-micro text-clay">{s.label}</p>
+            </div>
           ))}
         </div>
+      </GlassCard>
 
-        {/* Memory Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="premium-glass-card p-4 mb-3"
+      {/* Note + FAB */}
+      <div className="flex items-center justify-between">
+        <p className="text-body text-mint">Lần sau săn hoàng hôn.</p>
+        <motion.button
+          whileHover={{ scale: 1.1, rotate: 90 }}
+          whileTap={{ scale: 0.9 }}
+          className="w-12 h-12 rounded-full text-white flex items-center justify-center gradient-cta focus:outline-none focus:ring-2 focus:ring-mint/40 focus:ring-offset-2 focus:ring-offset-cream"
         >
-          <h3 className="text-[16px] font-bold text-[#201B17]">Đêm rooftop đầu hè</h3>
-          <p className="text-[12px] text-[#78675B]">12 ảnh • 3 địa điểm • 4 người</p>
-        </motion.div>
-
-        {/* AI Recap — warm special card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="dark-hero-card p-4 mb-3"
-        >
-          <div className="flex items-center gap-2 mb-2">
-            <motion.div
-              animate={{ rotate: [0, 15, -15, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <Sparkles className="w-4 h-4 text-[#F4D06F]" />
-            </motion.div>
-            <span className="text-[11px] font-semibold text-[#F4D06F] bg-[#F4D06F]/15 px-2 py-0.5 rounded-full">AI recap</span>
-            <span className="text-[11px] text-[#62C9A5]/70">Tạo từ Gather đã chốt</span>
-          </div>
-          <p className="text-[13px] text-white/90 leading-relaxed">
-            Một buổi tối chill đúng nghĩa — cả nhóm ăn nhẹ, ngắm thành phố và kịp sẵn vài tấm ảnh đẹp.
-          </p>
-        </motion.div>
-
-        {/* Stats — memory artifacts */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="premium-glass-card p-4 mb-5"
-        >
-          <div className="flex items-center justify-between">
-            {[
-              { icon: MapPin, value: "3", label: "Stops" },
-              { icon: Star, value: "4", label: "People" },
-              { icon: Clock, value: "520k", label: "Each" },
-            ].map((s, i) => (
-              <div key={i} className="text-center flex flex-col items-center">
-                <div className="w-8 h-8 rounded-full bg-[#62C9A5]/10 flex items-center justify-center mb-1">
-                  <s.icon className="w-4 h-4 text-[#62C9A5]" />
-                </div>
-                <p className="text-[16px] font-black text-[#201B17]">{s.value}</p>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#78675B] opacity-60">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Note + FAB */}
-        <div className="flex items-center justify-between">
-          <p className="text-[13px] text-[#62C9A5]">Lần sau săn hoàng hôn.</p>
-          <motion.button
-            whileHover={{ scale: 1.1, rotate: 90 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-12 h-12 rounded-full text-white flex items-center justify-center"
-            style={{
-              background: "linear-gradient(135deg, #FF6848, #FF9A4A)",
-              boxShadow: "0 4px 16px rgba(255,104,72,0.3)",
-            }}
-          >
-            <Plus className="w-5 h-5" />
-          </motion.button>
-        </div>
+          <Plus className="w-5 h-5" />
+        </motion.button>
       </div>
 
       <BottomNav />
