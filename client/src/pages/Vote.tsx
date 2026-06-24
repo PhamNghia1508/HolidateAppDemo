@@ -226,7 +226,7 @@ export default function Vote() {
           <span className="text-[12px] font-semibold px-2 py-0.5 rounded-full"
             style={{
               background: voteCount === 4 ? "rgba(61,107,79,0.10)" : "rgba(200,134,10,0.10)",
-              color: voteCount === 4 ? "#15803D" : "#92400E",
+              color: voteCount === 4 ? "#3D6B4F" : "#B45309",
             }}>
             {voteCount === 4 ? "Đủ rồi! 🎉" : "Còn thiếu 1"}
           </span>
