@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
-import { Clock, Zap, Check, Clock3, CalendarClock } from "lucide-react";
+import { Clock, Zap, Check } from "lucide-react";
 import Confetti from "@/components/Confetti";
 
 const BG = "#F7F5F0";
@@ -29,10 +29,38 @@ const choices = [
   { label: "Đổi giờ", emoji: "🕐", variant: "amber" as const },
 ];
 
+// Live activity feed with specific microcopy per brief
 const activityFeed = [
-  { name: "Linh", action: "vote Đồng ý", time: "2 phút trước", color: "#8B5CF6" },
-  { name: "Minh", action: "vote Có thể", time: "8 phút trước", color: WARN },
-  { name: "Nghĩa", action: "tạo vote", time: "15 phút trước", color: BLUE },
+  {
+    name: "Linh",
+    action: "vừa đồng ý",
+    badge: "Đồng ý",
+    badgeColor: BLUE,
+    time: "2 phút trước",
+    initial: "L",
+    color: "#8B5CF6",
+    emoji: "✅",
+  },
+  {
+    name: "Minh",
+    action: "đổi sang có thể",
+    badge: "Có thể",
+    badgeColor: WARN,
+    time: "8 phút trước",
+    initial: "M",
+    color: WARN,
+    emoji: "🔄",
+  },
+  {
+    name: "An",
+    action: "chưa phản hồi",
+    badge: "Đang đợi",
+    badgeColor: T3,
+    time: "15 phút trước",
+    initial: "A",
+    color: T3,
+    emoji: "⏳",
+  },
 ];
 
 // Heart burst particles
@@ -48,40 +76,24 @@ function HeartBurst({ burstKey }: { burstKey: number }) {
             className="absolute pointer-events-none text-[15px]"
             style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 60 }}
             initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
-            animate={{
-              x: Math.cos(angle) * dist,
-              y: Math.sin(angle) * dist - 10,
-              scale: [0, 1.5, 1, 0],
-              opacity: [1, 1, 0.8, 0],
-            }}
+            animate={{ x: Math.cos(angle) * dist, y: Math.sin(angle) * dist - 10, scale: [0, 1.5, 1, 0], opacity: [1, 1, 0.8, 0] }}
             transition={{ duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            {heart}
-          </motion.div>
+          >{heart}</motion.div>
         );
       })}
     </>
   );
 }
 
-// Ring expansion when fully voted
 function VoteRing({ visible }: { visible: boolean }) {
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ scale: 0, opacity: 0.8 }}
-          animate={{ scale: [0, 2.5, 4], opacity: [0.8, 0.5, 0] }}
-          exit={{}}
+          initial={{ scale: 0, opacity: 0.8 }} animate={{ scale: [0, 2.5, 4], opacity: [0.8, 0.5, 0] }} exit={{}}
           transition={{ duration: 0.9, ease: "easeOut" }}
           className="fixed top-1/2 left-1/2 pointer-events-none"
-          style={{
-            width: 200, height: 200,
-            marginTop: -100, marginLeft: -100,
-            border: `3px solid ${BLUE}`,
-            borderRadius: "50%",
-            zIndex: 9998,
-          }}
+          style={{ width: 200, height: 200, marginTop: -100, marginLeft: -100, border: `3px solid ${BLUE}`, borderRadius: "50%", zIndex: 9998 }}
         />
       )}
     </AnimatePresence>
@@ -102,34 +114,22 @@ export default function Vote() {
   const [justTapped, setJustTapped] = useState<string | null>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setShowActivity(true), 600);
+    const t = setTimeout(() => setShowActivity(true), 500);
     return () => clearTimeout(t);
   }, []);
 
   const handleVote = (choice: string) => {
-    // Overshoot spring — track which was just tapped
     setJustTapped(choice);
     setTimeout(() => setJustTapped(null), 500);
-
     setMyChoice(choice);
-
     if (choice === "Đồng ý") {
-      // Heart burst
       setHeartBurstKey(k => k + 1);
       setShowHearts(true);
       setTimeout(() => setShowHearts(false), 900);
-
       if (voteCount < 4) {
         setVoteCount(4);
-        // Ring expansion + confetti after short delay
-        setTimeout(() => {
-          setShowRing(true);
-          setTimeout(() => setShowRing(false), 1000);
-        }, 150);
-        setTimeout(() => {
-          setConfettiTrigger(true);
-          setTimeout(() => setConfettiTrigger(false), 5000);
-        }, 400);
+        setTimeout(() => { setShowRing(true); setTimeout(() => setShowRing(false), 1000); }, 150);
+        setTimeout(() => { setConfettiTrigger(true); setTimeout(() => setConfettiTrigger(false), 5000); }, 400);
       }
     }
   };
@@ -139,13 +139,14 @@ export default function Vote() {
       <Confetti trigger={confettiTrigger} />
       <VoteRing visible={showRing} />
 
+      {/* Header */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={S(0)} className="pt-6 mb-4">
         <div className="page-label mb-1">Vote</div>
-        <h1 className="text-[26px] font-black tracking-tight" style={{ color: T1 }}>Cả nhóm vote plan</h1>
-        <p className="text-[13px] mt-0.5" style={{ color: T2 }}>Khỏi chat lòng vòng — chốt nhanh trong một shared space.</p>
+        <h1 className="text-[28px] font-black tracking-tight" style={{ color: T1 }}>Cả nhóm vote plan</h1>
+        <p className="text-[13px] mt-0.5" style={{ color: T2 }}>Khỏi chat lòng vòng — chốt ngay trong shared space.</p>
       </motion.div>
 
-      {/* Plan context */}
+      {/* Plan context card */}
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={S(1)}
         className="flex items-center gap-3 rounded-2xl overflow-hidden mb-4"
         style={{ background: T1, boxShadow: "0 4px 20px rgba(15,23,42,0.20)" }}>
@@ -162,31 +163,53 @@ export default function Vote() {
         </div>
       </motion.div>
 
-      {/* Activity feed */}
+      {/* Live activity feed — REAL microcopy per brief */}
       <AnimatePresence>
         {showActivity && (
           <motion.div
             initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="rounded-2xl p-3.5 mb-3 overflow-hidden"
+            exit={{ opacity: 0, height: 0 }} className="rounded-2xl mb-3 overflow-hidden"
             style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
-            <p className="page-label mb-2.5">Hoạt động gần đây</p>
-            <div className="space-y-2">
-              {activityFeed.map((item, i) => (
-                <motion.div key={i}
-                  initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.7 + i * 0.12, type: "spring", stiffness: 400, damping: 28 }}
-                  className="flex items-center gap-2.5">
-                  <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0"
-                    style={{ background: item.color }}>
-                    {item.name[0]}
-                  </div>
-                  <p className="text-[12px] flex-1" style={{ color: T2 }}>
-                    <span className="font-semibold" style={{ color: T1 }}>{item.name}</span>{" "}{item.action}
-                  </p>
-                  <p className="text-[10px]" style={{ color: T3 }}>{item.time}</p>
-                </motion.div>
-              ))}
+            <div className="p-3.5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="page-label">Hoạt động gần đây</p>
+                {/* Live pulse indicator */}
+                <div className="flex items-center gap-1.5">
+                  <motion.div animate={{ scale: [1, 1.6, 1], opacity: [1, 0.4, 1] }}
+                    transition={{ duration: 1.6, repeat: Infinity }}
+                    className="w-1.5 h-1.5 rounded-full" style={{ background: "#22C55E" }} />
+                  <span className="text-[10px] font-bold" style={{ color: "#22C55E" }}>LIVE</span>
+                </div>
+              </div>
+              <div className="space-y-2.5">
+                {activityFeed.map((item, i) => (
+                  <motion.div key={i}
+                    initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 + i * 0.12, type: "spring", stiffness: 400, damping: 28 }}
+                    className="flex items-center gap-2.5">
+                    {/* Avatar */}
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-[12px] font-bold text-white flex-shrink-0"
+                      style={{ background: item.color }}>
+                      {item.initial}
+                    </div>
+                    {/* Message */}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[12px]" style={{ color: T2 }}>
+                        <span className="font-bold" style={{ color: T1 }}>{item.name}</span>{" "}
+                        {item.action}
+                      </p>
+                    </div>
+                    {/* Badge + time */}
+                    <div className="flex flex-col items-end gap-0.5 flex-shrink-0">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                        style={{ background: `${item.badgeColor}12`, color: item.badgeColor, border: `1px solid ${item.badgeColor}22` }}>
+                        {item.emoji} {item.badge}
+                      </span>
+                      <span className="text-[9px]" style={{ color: T3 }}>{item.time}</span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
@@ -201,11 +224,14 @@ export default function Vote() {
             <p className="text-[15px] font-bold" style={{ color: BLUE_BRIGHT }}>{voteCount}/4 người đã vote</p>
           </div>
           <span className="text-[12px] font-semibold px-2 py-0.5 rounded-full"
-            style={{ background: voteCount === 4 ? "rgba(34,197,94,0.12)" : "rgba(245,158,11,0.10)", color: voteCount === 4 ? "#15803D" : "#92400E" }}>
+            style={{
+              background: voteCount === 4 ? "rgba(34,197,94,0.10)" : "rgba(245,158,11,0.10)",
+              color: voteCount === 4 ? "#15803D" : "#92400E",
+            }}>
             {voteCount === 4 ? "Đủ rồi! 🎉" : "Còn thiếu 1"}
           </span>
         </div>
-        <div className="flex gap-1 h-2 rounded-full overflow-hidden mb-2">
+        <div className="flex gap-1 h-1.5 rounded-full overflow-hidden mb-2">
           <motion.div initial={{ flex: 0 }} animate={{ flex: 2 }}
             transition={{ duration: 0.9, delay: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
             className="h-full rounded-l-full" style={{ background: BLUE }} />
@@ -223,7 +249,7 @@ export default function Vote() {
         </div>
         {voteCount < 4 && (
           <motion.p animate={{ opacity: [0.6, 1, 0.6] }} transition={{ duration: 2, repeat: Infinity }}
-            className="text-[12px] mt-2.5 font-medium" style={{ color: BLUE_BRIGHT }}>
+            className="text-[12px] mt-2 font-medium" style={{ color: BLUE_BRIGHT }}>
             Chỉ cần An xác nhận là chốt được ngay! 👀
           </motion.p>
         )}
@@ -245,7 +271,7 @@ export default function Vote() {
                   transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3 }}
                   className="w-[52px] h-[52px] rounded-full flex items-center justify-center font-bold text-[15px]"
                   style={{
-                    background: m.state === "active" ? `${m.color}18` : m.state === "maybe" ? "rgba(245,158,11,0.10)" : "#F1F5F9",
+                    background: m.state === "active" ? `${m.color}16` : m.state === "maybe" ? "rgba(245,158,11,0.10)" : "#F1F5F9",
                     border: `2px solid ${m.state === "active" ? m.color : m.state === "maybe" ? WARN : BORDER}`,
                     color: m.state === "active" ? m.color : m.state === "maybe" ? "#B45309" : T3,
                     boxShadow: m.state === "active" ? `0 0 0 4px ${m.color}14` : "none",
@@ -253,8 +279,8 @@ export default function Vote() {
                   {m.initial}
                 </motion.div>
                 {m.state === "active" && <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white" style={{ background: "#22C55E" }} />}
-                {m.state === "maybe" && <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white" style={{ background: WARN }} />}
-                {m.state === "pending" && <motion.div className="absolute bottom-0 right-0" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1.8, repeat: Infinity }}><Clock className="w-3.5 h-3.5" style={{ color: T3 }} /></motion.div>}
+                {m.state === "maybe" && <div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white flex items-center justify-center text-[8px]" style={{ background: WARN }}>?</div>}
+                {m.state === "pending" && <motion.div className="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-white flex items-center justify-center" style={{ background: "#F1F5F9" }} animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1.8, repeat: Infinity }}><Clock className="w-2.5 h-2.5" style={{ color: T3 }} /></motion.div>}
               </div>
               <p className="text-[11px] font-semibold mt-1.5" style={{ color: T1 }}>{m.name}</p>
               <span className={`status-pill mt-1 ${m.state === "active" ? "mint" : m.state === "maybe" ? "warning" : "muted"}`}>{m.status}</span>
@@ -263,7 +289,7 @@ export default function Vote() {
         </div>
       </motion.div>
 
-      {/* Vote choices — OVERSHOOT PHYSICS */}
+      {/* Vote choices — overshoot spring physics */}
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={S(4)}
         className="rounded-2xl p-4 mb-4" style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
         <div className="page-label mb-3">Bạn chọn gì?</div>
@@ -272,46 +298,28 @@ export default function Vote() {
             const isSelected = myChoice === choice.label;
             const accentColor = choice.variant === "blue" ? BLUE : choice.variant === "amber" ? WARN : "#64748B";
             const isJustTapped = justTapped === choice.label;
-
             return (
               <div key={choice.label} className="flex-1 relative">
                 <motion.button
                   whileTap={{ scale: 0.84 }}
-                  animate={isJustTapped
-                    ? { scale: [0.84, 1.14, 0.97, 1.04, 1] }
-                    : isSelected
-                    ? { scale: 1 }
-                    : { scale: 1 }
-                  }
+                  animate={isJustTapped ? { scale: [0.84, 1.14, 0.97, 1.04, 1] } : { scale: 1 }}
                   transition={isJustTapped
                     ? { type: "spring", stiffness: 700, damping: 10, duration: 0.6 }
-                    : { type: "spring", stiffness: 400, damping: 28 }
-                  }
+                    : { type: "spring", stiffness: 400, damping: 28 }}
                   onClick={() => handleVote(choice.label)}
                   className="w-full flex flex-col items-center gap-2 rounded-[16px] py-4 relative overflow-visible focus:outline-none"
                   style={{
-                    background: isSelected
-                      ? choice.variant === "blue" ? "rgba(59,130,246,0.09)" : "rgba(245,158,11,0.08)"
-                      : "#F8F7F4",
+                    background: isSelected ? (choice.variant === "blue" ? "rgba(59,130,246,0.09)" : "rgba(245,158,11,0.08)") : "#F8F7F4",
                     border: `2px solid ${isSelected ? accentColor : "rgba(0,0,0,0.06)"}`,
                     boxShadow: isSelected ? `0 0 0 3px ${accentColor}18, 0 4px 20px ${accentColor}22` : "none",
                     transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s",
                   }}>
-                  <motion.span
-                    animate={isSelected ? { scale: [1, 1.3, 1.1, 1] } : { scale: 1 }}
+                  <motion.span animate={isSelected ? { scale: [1, 1.3, 1.1, 1] } : { scale: 1 }}
                     transition={{ type: "spring", stiffness: 600, damping: 14, duration: 0.5 }}
-                    className="text-[22px] block">
-                    {choice.emoji}
-                  </motion.span>
-                  <span className="text-[12px] font-bold" style={{ color: isSelected ? accentColor : T2 }}>
-                    {choice.label}
-                  </span>
-
-                  {/* Heart burst lives INSIDE button so it pops out */}
+                    className="text-[22px] block">{choice.emoji}</motion.span>
+                  <span className="text-[12px] font-bold" style={{ color: isSelected ? accentColor : T2 }}>{choice.label}</span>
                   <AnimatePresence>
-                    {showHearts && choice.label === "Đồng ý" && (
-                      <HeartBurst burstKey={heartBurstKey} />
-                    )}
+                    {showHearts && choice.label === "Đồng ý" && <HeartBurst burstKey={heartBurstKey} />}
                   </AnimatePresence>
                 </motion.button>
               </div>
@@ -319,6 +327,16 @@ export default function Vote() {
           })}
         </div>
         <p className="text-[12px]" style={{ color: T3 }}>Mỗi lựa chọn đều cập nhật ngay cho cả nhóm.</p>
+      </motion.div>
+
+      {/* Mimi waiting bubble */}
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}
+        className="flex items-center gap-2.5 rounded-2xl px-4 py-3 mb-4"
+        style={{ background: "rgba(59,130,246,0.05)", border: "1px solid rgba(59,130,246,0.12)" }}>
+        <motion.span animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-[18px] flex-shrink-0">🐾</motion.span>
+        <p className="text-[12px] font-medium flex-1" style={{ color: BLUE_BRIGHT }}>
+          Mimi đang chờ cả nhóm vote xong để cùng đi chơi!
+        </p>
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={S(5)}>
