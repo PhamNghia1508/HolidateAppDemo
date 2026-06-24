@@ -17,24 +17,15 @@ import Confirmed from "@/pages/Confirmed";
 import Memories from "@/pages/Memories";
 import Pet from "@/pages/Pet";
 
-/* ============================================================
-   OBSIDIAN APP SHELL — Dark, premium, tech-unicorn grade
-   ============================================================ */
-
 function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-x-hidden bg-[#09090B]">
-      {/* Subtle ambient mint blur — behind content only */}
+    <div className="min-h-screen flex flex-col max-w-md mx-auto relative overflow-x-hidden" style={{ background: "#F1F5FB" }}>
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[400px] rounded-full opacity-[0.06]"
-          style={{ background: "radial-gradient(circle, #00E5A8 0%, transparent 70%)", filter: "blur(100px)" }}
-        />
+        <div className="absolute top-[-80px] right-[-60px] w-[320px] h-[320px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(59,130,246,0.07) 0%, transparent 70%)", filter: "blur(60px)" }} />
+        <div className="absolute bottom-[20%] left-[-40px] w-[240px] h-[240px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(139,92,246,0.05) 0%, transparent 70%)", filter: "blur(50px)" }} />
       </div>
-
-      {/* Grain overlay */}
-      <div className="grain-overlay" />
-
-      {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col">
         {children}
       </div>
@@ -42,12 +33,11 @@ function AppShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* Page transition wrapper */
 const pageTransition = {
-  initial: { opacity: 0, y: 12 },
+  initial: { opacity: 0, y: 10 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -8 },
-  transition: { type: "spring", stiffness: 400, damping: 35, duration: 0.25 },
+  exit: { opacity: 0, y: -6 },
+  transition: { type: "spring" as const, stiffness: 420, damping: 36 },
 };
 
 function PageWrapper({ children }: { children: React.ReactNode }) {
@@ -64,53 +54,23 @@ function PageWrapper({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ============================================================
-   ROUTER
-   ============================================================ */
-
 function Router() {
   return (
     <Switch>
-      <Route path="/">
-        <PageWrapper><Onboarding /></PageWrapper>
-      </Route>
-      <Route path="/home">
-        <PageWrapper><Home /></PageWrapper>
-      </Route>
-      <Route path="/plan">
-        <PageWrapper><Plan /></PageWrapper>
-      </Route>
-      <Route path="/create-plan">
-        <PageWrapper><CreatePlan /></PageWrapper>
-      </Route>
-      <Route path="/suggested">
-        <PageWrapper><Suggested /></PageWrapper>
-      </Route>
-      <Route path="/plan-detail">
-        <PageWrapper><PlanDetail /></PageWrapper>
-      </Route>
-      <Route path="/vote">
-        <PageWrapper><Vote /></PageWrapper>
-      </Route>
-      <Route path="/confirmed">
-        <PageWrapper><Confirmed /></PageWrapper>
-      </Route>
-      <Route path="/memories">
-        <PageWrapper><Memories /></PageWrapper>
-      </Route>
-      <Route path="/pet">
-        <PageWrapper><Pet /></PageWrapper>
-      </Route>
-      <Route>
-        <PageWrapper><NotFound /></PageWrapper>
-      </Route>
+      <Route path="/"><PageWrapper><Onboarding /></PageWrapper></Route>
+      <Route path="/home"><PageWrapper><Home /></PageWrapper></Route>
+      <Route path="/plan"><PageWrapper><Plan /></PageWrapper></Route>
+      <Route path="/create-plan"><PageWrapper><CreatePlan /></PageWrapper></Route>
+      <Route path="/suggested"><PageWrapper><Suggested /></PageWrapper></Route>
+      <Route path="/plan-detail"><PageWrapper><PlanDetail /></PageWrapper></Route>
+      <Route path="/vote"><PageWrapper><Vote /></PageWrapper></Route>
+      <Route path="/confirmed"><PageWrapper><Confirmed /></PageWrapper></Route>
+      <Route path="/memories"><PageWrapper><Memories /></PageWrapper></Route>
+      <Route path="/pet"><PageWrapper><Pet /></PageWrapper></Route>
+      <Route><PageWrapper><NotFound /></PageWrapper></Route>
     </Switch>
   );
 }
-
-/* ============================================================
-   APP
-   ============================================================ */
 
 function App() {
   return (
