@@ -1,100 +1,117 @@
 import { useState, useEffect, useMemo } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, Share2, Check, ArrowLeft, ChevronRight, X } from "lucide-react";
+import { CalendarBlank, ShareNetwork, Check, ArrowLeft, CaretRight, X } from "@phosphor-icons/react";
 import Confetti from "@/components/Confetti";
+import { getPlanById } from "@/data/mockData";
 
 const BLUE = "#C8371E";
 const T1 = "#1A0E07";
 
-const groupMembers = [
-  { initial: "N", name: "Nghĩa", color: "#C8371E" },
-  { initial: "L", name: "Linh", color: "#8B5CF6" },
-  { initial: "M", name: "Minh", color: "#F59E0B" },
-  { initial: "A", name: "An", color: "#3D6B4F" },
-];
+const getMembersByGroup = (group: string) => {
+  if (group === "couple") {
+    return [
+      { initial: "N", name: "Nghĩa" },
+      { initial: "L", name: "Linh" },
+    ];
+  }
+  if (group === "family") {
+    return [
+      { initial: "B", name: "Ba Nghĩa" },
+      { initial: "M", name: "Mẹ Linh" },
+    ];
+  }
+  if (group === "company") {
+    return [
+      { initial: "T", name: "Trưởng nhóm" },
+      { initial: "H", name: "HR" },
+      { initial: "K", name: "Kế toán" },
+      { initial: "D", name: "Dev Team" },
+    ];
+  }
+  return [
+    { initial: "N", name: "Nghĩa" },
+    { initial: "L", name: "Linh" },
+    { initial: "M", name: "Minh" },
+    { initial: "A", name: "An" },
+  ];
+};
 
-// Share card modal
-function ShareCard({ onClose }: { onClose: () => void }) {
+const getDresscode = (mood: string) => {
+  switch (mood) {
+    case "Chill": return { color: "Đen / Bạc", bg: "bg-slate-900", text: "text-white", border: "border-slate-700", icon: "✨" };
+    case "Lãng mạn": return { color: "Trắng / Đỏ", bg: "bg-red-50", text: "text-red-900", border: "border-red-200", icon: "🍷" };
+    case "Nghệ thuật": return { color: "Beige / Nâu", bg: "bg-stone-50", text: "text-stone-900", border: "border-stone-200", icon: "🎨" };
+    case "Vui nhộn": return { color: "Sặc sỡ / Denim", bg: "bg-blue-50", text: "text-blue-900", border: "border-blue-200", icon: "🎪" };
+    case "Thư giãn": return { color: "Trắng / Pastel", bg: "bg-emerald-50", text: "text-emerald-900", border: "border-emerald-200", icon: "🌿" };
+    case "Ăn ngon": return { color: "Thoải mái / Freesize", bg: "bg-orange-50", text: "text-orange-900", border: "border-orange-200", icon: "🍜" };
+    case "Nhẹ nhàng": return { color: "Trắng / Kem", bg: "bg-amber-50", text: "text-amber-900", border: "border-amber-200", icon: "🌼" };
+    case "Gắn kết": return { color: "Đồng phục gia đình", bg: "bg-indigo-50", text: "text-indigo-900", border: "border-indigo-200", icon: "👨‍👩‍👧‍👦" };
+    default: return { color: "Tự do / Casual", bg: "bg-slate-50", text: "text-slate-900", border: "border-slate-200", icon: "👕" };
+  }
+};
+
+function ShareCard({ onClose, groupParam, planId }: { onClose: () => void, groupParam: string, planId: number }) {
+  const groupMembers = getMembersByGroup(groupParam);
+  const plan = getPlanById(groupParam, planId) || getPlanById(groupParam, 1)!;
   return (
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 flex items-end justify-center z-[9999] px-4 pb-6"
-      style={{ background: "rgba(0,0,0,0.60)", backdropFilter: "blur(8px)" }}
+      className="fixed inset-0 flex items-center justify-center z-[9999] px-6"
+      style={{ background: "rgba(255,255,255,0.9)", backdropFilter: "blur(10px)" }}
       onClick={onClose}
     >
       <motion.div
-        initial={{ y: 60, scale: 0.95, opacity: 0 }}
+        initial={{ y: 20, scale: 0.95, opacity: 0 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
-        exit={{ y: 60, scale: 0.95, opacity: 0 }}
+        exit={{ y: 20, scale: 0.95, opacity: 0 }}
         transition={{ type: "spring", stiffness: 420, damping: 32 }}
         onClick={e => e.stopPropagation()}
-        className="w-full max-w-sm rounded-3xl overflow-hidden"
-        style={{ boxShadow: "0 32px 80px rgba(0,0,0,0.50)" }}
+        className="w-full max-w-sm rounded-none border border-slate-900 bg-white"
+        style={{ boxShadow: "12px 12px 0px rgba(15,23,42,0.1)" }}
       >
         {/* The shareable card preview */}
-        <div className="relative overflow-hidden"
-          style={{
-            background: "linear-gradient(160deg, #0B0F1E 0%, #1E3A8A 50%, #0B1830 100%)",
-            padding: "32px 24px 28px",
-          }}>
-          {/* Stars */}
-          {Array.from({ length: 30 }, (_, i) => (
-            <div key={i} style={{
-              position: "absolute",
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: 1.5 + Math.random(),
-              height: 1.5 + Math.random(),
-              borderRadius: "50%", background: "white",
-              animation: `star-twinkle ${2 + Math.random() * 3}s ${Math.random() * 3}s ease-in-out infinite`,
-              opacity: 0.3 + Math.random() * 0.5,
-            }} />
-          ))}
-
+        <div className="relative overflow-hidden p-8">
+          
           {/* Brand */}
-          <div className="flex items-center gap-2 mb-6 relative z-10">
-            <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: "rgba(255,255,255,0.15)" }}>
-              <span className="text-[12px]">🐾</span>
-            </div>
-            <span className="text-[11px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.45)" }}>GatherGo</span>
+          <div className="flex items-center justify-between mb-8 border-b border-slate-200 pb-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-900">GatherGo</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">2026</span>
           </div>
 
           {/* Big plan name */}
-          <div className="relative z-10 mb-4">
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.40)" }}>Đã chốt plan</p>
-            <h2 className="text-[32px] font-black text-white leading-tight tracking-tight">Rooftop chill night</h2>
-            <p className="text-[14px] mt-1.5 font-medium" style={{ color: "rgba(255,255,255,0.60)" }}>Thứ bảy, 18:30 · 3 điểm đến · 520k/người</p>
+          <div className="relative z-10 mb-8">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-2">Hành Trình Đã Chốt</p>
+            <h2 className="font-serif text-4xl text-slate-900 leading-none tracking-tight mb-3">{plan.title}</h2>
+            <p className="font-serif italic text-[15px] text-slate-600">Thứ bảy, {plan.time} · {plan.stops} · {plan.cost}</p>
           </div>
 
           {/* Avatar strip */}
-          <div className="flex items-center gap-2 relative z-10 mb-5">
+          <div className="flex items-center gap-2 mb-8">
             {groupMembers.map((m, i) => (
-              <div key={i} className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-white text-[13px]"
-                style={{ background: `${m.color}CC`, border: "2px solid rgba(255,255,255,0.25)", marginLeft: i > 0 ? -8 : 0 }}>
+              <div key={i} className="w-10 h-10 rounded-none flex items-center justify-center font-serif text-xl text-slate-900 border border-slate-200 bg-white">
                 {m.initial}
               </div>
             ))}
-            <span className="text-[12px] font-semibold ml-2" style={{ color: "rgba(255,255,255,0.60)" }}>4 người tham gia</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-500 ml-2">{groupMembers.length} Thành Viên</span>
           </div>
 
           {/* Tagline */}
-          <div className="relative z-10 border-t border-white/10 pt-4">
-            <p className="text-[13px] font-medium italic" style={{ color: "rgba(255,255,255,0.45)" }}>
-              "Kỷ niệm đẹp nhất là những khoảnh khắc bên nhau 🌙"
+          <div className="relative z-10 border-t border-slate-200 pt-6">
+            <p className="font-serif italic text-lg text-slate-900 leading-snug">
+              "Kỷ niệm đẹp nhất là những khoảnh khắc bên nhau."
             </p>
           </div>
         </div>
 
         {/* Action buttons */}
-        <div className="flex gap-2 p-4" style={{ background: "#FFFFFF" }}>
-          <button className="flex-1 h-12 rounded-2xl font-bold text-[14px] flex items-center justify-center gap-2 premium-cta-mint">
-            <Share2 className="w-4 h-4" /> Chia sẻ
+        <div className="flex gap-2 p-4 border-t border-slate-900 bg-slate-50">
+          <button className="flex-1 h-12 rounded-none font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-2 text-white bg-slate-900 hover:bg-wi-primary transition-colors">
+            <ShareNetwork className="w-4 h-4" weight="bold" /> Chia sẻ
           </button>
           <button onClick={onClose}
-            className="w-12 h-12 rounded-2xl flex items-center justify-center"
-            style={{ background: "#EDE3D0" }}>
-            <X className="w-4 h-4" style={{ color: "#5C4033" }} />
+            className="w-12 h-12 rounded-none flex items-center justify-center border border-slate-200 bg-white hover:bg-slate-100 transition-colors">
+            <X weight="bold" className="w-4 h-4 text-slate-900" />
           </button>
         </div>
       </motion.div>
@@ -102,39 +119,34 @@ function ShareCard({ onClose }: { onClose: () => void }) {
   );
 }
 
-// Starfield
-function Starfield() {
-  const stars = useMemo(() => Array.from({ length: 60 }, (_, i) => ({
-    id: i,
-    left: Math.random() * 100,
-    top: Math.random() * 100,
-    size: 0.8 + Math.random() * 2,
-    duration: 2 + Math.random() * 5,
-    delay: Math.random() * 5,
-    opacity: 0.15 + Math.random() * 0.65,
-  })), []);
 
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {stars.map(s => (
-        <div key={s.id} style={{
-          position: "absolute",
-          left: `${s.left}%`, top: `${s.top}%`,
-          width: s.size, height: s.size,
-          borderRadius: "50%", background: "white",
-          animation: `star-twinkle ${s.duration}s ${s.delay}s ease-in-out infinite`,
-          opacity: s.opacity,
-        }} />
-      ))}
-    </div>
-  );
-}
 
 export default function Confirmed() {
   const [, setLocation] = useLocation();
+  const searchParams = new URLSearchParams(window.location.search);
+  const groupParam = searchParams.get("group") || "friends";
+  const planIdParam = searchParams.get("planId");
+  const planId = planIdParam ? parseInt(planIdParam, 10) : 1;
+
   const [confettiTrigger, setConfettiTrigger] = useState(false);
   const [phase, setPhase] = useState(0);
   const [showShareCard, setShowShareCard] = useState(false);
+
+  const planObj = getPlanById(groupParam, planId);
+  const plan = planObj ? {
+    title: planObj.title,
+    meta: `Thứ bảy, ${planObj.time} · Còn 2 ngày 14 giờ`,
+    stopsCount: planObj.timeline.length
+  } : {
+    title: "Kế hoạch",
+    meta: "Đang tải...",
+    stopsCount: 3
+  };
+
+  const mood = planObj?.mood || "Chill";
+  const dressCode = getDresscode(mood);
+
+  const groupMembers = getMembersByGroup(groupParam);
 
   useEffect(() => {
     const t1 = setTimeout(() => setConfettiTrigger(true), 400);
@@ -145,122 +157,78 @@ export default function Confirmed() {
   }, []);
 
   return (
-    <div className="flex-1 flex flex-col relative overflow-x-hidden"
-      style={{ background: "linear-gradient(165deg, #090E1C 0%, #1A3A7E 50%, #090E1C 100%)", minHeight: "100vh" }}>
+    <main className="flex-1 overflow-y-auto overflow-x-hidden relative pb-24">
       <Confetti trigger={confettiTrigger} />
-      <Starfield />
 
       <AnimatePresence>
-        {showShareCard && <ShareCard onClose={() => setShowShareCard(false)} />}
+        {showShareCard && <ShareCard onClose={() => setShowShareCard(false)} groupParam={groupParam} planId={planId} />}
       </AnimatePresence>
 
-      {/* Back */}
-      <div className="flex items-center gap-3 pt-8 px-5 mb-2 relative z-10">
-        <motion.button whileTap={{ scale: 0.9 }} onClick={() => setLocation("/vote")}
-          className="w-9 h-9 rounded-full flex items-center justify-center"
-          style={{ background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.16)" }}>
-          <ArrowLeft className="w-4 h-4 text-white" />
+      {/* Header */}
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, type: "spring" }} className="pt-8 px-6 mb-8 flex items-center justify-between">
+        <div>
+          <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-2">Thành Công</div>
+          <h1 className="font-serif text-4xl text-slate-900 leading-none tracking-tight">Kế hoạch đã chốt</h1>
+        </div>
+        <motion.button whileTap={{ scale: 0.9 }} onClick={() => window.history.length > 1 ? window.history.back() : setLocation("/home")}
+          className="w-10 h-10 rounded-none flex items-center justify-center border border-slate-200 bg-white hover:bg-slate-50 transition-colors shadow-sm relative z-10">
+          <ArrowLeft className="w-5 h-5 text-slate-900" weight="light" />
         </motion.button>
-        <div className="page-label" style={{ color: "rgba(255,255,255,0.35)" }}>Confirmed</div>
-      </div>
+      </motion.div>
 
-      {/* Ambient glow layers */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        <motion.div
-          animate={{ scale: [1, 1.18, 1], opacity: [0.28, 0.50, 0.28] }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[14%] left-1/2 -translate-x-1/2 w-[320px] h-[320px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(200,55,30,0.32) 0%, transparent 70%)", filter: "blur(40px)" }} />
-        <motion.div
-          animate={{ scale: [1, 1.3, 1], opacity: [0.12, 0.22, 0.12] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
-          className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[460px] h-[460px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(200,134,10,0.22) 0%, transparent 70%)", filter: "blur(60px)" }} />
-      </div>
+      <div className="flex-1 flex flex-col items-center justify-start px-6 pb-8 relative z-10">
 
-      <div className="flex-1 flex flex-col items-center justify-start px-5 pb-8 relative z-10">
-
-        {/* Success orb */}
+        {/* Success Icon */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 200, damping: 16, delay: 0.1 }}
-          className="relative flex items-center justify-center mt-6 mb-5">
-          {[1, 0.55, 0.28].map((opacity, i) => (
-            <motion.div key={i}
-              animate={{ scale: [1, 1.45 + i * 0.22, 1], opacity: [opacity * 0.45, 0, opacity * 0.45] }}
-              transition={{ duration: 2.8 + i * 0.5, repeat: Infinity, ease: "easeOut", delay: i * 0.45 }}
-              className="absolute rounded-full"
-              style={{
-                width: 120 + i * 55, height: 120 + i * 55,
-                background: `radial-gradient(circle, rgba(200,55,30,${opacity * 0.40}) 0%, transparent 70%)`,
-              }} />
-          ))}
-          <div className="relative w-24 h-24 rounded-full flex items-center justify-center"
-            style={{
-              background: "linear-gradient(135deg, rgba(200,55,30,0.24), rgba(200,134,10,0.20))",
-              border: "2px solid rgba(255,255,255,0.22)",
-              backdropFilter: "blur(20px)",
-              boxShadow: "0 8px 40px rgba(200,55,30,0.35)",
-            }}>
-            <motion.div animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}>
-              <Check className="w-12 h-12 text-white" strokeWidth={2.5} />
+          className="relative flex items-center justify-center mt-2 mb-8">
+          <div className="w-20 h-20 rounded-none flex items-center justify-center border border-slate-900 bg-white"
+            style={{ boxShadow: "8px 8px 0px rgba(15,23,42,0.1)" }}>
+            <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+              <Check className="w-8 h-8 text-slate-900" weight="bold" />
             </motion.div>
           </div>
         </motion.div>
 
-        {/* Headline — BIG */}
+        {/* Headline */}
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, type: "spring", stiffness: 300, damping: 24 }}
-          className="text-center mb-5 w-full">
-          <h1 className="font-black text-white leading-tight tracking-tight"
-            style={{ fontSize: "clamp(42px, 13vw, 56px)" }}>
-            Plan đã chốt!
-          </h1>
-          <p className="text-[15px] mt-2 font-medium" style={{ color: "rgba(255,255,255,0.55)" }}>
-            Rooftop chill night · Thứ bảy, 18:30
+          className="text-center mb-10 w-full">
+          <h2 className="font-serif text-[42px] text-slate-900 leading-none tracking-tight mb-4">
+            Đã chốt xong!
+          </h2>
+          <p className="font-serif italic text-lg text-slate-600">
+            {plan.title}
           </p>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: phase >= 1 ? 1 : 0, scale: phase >= 1 ? 1 : 0.8 }}
-            transition={{ type: "spring", stiffness: 350, damping: 24 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mt-3"
-            style={{ background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.18)" }}>
-            <Calendar className="w-3.5 h-3.5 text-white/70" />
-            <span className="text-[13px] font-semibold text-white/80">Còn 2 ngày 14 giờ nữa</span>
-          </motion.div>
+          <div className="mt-4 pt-4 border-t border-slate-200">
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
+              {plan.meta}
+            </p>
+          </div>
         </motion.div>
 
-        {/* Avatar stack — bounce in one by one */}
+        {/* Avatar stack */}
         <AnimatePresence>
           {phase >= 2 && (
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 380, damping: 28 }}
-              className="w-full rounded-2xl p-4 mb-4"
-              style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", backdropFilter: "blur(20px)" }}>
-              <p className="page-label mb-3.5" style={{ color: "rgba(255,255,255,0.35)" }}>Cả nhóm đã ready 🎉</p>
+              className="w-full border border-slate-200 rounded-none p-6 mb-6 bg-white">
+              <div className="flex items-center justify-between mb-6">
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-900">Sẵn sàng</p>
+                <div className="w-2 h-2 rounded-none bg-slate-900 animate-pulse" />
+              </div>
               <div className="flex items-center justify-around">
                 {groupMembers.map((m, i) => (
                   <motion.div key={m.name}
-                    initial={{ opacity: 0, scale: 0.4, y: 20 }}
+                    initial={{ opacity: 0, scale: 0.8, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ delay: 0.05 + i * 0.12, type: "spring", stiffness: 380, damping: 18 }}
-                    className="flex flex-col items-center gap-2">
-                    <motion.div
-                      animate={{ y: [0, -5, 0] }}
-                      transition={{ duration: 2 + i * 0.35, repeat: Infinity, ease: "easeInOut", delay: i * 0.25 }}
-                      className="w-13 h-13 rounded-full flex items-center justify-center font-bold text-white text-[17px]"
-                      style={{
-                        width: 52, height: 52,
-                        background: `${m.color}CC`,
-                        border: "2.5px solid rgba(255,255,255,0.30)",
-                        boxShadow: `0 6px 20px ${m.color}60`,
-                      }}>
+                    transition={{ delay: 0.05 + i * 0.12, type: "spring" }}
+                    className="flex flex-col items-center gap-3">
+                    <div className="w-12 h-12 rounded-none flex items-center justify-center font-serif text-2xl text-slate-900 border border-slate-300">
                       {m.initial}
-                    </motion.div>
-                    <span className="text-[11px] font-semibold" style={{ color: "rgba(255,255,255,0.55)" }}>{m.name}</span>
-                    <motion.div animate={{ scale: [1, 1.4, 1] }} transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.22 }}>
-                      <span className="text-[13px]">✅</span>
-                    </motion.div>
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{m.name}</span>
                   </motion.div>
                 ))}
               </div>
@@ -271,47 +239,68 @@ export default function Confirmed() {
         {/* Summary card */}
         <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, type: "spring", stiffness: 380, damping: 28 }}
-          className="w-full rounded-2xl p-5 mb-5"
-          style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", backdropFilter: "blur(20px)" }}>
-          <div className="grid grid-cols-3 gap-3 text-center">
+          className="w-full rounded-none p-6 mb-8 bg-white border border-slate-200 shadow-sm relative z-10">
+          <div className="grid grid-cols-3 gap-4 text-center">
             {[
-              { value: "4", label: "người tham gia", emoji: "👥" },
-              { value: "3", label: "điểm đến", emoji: "📍" },
-              { value: "1h", label: "nhắc trước", emoji: "⏰" },
+              { value: groupMembers.length.toString(), label: "người", icon: "👥" },
+              { value: plan.stopsCount.toString(), label: "điểm", icon: "📍" },
+              { value: "1h", label: "nhắc", icon: "⏰" },
             ].map((s, i) => (
               <div key={i}>
-                <span className="text-[22px]">{s.emoji}</span>
-                <p className="text-[24px] font-black text-white mt-1">{s.value}</p>
-                <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.38)" }}>{s.label}</p>
+                <span className="text-xl mb-2 block">{s.icon}</span>
+                <p className="font-serif text-2xl text-slate-900">{s.value}</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1">{s.label}</p>
               </div>
             ))}
           </div>
-          <div className="mt-4 rounded-xl p-2.5 text-center"
-            style={{ background: "rgba(200,55,30,0.12)", border: "1px solid rgba(200,55,30,0.24)" }}>
-            <p className="text-[12px] font-medium" style={{ color: "rgba(255,255,255,0.72)" }}>
+          <div className="mt-6 pt-4 border-t border-slate-200 text-center">
+            <p className="font-serif italic text-sm text-slate-600">
               GatherGo sẽ nhắc cả nhóm trước giờ đi.
             </p>
           </div>
         </motion.div>
 
+        {/* Vibe Check & Dresscode Widget */}
+        <AnimatePresence>
+          {phase >= 2 && (
+            <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, type: "spring", stiffness: 380, damping: 28 }}
+              className={`w-full rounded-none p-5 mb-8 border ${dressCode.bg} ${dressCode.border} relative overflow-hidden shadow-sm z-10`}
+              style={{ backdropFilter: "blur(10px)" }}>
+              {/* Glass reflection effect */}
+              <div className="absolute inset-0 bg-white/40 pointer-events-none" />
+              <div className="relative z-10 flex items-center justify-between">
+                <div>
+                  <div className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${dressCode.text} opacity-70`}>Vibe Check</div>
+                  <div className={`font-serif text-xl ${dressCode.text} leading-tight`}>
+                    Dress Code: {dressCode.color}
+                  </div>
+                </div>
+                <div className={`w-12 h-12 flex items-center justify-center rounded-full bg-white/50 text-2xl border ${dressCode.border}`}>
+                  {dressCode.icon}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* CTAs */}
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }} className="w-full space-y-3">
-          <motion.button whileHover={{ scale: 1.01, y: -1 }} whileTap={{ scale: 0.97 }}
-            onClick={() => setLocation("/plan-detail")}
-            className="w-full h-[54px] rounded-[14px] font-bold text-[16px] flex items-center justify-center gap-2"
-            style={{ background: "#FFFFFF", color: T1, boxShadow: "0 4px 24px rgba(0,0,0,0.22)" }}>
-            Xem lịch trình <ChevronRight className="w-4 h-4" />
+          transition={{ delay: 0.5 }} className="w-full space-y-4">
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+            onClick={() => setLocation(`/plan-detail?state=confirmed&group=${groupParam}&planId=${planId}`)}
+            className="w-full h-14 rounded-none font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-2 text-white bg-slate-900 hover:bg-wi-primary transition-colors">
+            Xem chi tiết <CaretRight className="w-4 h-4" weight="bold" />
           </motion.button>
 
           {/* Share moment button */}
-          <motion.button whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.97 }}
+          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={() => setShowShareCard(true)}
-            className="w-full h-[50px] premium-cta-ghost flex items-center justify-center gap-2">
-            <Share2 className="w-4 h-4" /> Chia sẻ khoảnh khắc này
+            className="w-full h-14 rounded-none font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-2 border border-slate-200 text-slate-900 hover:border-slate-900 transition-colors">
+            <ShareNetwork className="w-4 h-4" weight="bold" /> Chia sẻ khoảnh khắc
           </motion.button>
         </motion.div>
       </div>
-    </div>
+    </main>
   );
 }

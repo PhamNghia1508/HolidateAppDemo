@@ -1,34 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
-import { MapPin, Calendar, Heart, Sparkles, ArrowRight, Bell } from "lucide-react";
+import { MapPin, CalendarBlank, Heart, Sparkle, ArrowRight, Bell, Lightning, PawPrint, Check, Compass, Ghost } from "@phosphor-icons/react";
+import { getPlansByGroup } from "@/data/mockData";
 
-const BG = "#EEE6D4";
-const SURF = "#F9F4EA";
-const BLUE = "#C8371E";
-const BLUE_BRIGHT = "#A62D17";
-const T1 = "#1A0E07";
-const T2 = "#5C4033";
-const T3 = "#9C8470";
-const BORDER = "rgba(26,14,7,0.10)";
-const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 16px rgba(26,14,7,0.06)";
-
-// Warm Mimi colors (matches Pet.tsx)
+// Warm Mimi colors
 const MIMI_BODY = "#FFD4A8";
 const MIMI_STROKE = "#FDBA74";
 const MIMI_EYE = "#1A0800";
 const MIMI_NOSE = "#FB923C";
 
-// Tiny Mimi for hero corner — use div, never button inside button
 function TinyMimi({ onClick }: { onClick: () => void }) {
   return (
     <motion.div
-      onClick={e => { e.stopPropagation(); onClick(); }}
+      onClick={e => { 
+        e.stopPropagation(); 
+        window.dispatchEvent(new Event('open-mimi'));
+      }}
       animate={{ y: [0, -3, 0] }}
       transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
       whileTap={{ scale: 0.88 }}
-      className="absolute bottom-3 left-3 cursor-pointer"
+      className="absolute bottom-3 right-3 cursor-pointer"
       style={{ zIndex: 5 }}>
       <svg viewBox="0 0 44 44" width="40" height="40">
         <ellipse cx="22" cy="30" rx="13" ry="10" fill={MIMI_BODY} stroke={MIMI_STROKE} strokeWidth="1.5" />
@@ -50,10 +43,25 @@ function TinyMimi({ onClick }: { onClick: () => void }) {
 
 const S = (i: number) => ({ delay: 0.05 + i * 0.05, type: "spring" as const, stiffness: 420, damping: 32 });
 
+const GROUPS = [
+  { id: "friends", label: "Bạn bè" },
+  { id: "family", label: "Gia đình" },
+  { id: "couple", label: "Người yêu" },
+  { id: "company", label: "Công ty" },
+];
+
 export default function Home() {
   const [, setLocation] = useLocation();
   const [showMimiTooltip, setShowMimiTooltip] = useState(false);
   const [tooltipKey, setTooltipKey] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [activeGroup, setActiveGroup] = useState("friends");
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => setIsLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, [activeGroup]);
 
   const handleMimiTap = () => {
     setTooltipKey(k => k + 1);
@@ -61,187 +69,180 @@ export default function Home() {
     setTimeout(() => setShowMimiTooltip(false), 2000);
   };
 
+  const plans = getPlansByGroup(activeGroup);
+  const upNext = plans[0];
+  const pending = plans[1];
+
   return (
-    <div className="flex-1 overflow-y-auto pb-24 px-5 relative" style={{ background: BG }}>
+    <div className="flex-1 overflow-y-auto pb-24 relative">
 
       {/* Header — word-by-word greeting */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={S(0)} className="pt-6 mb-3">
-        <div className="page-label mb-1">GatherGo</div>
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={S(0)} className="pt-8 mb-6 px-6">
+        <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-2">GATHERGO 2026</div>
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-[34px] font-black tracking-tight leading-tight" style={{ color: T1 }}>
-              {["Chào", " Nghĩa", " 👋"].map((word, i) => (
+            <h1 className="font-serif text-5xl text-slate-900 leading-none tracking-tight">
+              {["Chào", " Nghĩa", "."].map((word, i) => (
                 <motion.span key={word}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.12 + i * 0.14, type: "spring", stiffness: 450, damping: 28 }}
-                  style={{ display: "inline" }}>
+                  style={{ display: "inline-block" }}>
                   {word}
                 </motion.span>
               ))}
             </h1>
-            <p className="text-[13px] mt-0.5 font-medium" style={{ color: T3 }}>Thứ Ba, 24 tháng 6</p>
+            <p className="font-serif italic text-base text-slate-500 mt-2">Thứ Ba, 24 tháng 6</p>
           </div>
           <motion.button
             initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, type: "spring" }}
             whileTap={{ scale: 0.90 }}
-            className="w-10 h-10 rounded-2xl flex items-center justify-center relative mt-1"
-            style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
-            <Bell className="w-4 h-4" style={{ color: T2 }} />
-            <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full" style={{ background: "#EF4444", border: "1.5px solid white" }} />
+            className="w-12 h-12 rounded-none flex items-center justify-center relative bg-white border border-slate-200 hover:bg-slate-50 transition-colors">
+            <Bell className="w-5 h-5 text-slate-900" weight="light" />
+            <div className="absolute top-2 right-2 w-2 h-2 rounded-none bg-rose-500" />
           </motion.button>
         </div>
       </motion.div>
 
-      {/* Urgency banner */}
-      <motion.button initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={S(1)}
-        whileTap={{ scale: 0.98 }} onClick={() => setLocation("/vote")}
-        className="w-full text-left urgency-banner p-3.5 mb-4 flex items-center gap-3">
-        <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-          style={{ background: "rgba(255,255,255,0.15)" }}>
-          <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity }}>
-            <span className="text-[18px]">⚡</span>
+      {/* Group Selector */}
+      <div className="px-6 mb-6 overflow-x-auto hide-scrollbar">
+        <div className="flex gap-2 min-w-max pb-2">
+          {GROUPS.map((g) => {
+            const isActive = activeGroup === g.id;
+            return (
+              <button
+                key={g.id}
+                onClick={() => setActiveGroup(g.id)}
+                className={`px-5 py-2.5 rounded-none font-serif text-sm transition-all shadow-sm ${
+                  isActive ? "bg-slate-900 text-white border border-slate-900" : "bg-white text-slate-600 border border-slate-200 hover:border-slate-400"
+                }`}
+              >
+                {g.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <motion.div key="skeleton-journey" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-6 space-y-6">
+             <div className="h-20 rounded-none shimmer-skeleton" />
+             <div className="h-[280px] rounded-none shimmer-skeleton" />
           </motion.div>
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-[13px] font-bold text-white">Vote đang chờ bạn</p>
-          <p className="text-[11px] text-white/60 mt-0.5">Linh và Minh đã đồng ý — còn bạn và An</p>
-        </div>
-        <ArrowRight className="w-4 h-4 text-white/60 flex-shrink-0" />
-      </motion.button>
-
-      {/* Hero card with tiny Mimi in corner */}
-      <motion.div initial={{ opacity: 0, y: 14, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={S(2)}
-        whileHover={{ scale: 1.01 }} className="mb-4">
-        <motion.button whileTap={{ scale: 0.98 }} onClick={() => setLocation("/plan-detail")}
-          className="w-full rounded-3xl overflow-hidden relative focus:outline-none"
-          style={{ boxShadow: "0 6px 28px rgba(0,0,0,0.12)" }}>
-          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&auto=format&fit=crop"
-            alt="Rooftop bar" className="w-full h-[220px] object-cover" />
-          <div className="absolute inset-0"
-            style={{ background: "linear-gradient(to top, rgba(26,14,7,0.82) 0%, rgba(26,14,7,0.28) 50%, transparent 100%)" }} />
-
-          <div className="absolute bottom-0 left-0 right-0 p-4">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full w-fit mb-2"
-              style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.20)" }}>
-              <Sparkles className="w-3 h-3 text-white/80" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">Gợi ý hợp mood</span>
-            </div>
-            <h2 className="text-[26px] font-black text-white tracking-tight leading-tight">Rooftop chill night</h2>
-            <p className="text-[12px] mt-1 text-white/60">Thứ bảy, 18:30 · 3 điểm đến · 520k/người</p>
-            <div className="flex gap-2 mt-2.5">
-              {["Hợp mood nhất", "Ảnh đẹp"].map(t => (
-                <span key={t} className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold text-white"
-                  style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.18)" }}>{t}</span>
-              ))}
-            </div>
-          </div>
-
-          {/* Live vote badge */}
-          <motion.div animate={{ y: [0, -4, 0] }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-3.5 right-3.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold flex items-center gap-1.5"
-            style={{ background: "rgba(255,255,255,0.95)", color: T1, boxShadow: "0 2px 12px rgba(0,0,0,0.15)" }}>
-            <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#3D6B4F" }} />
-            2 bạn đang vote
+        ) : plans.length === 0 ? (
+          <motion.div key="empty" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="px-6 mt-8 flex flex-col items-center justify-center text-center">
+             <div className="w-24 h-24 mb-6 rounded-none bg-slate-100 flex items-center justify-center text-slate-300">
+               <Ghost className="w-10 h-10" weight="duotone" />
+             </div>
+             <h2 className="font-serif text-2xl text-slate-900 mb-2">Chưa có lịch trình</h2>
+             <p className="font-serif italic text-sm text-slate-500 mb-8 max-w-[240px]">Nhóm {GROUPS.find(g => g.id === activeGroup)?.label} chưa có kế hoạch nào sắp tới. Bắt đầu tạo ngay thôi!</p>
+             
+             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+              onClick={() => setLocation(`/create-plan?group=${activeGroup}`)}
+              className="h-[54px] px-8 bg-[#D84C35] rounded-none flex items-center justify-center text-white shadow-xl shadow-rose-500/20">
+              <span className="font-bold text-sm tracking-[0.2em] uppercase">Tạo Gather Mới</span>
+             </motion.button>
           </motion.div>
-
-          {/* Tiny Mimi corner */}
-          <div className="absolute bottom-0 left-0">
-            <TinyMimi onClick={handleMimiTap} />
-            <AnimatePresence>
-              {showMimiTooltip && (
-                <motion.div key={tooltipKey}
-                  initial={{ opacity: 0, y: 4, scale: 0.85 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -4, scale: 0.85 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 28 }}
-                  className="absolute bottom-[52px] left-2 px-3 py-1.5 rounded-xl text-[11px] font-bold whitespace-nowrap"
-                  style={{
-                    background: "rgba(255,255,255,0.95)",
-                    color: T1,
-                    boxShadow: "0 4px 16px rgba(0,0,0,0.18)",
-                    backdropFilter: "blur(12px)",
-                  }}>
-                  🐾 Mình nhớ bạn!
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.button>
-      </motion.div>
-
-      {/* CTA */}
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={S(3)} className="mb-5">
-        <motion.button whileHover={{ scale: 1.01, y: -1 }} whileTap={{ scale: 0.98 }}
-          onClick={() => setLocation("/create-plan")}
-          className="w-full h-[54px] premium-cta-mint flex items-center justify-center gap-2">
-          <Sparkles className="w-4 h-4" /> Tạo Gather mới
-        </motion.button>
-      </motion.div>
-
-      {/* Bento grid */}
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={S(4)}>
-        <p className="text-[12px] font-semibold mb-3" style={{ color: T2 }}>Khám phá</p>
-        <div className="grid grid-cols-2 gap-3 mb-3">
-          {[
-            { label: "Gợi ý gần tôi", sub: "12 quán hot hôm nay", icon: MapPin, path: "/suggested", color: "#C8371E" },
-            { label: "Plan của tôi", sub: "3 plan sẵn sàng", icon: Calendar, path: "/plan", color: "#8B5CF6" },
-          ].map(({ label, sub, icon: Icon, path, color }, i) => (
-            <motion.button key={path}
-              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={S(5 + i)}
-              whileHover={{ scale: 1.03, y: -3 }} whileTap={{ scale: 0.96 }}
-              onClick={() => setLocation(path)}
-              className="rounded-2xl text-left p-4 card" style={{ background: SURF }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                style={{ background: `${color}12` }}>
-                <Icon className="w-5 h-5" style={{ color }} />
-              </div>
-              <p className="text-[14px] font-bold leading-tight" style={{ color: T1 }}>{label}</p>
-              <p className="text-[11px] mt-0.5" style={{ color: T3 }}>{sub}</p>
-            </motion.button>
-          ))}
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          {[
-            { label: "Kỷ niệm", sub: "12 chuyến đi cùng nhau", icon: Heart, path: "/memories", color: "#F97316" },
-            { label: "GoPet", sub: "Mimi đang vui ✨", icon: "🐾", path: "/pet", isEmoji: true },
-          ].map(({ label, sub, icon, path, color, isEmoji }: any, i) => (
-            <motion.button key={path}
-              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={S(7 + i)}
-              whileHover={{ scale: 1.03, y: -3 }} whileTap={{ scale: 0.96 }}
-              onClick={() => setLocation(path)}
-              className="rounded-2xl text-left p-4 card" style={{ background: SURF }}>
-              {isEmoji ? (
-                <motion.div
-                  animate={{ rotate: [0, 8, -8, 0] }} transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 2 }}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 text-[22px]"
-                  style={{ background: "rgba(200,55,30,0.08)" }}>
-                  {icon}
-                </motion.div>
-              ) : (
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                  style={{ background: `${color}12` }}>
-                  <Heart className="w-5 h-5" style={{ color }} />
+        ) : (
+          <motion.div key="journey" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.4 }} className="relative mt-2">
+            
+            {/* UP NEXT WIDGET */}
+            {upNext && (
+              <div className="px-6 mb-8">
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="font-serif text-2xl text-slate-900">Sắp diễn ra</h2>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Còn 5 ngày</span>
                 </div>
-              )}
-              <p className="text-[14px] font-bold leading-tight" style={{ color: T1 }}>{label}</p>
-              <p className="text-[11px] mt-0.5" style={{ color: T3 }}>{sub}</p>
-            </motion.button>
-          ))}
-        </div>
-      </motion.div>
+                
+                <motion.button initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={S(1)}
+                  whileTap={{ scale: 0.98 }} onClick={() => setLocation(`/plan-detail?state=confirmed&group=${activeGroup}&planId=${upNext.id}`)}
+                  className="w-full rounded-none overflow-hidden relative focus:outline-none border border-slate-200 bg-white group shadow-sm">
+                  <div className="relative w-full h-[200px] overflow-hidden">
+                    <img src={upNext.img}
+                      alt={upNext.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute top-4 left-4 flex items-center gap-2 bg-white px-3 py-1.5 rounded-none shadow-sm">
+                      <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-900">ĐÃ CHỐT</span>
+                    </div>
+                  </div>
+                  <div className="p-4 text-left bg-white">
+                    <h3 className="font-serif text-2xl text-slate-900 leading-tight mb-1">{upNext.title}</h3>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                      <MapPin className="w-3 h-3" weight="fill" /> {upNext.stops} · {upNext.cost}
+                    </p>
+                  </div>
+                </motion.button>
+              </div>
+            )}
 
-      {/* Mimi ambient strip */}
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}
-        className="flex items-center gap-3 rounded-2xl px-4 py-3 mt-4"
-        style={{ background: "rgba(200,55,30,0.06)", border: "1px solid rgba(200,55,30,0.12)" }}>
-        <motion.span animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
-          className="text-[20px]">🐾</motion.span>
-        <p className="text-[13px] font-medium" style={{ color: BLUE_BRIGHT }}>
-          Mimi đang vui vì bạn vừa lưu kỷ niệm.
-        </p>
-      </motion.div>
+            {/* ACTION REQUIRED WIDGET */}
+            {pending && (
+              <div className="px-6 mb-8">
+                <h2 className="font-serif text-2xl text-slate-900 mb-3">Đang chờ bạn</h2>
+                
+                <motion.button initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={S(2)}
+                  whileTap={{ scale: 0.98 }} onClick={() => setLocation(`/plan-detail?group=${activeGroup}&planId=${pending.id}`)}
+                  className="w-full text-left bg-white border border-slate-200 p-4 rounded-none flex items-center gap-4 hover:border-slate-400 transition-colors shadow-sm">
+                  <div className="w-12 h-12 rounded-none flex items-center justify-center flex-shrink-0 bg-rose-50 text-rose-500 border border-rose-100">
+                    <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity }}>
+                      <Check className="w-6 h-6" weight="bold" />
+                    </motion.div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-serif text-xl text-slate-900 leading-tight">Biểu quyết: {pending.title}</p>
+                    <p className="font-serif italic text-sm text-slate-500 mt-1">
+                      {activeGroup === "couple" ? "Bạn chưa vote" :
+                       activeGroup === "family" ? "Ba và Mẹ đã vote" :
+                       activeGroup === "company" ? "HR và Kế toán đã đồng ý" :
+                       "Linh và Minh đã vote"}
+                    </p>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-slate-400 flex-shrink-0" weight="light" />
+                </motion.button>
+              </div>
+            )}
+
+            {/* QUICK ACTIONS */}
+            <div className="px-6 mb-8">
+              <div className="grid grid-cols-2 gap-4">
+                <motion.button initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={S(3)}
+                  whileTap={{ scale: 0.96 }} onClick={() => setLocation(`/create-plan?group=${activeGroup}`)}
+                  className="rounded-none text-left p-5 bg-white border border-slate-200 hover:border-slate-400 transition-colors shadow-sm">
+                  <div className="w-10 h-10 rounded-none flex items-center justify-center mb-4 bg-slate-50 border border-slate-200">
+                    <Sparkle className="w-5 h-5 text-slate-900" weight="light" />
+                  </div>
+                  <p className="font-serif text-lg text-slate-900">Gather Mới</p>
+                </motion.button>
+
+                <motion.button initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={S(4)}
+                  whileTap={{ scale: 0.96 }} onClick={() => setLocation("/pet")}
+                  className="rounded-none text-left p-5 bg-white border border-slate-200 hover:border-slate-400 transition-colors relative shadow-sm">
+                  <motion.div animate={{ rotate: [0, 8, -8, 0] }} transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 2 }}
+                    className="w-10 h-10 rounded-none flex items-center justify-center mb-4 bg-slate-50 border border-slate-200 text-slate-900">
+                    <PawPrint className="w-5 h-5" weight="light" />
+                  </motion.div>
+                  <p className="font-serif text-lg text-slate-900">Mimi</p>
+                  <TinyMimi onClick={handleMimiTap} />
+                  <AnimatePresence>
+                    {showMimiTooltip && (
+                      <motion.div key={tooltipKey}
+                        initial={{ opacity: 0, y: 4, scale: 0.85 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -4, scale: 0.85 }}
+                        transition={{ type: "spring", stiffness: 500, damping: 28 }}
+                        className="absolute bottom-[52px] right-2 px-3 py-2 rounded-none font-serif italic text-sm whitespace-nowrap bg-slate-900 text-white shadow-md">
+                        Mình vui lắm!
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+              </div>
+            </div>
+
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <BottomNav />
     </div>

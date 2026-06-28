@@ -47,23 +47,20 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        /* === GATHERGO WARM INK PALETTE === */
+        /* === GATHERGO ZINC EDITORIAL PALETTE === */
         wi: {
-          bg: "#EEE6D4",
-          surface: "#F9F4EA",
-          "surface-warm": "#F4EDD8",
-          tinted: "#E8D8BC",
-          dark: "#1A0E07",
-          t1: "#1A0E07",
-          t2: "#5C4033",
-          t3: "#9C8470",
+          bg: "#FAFAFA",
+          surface: "#FFFFFF",
+          "text-primary": "#09090B",
+          "text-secondary": "#52525B",
+          "text-muted": "#A1A1AA",
+          border: "rgba(9,9,11,0.08)",
           primary: "#C8371E",
-          "primary-bright": "#A62D17",
-          "primary-dim": "rgba(200,55,30,0.10)",
-          green: "#3D6B4F",
-          warn: "#C8860A",
-          border: "rgba(26,14,7,0.10)",
-          "border-medium": "rgba(26,14,7,0.18)",
+          "primary-hover": "#A62D17",
+          "overlay-dark": "rgba(0,0,0,0.72)",
+          t1: "#09090B",
+          t2: "#52525B",
+          t3: "#A1A1AA",
         },
         /* === GATHERGO OBSIDIAN PALETTE === */
         obsidian: {
@@ -97,19 +94,19 @@ export default {
         },
       },
 
-      /* === TYPOGRAPHY: SHARP, MODERN === */
+      /* === TYPOGRAPHY: ZINC EDITORIAL === */
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "\"SF Pro Display\"", "sans-serif"],
+        serif: ["Playfair Display", "ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif"],
       },
       fontSize: {
-        micro: ["10px", { lineHeight: "1.2", letterSpacing: "0.22em", fontWeight: "600" }],
-        label: ["11px", { lineHeight: "1.3", letterSpacing: "0.05em", fontWeight: "600" }],
-        body: ["13px", { lineHeight: "1.5" }],
-        lead: ["15px", { lineHeight: "1.5" }],
-        title: ["18px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
-        heading: ["22px", { lineHeight: "1.2", letterSpacing: "-0.03em", fontWeight: "800" }],
-        hero: ["28px", { lineHeight: "1.15", letterSpacing: "-0.04em", fontWeight: "900" }],
-        display: ["36px", { lineHeight: "1.05", letterSpacing: "-0.05em", fontWeight: "900" }],
+        label: ["11px", { letterSpacing: "0.1em", fontWeight: "700" }],
+        small: ["13px", { lineHeight: "1.4", fontWeight: "500" }],
+        body: ["15px", { lineHeight: "1.5", fontWeight: "500" }],
+        card: ["18px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
+        h2: ["22px", { lineHeight: "1.15", letterSpacing: "-0.025em", fontWeight: "700" }],
+        h1: ["32px", { lineHeight: "1.08", letterSpacing: "-0.035em", fontWeight: "900" }],
+        hero: ["40px", { lineHeight: "1.05", letterSpacing: "-0.04em", fontWeight: "900" }],
       },
 
       /* === SPACING === */
@@ -120,11 +117,17 @@ export default {
 
       /* === BORDER RADIUS === */
       borderRadius: {
-        glass: "24px",
         pill: "100px",
-        "2xl": "16px",
-        "3xl": "20px",
+        xl: "16px",
+        "2xl": "18px",
+        "3xl": "24px",
         "4xl": "28px",
+      },
+
+      /* === SHADOWS === */
+      boxShadow: {
+        premium: "0 2px 8px rgba(9,9,11,0.04), 0 16px 40px rgba(9,9,11,0.06)",
+        "glass-pill": "inset 0 1px 0 rgba(255,255,255,0.55), 0 16px 40px rgba(9,9,11,0.08)",
       },
 
       /* === ANIMATIONS === */

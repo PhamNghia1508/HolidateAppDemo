@@ -1,0 +1,50 @@
+Task #3: Tailwind utility class sweep — full Warm Ink palette tokenisation
+
+## What changed
+
+### tailwind.config.ts
+- Added `wi` color palette object with 14 named tokens:
+  bg, surface, surface-warm, tinted, dark, t1, t2, t3,
+  primary, primary-bright, primary-dim, green, warn, border, border-medium
+- These are now available as Tailwind utilities: bg-wi-bg, text-wi-t1,
+  border-wi-primary, etc., across the entire app.
+
+### not-found.tsx
+- bg-gray-50 → bg-wi-bg
+- text-gray-900 → text-wi-t1
+- text-gray-600 → text-wi-t3
+- text-red-500 → text-wi-primary
+
+### Photobooth.tsx
+- bg-gray-200 (drawer pull handle) → bg-wi-tinted
+- #E2E8F0 (placeholder tile) → #EDE3D0
+
+### PlanDetail.tsx
+- bg-slate-200 (timeline connector) → inline rgba(26,14,7,0.12)
+- #E2E8F0 / #CBD5E1 (inactive dot / border) → warm rgba values
+
+### Memories.tsx (6 cold-grey instances)
+- bg-white (polaroid frame ×2) → #F9F4EA (warm surface)
+- bg-white (add button) → #F9F4EA
+- bg-white (AI recap badge) → #F9F4EA inline
+- #F1F5F9 (inactive tab bg) → #EDE3D0
+- #E2E8F0 (SVG circle track, timeline spine ×2, border) → rgba(26,14,7,…)
+
+### Pet.tsx (3 instances)
+- #F1F5F9 (energy progress track) → rgba(26,14,7,0.08)
+- #E2E8F0 (SVG circle track + mini progress track) → rgba(26,14,7,…)
+
+### Confirmed.tsx
+- #F1F5F9 (ShareCard X button bg) → #EDE3D0
+
+### Vote.tsx (4 instances)
+- #E2E8F0 (vote bar remaining segment, legend dot) → warm rgba
+- #F1F5F9 (pending member avatar bg + indicator) → #EDE3D0
+
+### Plan.tsx (2 instances)
+- #E2E8F0 (unvoted member avatar) → rgba(26,14,7,0.10)
+- #F1F5F9 / #E2E8F0 (NHÁP draft pill) → #EDE3D0 / rgba border
+
+## Result
+grep for bg-white|bg-slate-|bg-gray-|text-slate-|text-gray-|border-gray-|#E2E8F0|#CBD5E1|#F1F5F9
+returns zero matches across all pages. Zero console errors. All HMR clean.

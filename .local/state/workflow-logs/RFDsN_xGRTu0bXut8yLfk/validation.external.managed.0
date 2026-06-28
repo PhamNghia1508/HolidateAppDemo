@@ -1,0 +1,29 @@
+VERDICT: REJECTED
+The diff makes substantial progress on the Warm Ink visual direction, but it misses core acceptance criteria that are explicitly part of the task.
+
+Critical findings:
+- **Core sweep is incomplete (blocking):** hardcoded blue-500 values still exist in `client/src/App.tsx` (`rgba(59,130,246,...)`) and the app shell still uses old background `#F7F5F0`. This means the global visual identity is not fully migrated and blue still leaks into the top-level experience.
+- **Home hero typography target not met (blocking vs stated spec):** in `client/src/pages/Home.tsx`, the greeting headline remains `text-[28px]`. The task explicitly calls for hero text in the **32–36px** range and stronger editorial typography.
+- **What is done correctly:** root token overhaul in `index.css` is directionally correct (warm palette, red primary, warm borders/shadows, reduced radii, shadcn primary updated); `.page-label` is redesigned away from uppercase styling; status/CTA classes are recolored; BottomNav active state is migrated to lacquer red; many page-level blue usages were replaced.
+
+Security:
+- None observed (no auth, secret, injection, or privilege-scope regressions introduced by this diff).
+
+Next actions:
+1. Update `client/src/App.tsx` to Warm Ink tokens (shell background and ambient blobs), removing residual `#3B82F6` / `rgba(59,130,246,...)` and old ivory background.
+2. Raise Home greeting headline to spec (32–36px) and ensure editorial weight/line-height treatment matches the stated design direction.
+3. Run one final repository-wide sweep for blue-500 literals and old neutral values in user-facing UI files, then verify key screens (Home/Plan/Vote/Confirmed) in-browser for full palette consistency.VERDICT: REJECTED
+The diff makes substantial progress on the Warm Ink visual direction, but it misses core acceptance criteria that are explicitly part of the task.
+
+Critical findings:
+- **Core sweep is incomplete (blocking):** hardcoded blue-500 values still exist in `client/src/App.tsx` (`rgba(59,130,246,...)`) and the app shell still uses old background `#F7F5F0`. This means the global visual identity is not fully migrated and blue still leaks into the top-level experience.
+- **Home hero typography target not met (blocking vs stated spec):** in `client/src/pages/Home.tsx`, the greeting headline remains `text-[28px]`. The task explicitly calls for hero text in the **32–36px** range and stronger editorial typography.
+- **What is done correctly:** root token overhaul in `index.css` is directionally correct (warm palette, red primary, warm borders/shadows, reduced radii, shadcn primary updated); `.page-label` is redesigned away from uppercase styling; status/CTA classes are recolored; BottomNav active state is migrated to lacquer red; many page-level blue usages were replaced.
+
+Security:
+- None observed (no auth, secret, injection, or privilege-scope regressions introduced by this diff).
+
+Next actions:
+1. Update `client/src/App.tsx` to Warm Ink tokens (shell background and ambient blobs), removing residual `#3B82F6` / `rgba(59,130,246,...)` and old ivory background.
+2. Raise Home greeting headline to spec (32–36px) and ensure editorial weight/line-height treatment matches the stated design direction.
+3. Run one final repository-wide sweep for blue-500 literals and old neutral values in user-facing UI files, then verify key screens (Home/Plan/Vote/Confirmed) in-browser for full palette consistency.

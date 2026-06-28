@@ -1,162 +1,145 @@
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
 import BottomNav from "@/components/BottomNav";
-import { ArrowLeft, Sparkles, ChevronRight } from "lucide-react";
+import { ArrowLeft, Sparkle, CaretRight, Ghost } from "@phosphor-icons/react";
 
-const BG = "#EEE6D4";
-const SURF = "#F9F4EA";
-const BLUE = "#C8371E";
-const BLUE_BRIGHT = "#A62D17";
-const T1 = "#1A0E07";
-const T2 = "#5C4033";
-const T3 = "#9C8470";
-const BORDER = "rgba(26,14,7,0.10)";
-const SHADOW = "0 1px 3px rgba(26,14,7,0.06), 0 4px 20px rgba(26,14,7,0.06)";
-
-const plans = [
-  {
-    id: 1, tag: "Hợp mood nhất", title: "Rooftop chill night",
-    time: "18:30", stops: "3 điểm đến", cost: "520k/người",
-    desc: "Hợp nhóm thích chill và chụp ảnh", mood: "Chill",
-    matchScore: 92,
-    img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=280&fit=crop",
-  },
-  {
-    id: 2, tag: "Tiết kiệm nhất", title: "Food tour gần trung tâm",
-    time: "19:00", stops: "4 điểm đến", cost: "450k/người",
-    desc: "Nhiều món, chi phí dễ chịu", mood: "Ăn ngon",
-    matchScore: 78,
-    img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=240&fit=crop",
-  },
-  {
-    id: 3, tag: "Nhẹ nhàng", title: "Picnic + boardgame",
-    time: "15:30", stops: "2 điểm đến", cost: "260k/người",
-    desc: "Ít di chuyển, hợp buổi nhẹ nhàng", mood: "Nhẹ nhàng",
-    matchScore: 65,
-    img: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400&h=240&fit=crop",
-  },
-];
+import { getPlansByGroup } from "@/data/mockData";
 
 export default function Suggested() {
   const [, setLocation] = useLocation();
+  const searchParams = new URLSearchParams(window.location.search);
+  const groupParam = searchParams.get("group") || "friends";
+  const plans = getPlansByGroup(groupParam);
 
   return (
-    <div className="flex-1 overflow-y-auto pb-24 relative" style={{ background: BG }}>
+    <main className="flex-1 overflow-y-auto pb-24 relative">
+
       {/* Header */}
-      <div className="sticky top-0 z-20 px-5 pt-5 pb-3"
-        style={{ background: "rgba(238,230,212,0.92)", backdropFilter: "blur(20px)" }}>
+      <header className="sticky top-0 z-30 px-5 pt-5 pb-3 border-b border-slate-200/60 shadow-sm backdrop-blur-md bg-[#F8F9FA]/80">
         <div className="flex items-center gap-3">
           <motion.button whileTap={{ scale: 0.9 }} onClick={() => setLocation("/create-plan")}
-            className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-            style={{ background: SURF, border: `1px solid ${BORDER}`, boxShadow: SHADOW }}>
-            <ArrowLeft className="w-4 h-4" style={{ color: T1 }} />
+            className="w-10 h-10 rounded-none flex items-center justify-center flex-shrink-0 bg-wi-surface border-none shadow-[0_2px_8px_rgba(0,0,0,0.06)] text-wi-t1">
+            <ArrowLeft className="w-5 h-5" weight="bold" />
           </motion.button>
           <div>
-            <div className="page-label">Gợi ý</div>
-            <h1 className="text-[20px] font-black tracking-tight" style={{ color: T1 }}>Chọn lịch trình hợp gu</h1>
+            <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-0.5">Gợi ý AI</div>
+            <h1 className="font-serif text-2xl text-slate-900 leading-none">Chọn lịch trình</h1>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="px-5">
-        <p className="text-[13px] mb-4" style={{ color: T2 }}>3 gợi ý tối ưu theo mood, ngân sách và thời gian nhóm bạn.</p>
+      <div className="mt-4">
+        {plans.length === 0 ? (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="px-5 mt-12 flex flex-col items-center justify-center text-center">
+             <div className="w-24 h-24 mb-6 rounded-none bg-slate-100 flex items-center justify-center text-slate-300">
+               <Ghost className="w-10 h-10" weight="duotone" />
+             </div>
+             <h2 className="font-serif text-2xl text-slate-900 mb-2">Không tìm thấy lịch trình</h2>
+             <p className="font-serif italic text-sm text-slate-500 mb-8 max-w-[240px]">GatherGo AI chưa tìm thấy lịch trình nào khớp với yêu cầu của nhóm này. Vui lòng thử lại với thiết lập khác.</p>
+             
+             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+              onClick={() => setLocation(`/create-plan?group=${groupParam}`)}
+              className="h-[54px] px-8 bg-slate-900 rounded-none flex items-center justify-center text-white shadow-md">
+              <span className="font-bold text-sm tracking-[0.2em] uppercase">Quay lại tạo Plan</span>
+             </motion.button>
+          </motion.div>
+        ) : (
+          <>
+            <div className="px-5 mb-8">
+              <h2 className="font-serif text-3xl leading-tight text-slate-900 mb-2">Lựa chọn hàng đầu</h2>
+              <p className="text-sm text-slate-500 font-medium">Được tinh chỉnh dựa trên mood, ngân sách và thời gian của bạn.</p>
+            </div>
 
-        {plans.map((plan, index) => {
-          const isBest = index === 0;
+            {plans.map((plan, index) => {
+              const isBest = index === 0;
           return (
             <motion.div key={plan.id}
-              initial={{ opacity: 0, y: 22, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 0.06 + index * 0.10, type: "spring", stiffness: 380, damping: 28 }}
-              whileHover={{ scale: 1.01, y: -2 }} whileTap={{ scale: 0.98 }}
-              className="rounded-2xl overflow-hidden mb-4 cursor-pointer"
-              style={{
-                border: isBest ? `2px solid rgba(200,55,30,0.32)` : `1px solid ${BORDER}`,
-                boxShadow: isBest
-                  ? "0 0 0 4px rgba(200,55,30,0.07), 0 8px 36px rgba(200,55,30,0.16), 0 2px 8px rgba(26,14,7,0.06)"
-                  : SHADOW,
-              }}
-              onClick={() => plan.id === 1 ? setLocation("/plan-detail") : setLocation("/vote")}>
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className={`relative bg-white cursor-pointer shadow-sm ${isBest ? 'mb-12 border border-slate-200' : 'mb-8 border border-slate-200'}`}
+              onClick={() => setLocation(`/plan-detail?group=${groupParam}&planId=${plan.id}`)}>
+              
+              {/* Image Section - Edge to Edge */}
+              <div className="relative w-full overflow-hidden" style={{ height: isBest ? "480px" : "320px" }}>
+                <motion.img 
+                  whileHover={{ scale: 1.05 }} transition={{ duration: 1.5, ease: "easeOut" }}
+                  src={plan.img} alt={plan.title} className="w-full h-full object-cover" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 pointer-events-none" />
 
-              {/* Hero image — Best Match is taller */}
-              <div className="relative overflow-hidden" style={{ height: isBest ? "200px" : "156px" }}>
-                <img src={plan.img} alt={plan.title} className="w-full h-full object-cover" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(26,14,7,0.75), rgba(26,14,7,0.22) 55%, transparent)" }} />
-
-                {/* Best match badge — glowing */}
-                {isBest && (
-                  <motion.div
-                    animate={{ boxShadow: ["0 0 0 0px rgba(200,55,30,0.35)", "0 0 0 6px rgba(200,55,30,0)", "0 0 0 0px rgba(200,55,30,0.35)"] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-                    style={{ background: BLUE, boxShadow: "0 2px 12px rgba(200,55,30,0.45)" }}>
-                    <Sparkles className="w-3 h-3 text-white" />
-                    <span className="text-[10px] font-bold text-white uppercase tracking-wider">Best Match</span>
-                  </motion.div>
-                )}
-
-                {/* AI match score */}
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full"
-                  style={{ background: "rgba(255,255,255,0.18)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.30)" }}>
-                  <span className="text-[11px] font-bold text-white">{plan.matchScore}% hợp</span>
+                {/* Tags over image */}
+                <div className="absolute top-5 left-5 flex gap-2">
+                  {isBest && (
+                    <div className="flex items-center gap-1.5 px-3 py-1 bg-white/90 backdrop-blur-md text-wi-primary rounded-none shadow-sm">
+                      <Sparkle className="w-3.5 h-3.5" weight="fill" />
+                      <span className="text-xs font-bold uppercase tracking-[0.15em]">Lựa chọn số 1</span>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-1.5 px-3 py-1 bg-black/40 backdrop-blur-md text-white rounded-none">
+                    <span className="text-xs font-bold uppercase tracking-[0.15em]">{plan.matchScore}% Phù Hợp</span>
+                  </div>
                 </div>
 
-                <div className="absolute bottom-3 left-4 right-4">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/55">{plan.tag}</span>
-                  <h3 className={`font-black text-white mt-0.5 tracking-tight ${isBest ? "text-[22px]" : "text-[19px]"}`}>{plan.title}</h3>
+                <div className="absolute bottom-6 left-5 right-5 text-white">
+                  <span className="text-xs font-bold uppercase tracking-[0.2em] opacity-80 mb-2 block">{plan.tag}</span>
+                  <h3 className={`font-serif leading-[1.1] ${isBest ? "text-4xl" : "text-3xl"}`}>{plan.title}</h3>
                 </div>
               </div>
 
-              {/* Card body */}
-              <div className="p-4" style={{ background: SURF }}>
-                <p className="text-[12px] mb-1" style={{ color: T3 }}>{plan.time} · {plan.stops} · {plan.cost}</p>
-                <p className="text-[13px] mb-3" style={{ color: T2 }}>{plan.desc}</p>
+              {/* Editorial Content Below Image */}
+              <div className="px-5 py-6 bg-white">
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <div>
+                    <p className="text-sm text-slate-800 font-medium mb-1">
+                      <span className="font-bold text-slate-900">{plan.time}</span> • {plan.stops} • {plan.cost}
+                    </p>
+                    <p className="text-base text-slate-500 font-serif italic">{plan.desc}</p>
+                  </div>
+                  <div className="px-4 py-2 border border-slate-200 text-xs font-bold text-slate-700 tracking-wide uppercase">
+                    {plan.mood}
+                  </div>
+                </div>
 
-                {/* Match bar for best */}
                 {isBest && (
-                  <div className="mb-3">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[11px] font-semibold" style={{ color: T3 }}>Độ phù hợp nhóm</span>
-                      <span className="text-[11px] font-bold" style={{ color: BLUE_BRIGHT }}>{plan.matchScore}%</span>
+                  <div className="mb-6 pb-6 border-b border-slate-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Chỉ số phù hợp</span>
+                      <span className="text-sm font-serif italic text-wi-primary">{plan.matchScore}% Tương đồng</span>
                     </div>
-                    <div className="h-1.5 rounded-full" style={{ background: "rgba(200,55,30,0.10)" }}>
+                    <div className="h-[2px] w-full bg-slate-100 relative">
                       <motion.div
                         initial={{ width: 0 }} animate={{ width: `${plan.matchScore}%` }}
-                        transition={{ delay: 0.5, duration: 0.9, ease: [0.34, 1.56, 0.64, 1] }}
-                        className="h-full rounded-full" style={{ background: `linear-gradient(90deg, ${BLUE_BRIGHT}, ${BLUE})` }} />
+                        transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
+                        className="absolute top-0 left-0 h-full bg-slate-900" />
                     </div>
                   </div>
                 )}
 
-                <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-1 rounded-full text-[12px] font-semibold"
-                    style={{ background: "rgba(200,55,30,0.08)", color: BLUE, border: `1px solid rgba(200,55,30,0.18)` }}>
-                    {plan.mood}
-                  </span>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); plan.id === 1 ? setLocation("/plan-detail") : setLocation("/vote"); }}
-                    className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-[12px] font-bold ${isBest ? "premium-cta-mint" : ""}`}
-                    style={isBest ? {} : { background: T1, color: "#FFFFFF", boxShadow: "0 2px 8px rgba(26,14,7,0.18)" }}>
-                    {plan.id === 1 ? "Chọn plan này" : "Bình chọn"}
-                    <ChevronRight className="w-3 h-3" />
-                  </button>
-                </div>
+                <button
+                  onClick={(e) => { e.stopPropagation(); setLocation(`/plan-detail?group=${groupParam}&planId=${plan.id}`); }}
+                  className={`w-full flex items-center justify-center gap-2 py-4 text-sm font-bold tracking-[0.1em] uppercase transition-colors rounded-none ${
+                    isBest 
+                      ? "bg-slate-900 text-white hover:bg-wi-primary" 
+                      : "bg-transparent border border-slate-900 text-slate-900 hover:bg-slate-50"
+                  }`}>
+                  {plan.id === 1 ? "Khám phá chuyến đi" : "Xem chi tiết"}
+                  <CaretRight className="w-4 h-4" weight="bold" />
+                </button>
               </div>
             </motion.div>
           );
         })}
 
         {/* Swipe hint */}
-        <motion.div
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
-          className="flex items-center justify-center gap-2 pb-2">
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: BLUE }} />
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "rgba(0,0,0,0.15)" }} />
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "rgba(0,0,0,0.15)" }} />
-          <span className="text-[11px] ml-1" style={{ color: T3 }}>Cuộn xuống để xem thêm</span>
-        </motion.div>
+        <div className="flex flex-col items-center justify-center gap-3 pb-8 pt-4 opacity-50">
+          <div className="w-[1px] h-8 bg-slate-400" />
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Cuộn để xem tiếp</span>
+        </div>
+      </>
+      )}
       </div>
 
       <BottomNav />
-    </div>
+    </main>
   );
 }

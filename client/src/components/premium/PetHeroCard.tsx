@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Star } from "lucide-react";
+import { Star } from "@phosphor-icons/react";
 
 interface PetHeroCardProps {
   isHappy: boolean;
@@ -132,7 +132,7 @@ export default function PetHeroCard({ isHappy, energy, earWiggle }: PetHeroCardP
         </motion.div>
 
         {/* Level badge */}
-        <div className="absolute -top-2 -right-2 flex items-center gap-1 bg-white/70 backdrop-blur-md px-2 py-1 rounded-full border border-white/50 shadow-sm">
+        <div className="absolute -top-2 -right-2 flex items-center gap-1 bg-white/70 backdrop-blur-md px-2 py-1 rounded-none border border-white/50 shadow-sm">
           <Star className="w-3 h-3 text-yellow fill-yellow" />
           <span className="text-[11px] font-bold text-ink">3</span>
         </div>

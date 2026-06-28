@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Sparkles, Trophy, Crown, Lock, Star } from "lucide-react";
+import { Heart, Sparkle, Trophy, Crown, Lock, Star } from "@phosphor-icons/react";
 import { ReactNode } from "react";
 
 interface Reward {
