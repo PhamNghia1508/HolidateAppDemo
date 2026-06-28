@@ -18,7 +18,7 @@ interface RewardUnlockCardProps {
 
 const rewards: Reward[] = [
   { icon: <Heart className="w-5 h-5" />, label: "Nhãn dán", locked: false, unlockAt: 1, color: "#e76f51", bgColor: "rgba(231,111,81,0.12)" },
-  { icon: <Sparkles className="w-5 h-5" />, label: "Mũ len", locked: false, unlockAt: 2, color: "#e9c46a", bgColor: "rgba(233,196,106,0.12)" },
+  { icon: <Sparkle className="w-5 h-5" />, label: "Mũ len", locked: false, unlockAt: 2, color: "#e9c46a", bgColor: "rgba(233,196,106,0.12)" },
   { icon: <Trophy className="w-5 h-5" />, label: "Huy hiệu", locked: true, unlockAt: 5, color: "#b8b8b8", bgColor: "rgba(184,184,184,0.15)" },
   { icon: <Crown className="w-5 h-5" />, label: "Vương miện", locked: true, unlockAt: 8, color: "#b8b8b8", bgColor: "rgba(184,184,184,0.15)" },
   { icon: <Star className="w-5 h-5" />, label: "Aura vàng", locked: true, unlockAt: 10, color: "#b8b8b8", bgColor: "rgba(184,184,184,0.15)" },
