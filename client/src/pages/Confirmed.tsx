@@ -11,13 +11,13 @@ const T1 = "#1A0E07";
 const getMembersByGroup = (group: string) => {
   if (group === "couple") {
     return [
-      { initial: "N", name: "Nghĩa" },
+      { initial: "G", name: "Goo" },
       { initial: "L", name: "Linh" },
     ];
   }
   if (group === "family") {
     return [
-      { initial: "B", name: "Ba Nghĩa" },
+      { initial: "B", name: "Ba Goo" },
       { initial: "M", name: "Mẹ Linh" },
     ];
   }
@@ -30,7 +30,7 @@ const getMembersByGroup = (group: string) => {
     ];
   }
   return [
-    { initial: "N", name: "Nghĩa" },
+    { initial: "G", name: "Goo" },
     { initial: "L", name: "Linh" },
     { initial: "M", name: "Minh" },
     { initial: "A", name: "An" },

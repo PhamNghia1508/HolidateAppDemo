@@ -94,13 +94,13 @@ export function SonarRadar({ groupParam }: { groupParam: string }) {
         />
       ))}
 
-      {/* Center User (Me - Nghĩa) */}
+      {/* Center User (Me - Goo) */}
       <div className="absolute z-30 flex flex-col items-center justify-center">
         <div className="relative w-12 h-12 rounded-full border-[2.5px] border-cyan-400 shadow-[0_0_25px_rgba(34,211,238,0.5)] overflow-hidden">
           <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&auto=format&fit=crop" alt="Bạn" className="w-full h-full object-cover" />
         </div>
         <div className="mt-2 bg-slate-900/80 backdrop-blur-md border border-cyan-500/30 px-3 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest text-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.3)]">
-          Bạn (Nghĩa)
+          Bạn (Goo)
         </div>
       </div>
 

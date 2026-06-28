@@ -12,13 +12,13 @@ const WARN = "#F59E0B";
 const getMembersByGroup = (group: string) => {
   if (group === "couple") {
     return [
-      { name: "Nghĩa", initial: "N", status: "Đợi", state: "pending" as const, color: T3 },
+      { name: "Goo", initial: "G", status: "Đợi", state: "pending" as const, color: T3 },
       { name: "Linh", initial: "L", status: "Đợi", state: "pending" as const, color: T3 },
     ];
   }
   if (group === "family") {
     return [
-      { name: "Ba Nghĩa", initial: "B", status: "Đợi", state: "pending" as const, color: T3 },
+      { name: "Ba Goo", initial: "B", status: "Đợi", state: "pending" as const, color: T3 },
       { name: "Mẹ Linh", initial: "M", status: "Đợi", state: "pending" as const, color: T3 },
     ];
   }
@@ -31,7 +31,7 @@ const getMembersByGroup = (group: string) => {
     ];
   }
   return [
-    { name: "Nghĩa", initial: "N", status: "Đợi", state: "pending" as const, color: T3 },
+    { name: "Goo", initial: "G", status: "Đợi", state: "pending" as const, color: T3 },
     { name: "Linh", initial: "L", status: "Đợi", state: "pending" as const, color: T3 },
     { name: "Minh", initial: "M", status: "Đợi", state: "pending" as const, color: T3 },
     { name: "An", initial: "A", status: "Đợi", state: "pending" as const, color: T3 },
@@ -172,8 +172,8 @@ export function VoteSheet({ onClose, planId, groupParam, onComplete }: { onClose
     const badgeColor = isAgree ? BLUE : (choice === "Có thể" ? WARN : T2);
     const stateVal = isAgree ? "active" : (choice === "Có thể" ? "maybe" : "pending");
     
-    const myName = groupParam === "family" ? "Ba Nghĩa" : "Nghĩa";
-    const myInitial = groupParam === "family" ? "B" : "N";
+    const myName = groupParam === "family" ? "Ba Goo" : "Goo";
+    const myInitial = groupParam === "family" ? "B" : "G";
 
     setMembers(prev => prev.map(m => 
       m.name === myName ? { ...m, status: statusText, state: stateVal as any, color: badgeColor } : m

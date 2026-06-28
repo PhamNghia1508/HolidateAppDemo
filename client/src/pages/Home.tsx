@@ -82,7 +82,7 @@ export default function Home() {
         <div className="flex items-start justify-between">
           <div>
             <h1 className="font-serif text-5xl text-slate-900 leading-none tracking-tight">
-              {["Chào", " Nghĩa", "."].map((word, i) => (
+              {["Chào", " Goo", "."].map((word, i) => (
                 <motion.span key={word}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}

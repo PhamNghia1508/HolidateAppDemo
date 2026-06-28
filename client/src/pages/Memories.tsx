@@ -47,7 +47,7 @@ const groups = [
       total: "2,500,000đ", average: "625,000đ",
       transactions: [
         { type: "nhận", person: "Linh", initials: "L", amount: "+375,000đ", color: "green" },
-        { type: "nhận", person: "Nghĩa", initials: "N", amount: "+875,000đ", color: "green" },
+        { type: "nhận", person: "Goo", initials: "G", amount: "+875,000đ", color: "green" },
         { type: "trả", person: "An", initials: "A", amount: "-625,000đ", color: "red" },
         { type: "trả", person: "Minh", initials: "M", amount: "-625,000đ", color: "red" },
       ]
